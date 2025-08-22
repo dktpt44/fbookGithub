@@ -1,0 +1,11 @@
+Language: Italian  
+Qual è il pianeta più vicino al Sole?, domande su Mercurio  
+Qual è la temperatura su Mercurio durante il giorno?, domande sulla temperatura  
+Mercurio ha un'atmosfera?, domande sull'atmosfera  
+Quanti giorni ci vogliono per Mercurio per ruotare attorno al Sole?, domande sulla rivoluzione  
+Qual è la dimensione di Mercurio rispetto agli altri pianeti?, domande sulle dimensioni  
+Mercurio ha dei satelliti naturali?, domande sui satelliti  
+Com'è la superficie di Mercurio?, domande sulla superficie  
+Qual è la sua composizione chimica principale?, domande sulla composizione  
+Che tipo di orbita ha Mercurio?, domande sull'orbita  
+Mercurio è un pianeta roccioso o gassoso?, domande sul tipo di pianeta

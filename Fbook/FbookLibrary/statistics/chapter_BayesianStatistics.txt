@@ -1,0 +1,11 @@
+Language: English  
+What is Bayesian Statistics, Definition  
+How does prior knowledge influence Bayesian analysis, Prior Knowledge Impact  
+What is the role of the likelihood in Bayesian inference, Likelihood Role  
+How do you update beliefs in Bayesian Statistics, Belief Updating Method  
+What is Bayes' theorem and why is it important, Bayes' Theorem Importance  
+How can Bayesian methods be applied in real life, Real Life Applications  
+What is a prior distribution and how is it chosen, Prior Distribution Choice  
+What does posterior distribution represent in Bayesian analysis, Posterior Distribution Meaning  
+How do Bayesian and frequentist approaches differ, Approaches Comparison  
+What are some common misconceptions about Bayesian Statistics, Misconceptions in Bayesian Stats

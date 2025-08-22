@@ -1,0 +1,11 @@
+Language: English  
+What is the full name of the XMM satellite?, Name of Satellite  
+When was the XMM satellite launched?, Launch Date  
+What is the main purpose of the XMM satellite?, Purpose of Mission  
+Which organization operates the XMM satellite?, Operating Organization  
+How many telescopes does the XMM satellite have?, Number of Telescopes  
+What type of light does the XMM satellite detect?, Type of Light  
+How high is the XMM satellite above Earth?, Altitude of Satellite  
+What significant discoveries has the XMM satellite made?, Notable Discoveries  
+How long is the expected mission duration for XMM?, Mission Duration  
+What technologies are used in the XMM satellite?, Technologies Used

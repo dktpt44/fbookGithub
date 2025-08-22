@@ -1,0 +1,11 @@
+Language: English  
+What is the electromagnetic spectrum? , Definition  
+What are the different types of waves in the spectrum? , Wave Types  
+How does wavelength relate to energy? , Wavelength and Energy  
+What is the speed of light in a vacuum? , Speed of Light  
+How do we use radio waves in daily life? , Radio Wave Uses  
+What is the role of microwaves in cooking? , Microwaves in Cooking  
+How can ultraviolet light be harmful? , UV Light Risks  
+What are the applications of infrared waves? , Infrared Applications  
+How do we perceive visible light? , Perception of Light  
+What is the significance of gamma rays in medicine? , Gamma Rays in Medicine

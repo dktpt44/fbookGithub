@@ -1,0 +1,11 @@
+Language: English  
+What is the purpose of parameter estimation in astronomy?, Purpose of Estimation  
+How do astronomers collect data for parameter estimation?, Data Collection Methods  
+What is a model in the context of parameter estimation?, Definition of a Model  
+What mathematical techniques are used for parameter estimation?, Estimation Techniques Used  
+How does uncertainty affect parameter estimation in astronomy?, Impact of Uncertainty  
+What role do observations play in parameter estimation?, Role of Observations  
+How is the goodness of fit evaluated in parameter estimation?, Evaluating Fit Quality  
+What are some common parameters estimated in astronomy?, Common Astronomical Parameters  
+How can simulation help in parameter estimation?, Role of Simulation  
+What is the significance of parameter estimation in understanding celestial objects?, Significance of Parameter Estimation

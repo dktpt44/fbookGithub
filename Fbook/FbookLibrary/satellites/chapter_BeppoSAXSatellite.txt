@@ -1,0 +1,11 @@
+Language: English  
+What is the purpose of the BeppoSAX satellite? , Purpose of Satellite  
+When was BeppoSAX launched? , Launch Date  
+What does SAX stand for in BeppoSAX? , Meaning of SAX  
+What university was involved in BeppoSAX’s development? , Collaborating University  
+How many scientific instruments did BeppoSAX carry? , Instruments Count  
+What energy range did BeppoSAX observe? , Energy Observation Range  
+What type of astronomical objects did BeppoSAX study? , Astronomical Objects Studied  
+How did BeppoSAX contribute to gamma-ray burst studies? , Contribution to GRBs  
+What was the mission duration of BeppoSAX? , Mission Duration  
+When was BeppoSAX decommissioned? , Decommissioning Date

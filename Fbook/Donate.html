@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Please Donate</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        text-align: center;
+        padding: 50px;
+      }
+      .container {
+        background-color: white;
+        padding: 40px;
+        max-width: 700px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      h1 {
+        color: #333;
+      }
+      p {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 30px;
+      }
+      .donate-button {
+        background-color: #cc0066;
+       // background-color: #02a95c;
+        color: white;
+        padding: 14px 28px;
+        font-size: 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .donate-button:hover {
+        background-color: #cc4400;
+       // background-color: #02924e;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+        transition: all 0.2s ease;
+      }
+    </style>
+    <script>
+      function getLanguageFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('lang') || 'English';
+      }
+
+      const translations = {
+        English: {
+          title: "Please Support Our Project",
+          text: `Your donation helps us continue building free educational and scientific tools
+            <br> that are multi-media, AI-curated and linked to high-level user-ready 
+            <br> professional astronomical data.
+            <br><br>Every contribution counts!`,
+          button: "Donate Now"
+        },
+        Arabic: {
+          title: "يرجى دعم مشروعنا",
+          text: `تساعدنا تبرعاتكم على الاستمرار في تطوير أدوات تعليمية وعلمية مجانية
+            <br> متعددة الوسائط ومنسقة بالذكاء الاصطناعي ومرتبطة ببيانات فلكية احترافية.
+            <br><br>كل مساهمة لها قيمة!`,
+          button: "تبرع الآن"
+        },
+        Spanish: {
+          title: "Por favor apoya nuestro proyecto",
+          text: `Tu donación nos ayuda a seguir desarrollando herramientas educativas y científicas gratuitas
+            <br> que son multimedia, curadas por IA y conectadas a datos astronómicos profesionales listos para el usuario.
+            <br><br>¡Cada contribución cuenta!`,
+          button: "Donar ahora"
+        },
+        Armenian: {
+          title: "Խնդրում ենք աջակցել մեր նախագծին",
+          text: `Ձեր նվիրատվությունը օգնում է մեզ շարունակել կառուցել անվճար կրթական և գիտական գործիքներ,
+            <br> որոնք բազմամեդիա են, AI-ի կողմից կազմավորված և կապակցված են պրոֆեսիոնալ աստղագիտական տվյալների հետ։
+            <br><br>Յուրաքանչյուր ներդրում կարևոր է։`,
+          button: "Նվիրաբերել հիմա"
+        },
+        French: {
+          title: "Veuillez soutenir notre projet",
+          text: `Votre don nous aide à continuer de développer des outils éducatifs et scientifiques gratuits
+            <br> multimédias, organisés par l'IA et liés à des données astronomiques professionnelles prêtes à l'emploi.
+            <br><br>Chaque contribution compte !`,
+          button: "Faire un don"
+        },
+        German: {
+          title: "Bitte unterstützen Sie unser Projekt",
+          text: `Ihre Spende hilft uns, weiterhin kostenlose Bildungs- und Wissenschaftswerkzeuge zu entwickeln
+            <br> die multimedial, KI-kuratiert und mit professionellen astronomischen Daten verknüpft sind.
+            <br><br>Jeder Beitrag zählt!`,
+          button: "Jetzt spenden"
+        },
+        Italian: {
+          title: "Sostieni il nostro progetto",
+          text: `La tua donazione ci aiuta a continuare a costruire strumenti educativi e scientifici gratuiti
+            <br> multimediali, curati dall'IA e collegati a dati astronomici professionali di alto livello.
+            <br><br>Ogni contributo conta!`,
+          button: "Dona ora"
+        },
+        Portuguese: {
+          title: "Por favor, apoie nosso projeto",
+          text: `Sua doação nos ajuda a continuar construindo ferramentas educacionais e científicas gratuitas
+            <br> multimídia, curadas por IA e ligadas a dados astronômicos profissionais de alto nível.
+            <br><br>Cada contribuição conta!`,
+          button: "Doe agora"
+        },
+        Russian: {
+          title: "Пожалуйста, поддержите наш проект",
+          text: `Ваше пожертвование помогает нам продолжать создавать бесплатные образовательные и научные инструменты
+            <br> мультимедийные, созданные с помощью ИИ и основанные на профессиональных астрономических данных.
+            <br><br>Каждый вклад имеет значение!`,
+          button: "Пожертвовать"
+        },
+        Chinese: {
+          title: "请支持我们的项目",
+          text: `您的捐赠有助于我们继续构建免费的教育和科学工具
+            <br> 这些工具是多媒体的，由AI策划，并连接到高级专业天文数据。
+            <br><br>每一份贡献都很重要！`,
+          button: "立即捐赠"
+        },
+        Japanese: {
+          title: "プロジェクトへのご支援をお願いします",
+          text: `ご寄付は、マルチメディア対応でAIがキュレーションした
+            <br> 高度な天文学データにリンクした無料の教育・科学ツールの構築を継続するのに役立ちます。
+            <br><br>すべてのご支援が大きな力になります！`,
+          button: "今すぐ寄付"
+        }
+      };
+
+      window.onload = function () {
+        const lang = getLanguageFromURL();
+        const t = translations[lang] || translations.English;
+
+        document.getElementById("title").innerHTML = t.title;
+        document.getElementById("message").innerHTML = t.text;
+        document.getElementById("donateBtn").textContent = t.button;
+      };
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="title">Loading...</h1>
+      <p id="message">Loading...</p>
+      <a href="https://www.gofundme.com/f/your-campaign-name" target="_blank" class="donate-button" id="donateBtn">
+        Loading...
+      </a>
+    </div>
+  </body>
+</html>

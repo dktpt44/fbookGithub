@@ -1,0 +1,11 @@
+Language: English  
+What is 3C273 known for?, Major Feature  
+How far is 3C273 from Earth?, Distance Inquiry  
+What type of astronomical object is 3C273?, Object Type  
+Who discovered 3C273?, Discovery Information  
+Where is 3C273 located in the sky: ra and dec in hh mm ss and deg?, Location Inquiry  
+What is the significance of 3C273 in astronomy?, Astronomical Importance  
+What is the redshift value of 3C273?, Redshift Measurement  
+What type of radiation does 3C273 emit?, Radiation Type  
+Can 3C273 be seen with the naked eye?, Visibility Inquiry  
+What instrument was used to first identify 3C273?, Identification Method

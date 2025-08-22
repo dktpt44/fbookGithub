@@ -1,0 +1,11 @@
+Language: English  
+What is the primary mission of the Swift Satellite?, Mission Objectives  
+How does Swift contribute to understanding gamma-ray bursts?, Gamma-Ray Burst Insight  
+What instruments are onboard the Swift Satellite?, Scientific Instruments Overview  
+How does Swift's type of orbit aid its mission?, Orbital Mechanics Benefits  
+What data does Swift provide to the astronomical community?, Data Sharing and Usage  
+What role does the onboard X-ray Telescope play in observations?, X-ray Telescope Function  
+How does Swift ensure rapid response to transient events?, Rapid Response Mechanism  
+What are the key discoveries made by Swift since its launch?, Key Discoveries Overview  
+How does Swift's multi-wavelength approach enhance astrophysical research?, Multi-Wavelength Research Benefits  
+What are the limitations and challenges faced by the Swift Satellite?, Limitations and Challenges

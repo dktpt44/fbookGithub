@@ -1,0 +1,1337 @@
+<HTML style="background-color:#ffffff">
+<style>
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+#submitBtn {
+  background-color: #40bf80;
+  color: white;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+#submitBtn:hover {
+  background-color: #40bf80;
+  transform: translateY(-1px);
+}
+
+#submitBtn:active {
+  transform: translateY(1px);
+}
+
+#uploadButton {
+  background: linear-gradient(135deg, #white, #red);
+  border: none;
+  color: #333;
+  padding: 7px 14px;
+  margin-top: 14px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+#uploadButton:hover {
+  background: linear-gradient(135deg, #white, #red);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+#uploadButton:active {
+  transform: scale(0.97);
+}
+
+#audioButton {
+  background: linear-gradient(135deg, #white, #red);
+  border: none;
+  color: #333;
+  padding: 7px 14px;
+  margin-top: 2px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+#audioButton:hover {
+  background: linear-gradient(135deg, #white, #red);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+#audioButton:active {
+  transform: scale(0.97);
+}
+
+
+/* Tooltip code */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}     
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 150px;
+  background-color: black;
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 6px;
+  left: 105%;
+  bottom: 30%;
+  padding: 5px 0;
+        
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+} 
+  
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+    body {
+      font-family: sans-serif;
+      padding: 50px;
+      background: #f4f4f4;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-button {
+      padding: 6px 16px;
+      font-size: 14px;
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .dropdown-button:hover {
+      background: #f0f0f0;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      background: #ffffff;
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 6px;
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 10px 16px;
+      text-decoration: none;
+      display: block;
+      width: 180px;
+      transition: background 0.2s;
+    }
+
+    .dropdown-content a:hover {
+      background: #f2f2f2;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  label {
+    font-family: sans-serif;
+    font-size: 14px;
+    margin-right: 8px;
+    color: #333;
+  }
+
+  select {
+    font-family: sans-serif;
+    padding: 8px 12px;
+    border-radius: 6px 10px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    background-color: #f8f8f8;
+    color: #333;
+    cursor: pointer;
+    appearance: none;         /* Removes OS styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: border 0.2s ease;
+  }
+  select:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+  }
+sm {
+  font-size: 10px;
+ }
+smbig {
+  font-size: 12px;
+ }
+.title {
+  font-size: 13px;
+ }
+body {
+ font-family: Tahoma, sans-serif;
+ margin:0;
+ padding:0;
+}
+#custom-logo {
+    position: relative;
+    top: 3px;
+    left: 1px; 
+    width: 180px;      /* Fixed width */
+    height: auto;      /* Maintains aspect ratio */
+    max-width: 100%;   /* Prevents overflow in smaller containers */
+    z-index: 1000;
+    display: block;    /* Ensures predictable layout */
+}
+#custom-logo1 {
+   position: relative;
+   top: 2px;
+   left: 5%;
+   width: 180px;
+   height: auto;
+   z-index: 1000;
+   display: block;    
+}
+#custom-logo2 {
+   position: relative;
+   top: 5px;
+   left: 5%;
+   width: 180px;
+   height: auto;
+   z-index: 1000;
+   display: block;    
+}
+#custom-logo3 {
+   position: relative;
+   top: 5px;
+   left: 5%;
+   width: 180px;
+   height: auto;
+   z-index: 1000;
+   display: block;    
+}
+#custom-logo4 {
+   position: relative;
+   top: 5px;
+   left: 5%;
+   width: 180px;
+   height: auto;
+   z-index: 1000;
+   display: block;    
+}
+#custom-logo5 {
+   position: relative;
+   top: 3px;
+   left: 5%;
+   width: 180px;
+   height: auto;
+   z-index: 1000;
+   display: block;    
+}
+#custom-logo6 {
+   position: relative;
+   top: 3px;
+   left: 5%;
+   width: 180px;
+   height: auto;
+   z-index: 1000;
+   display: block;    
+}
+#custom-logo7 {
+   position: relative;
+   top: 3px;
+   left: 5%;
+   width: 180px;
+   height: auto;
+   z-index: 1000;
+   display: block;    
+}
+#custom-logo8 {
+   position: relative;
+   top: 3px;
+   left: 5%;
+   width: 180px;
+   height: auto;
+   z-index: 1000;
+   display: block;    
+}
+#custom-logo9 {
+   position: relative;
+   top: 3px;
+   left: 5%;
+   width: 180px;
+   height: auto;
+   z-index: 1000;
+   display: block;    /* Ensures predictable layout */
+
+}
+#custom-logox {
+   position: relative;
+   top: 3px;
+   left: 5%;
+   width: 180px;
+   height: auto;
+   z-index: 1000;
+   display: block;    /* Ensures predictable layout */
+
+}
+.title-button {
+  background-color: #cc4400;
+  color: #fff;  /* text color (optional) */
+  padding: 10px 20px;
+  font-size: 18px;
+  border: 2px solid #cc4400;         /* red border */
+  border-radius: 9px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}   
+.donate-button {
+ background-color: #cc4400;
+ color: white;
+ padding: 12px 28px;
+ font-size: 18px;
+ border: none;
+ border-radius: 6px;
+ cursor: pointer;
+ text-decoration: none;
+}
+.donate-button:hover {
+ background-color: #cc0066;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+ transform: scale(1.05);
+ transition: all 0.2s ease;
+ }
+.chapter-button {
+ background-color: #e67300;
+ color: white;
+ padding: 12px 10px;
+ font-size: 14px;
+ border: none;
+ border-radius: 6px;
+ cursor: pointer;
+ text-decoration: none;
+ outline: none;
+ display: inline-block;
+ margin-bottom: 6px;
+}
+.chapter-button span {
+  font-size: inherit;
+}
+.chapter-button:hover {
+ background-color: #ff6633;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+ transform: scale(1.05);
+ transition: all 0.5s ease;
+ }
+.chapter-button:active {
+  transform: scale(0.96) translateY(5px);
+  box-shadow: inset 0 5px 8px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.3);
+  background-color: #cc5c00;
+  transition: all 0.5s ease;
+}
+
+/* Modal Styling */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 90%;
+  background: rgba(0, 0, 0, 0.5);
+  //background-color: rgba(255, 255, 255, 0.); /* translucent white */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Hidden state for fading out */
+.modal.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.modal-content {
+      //background-color: rgba(255, 255, 255, 0.); /* translucent white */
+      background: white;
+      padding: 0;
+      border-radius: 8px;
+      width: 90%;
+      height: 90%;
+      max-width: 1000px;
+      max-height: 600px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+}
+.close-btn {
+      align-self: flex-end;
+      cursor: pointer;
+      font-size: 24px;
+      margin: 10px;
+}
+.modal-content-table {
+  background-color: rgba(255, 255, 255, 0.9); /* translucent white */
+  width: 35%;
+  height: 70%;
+  max-width: 700px;
+  max-height: 500px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+.close-btn1 {
+      align-self: flex-end;
+      cursor: pointer;
+      font-size: 24px;
+      margin: 10px;
+}
+.close-btn3 {
+     align-self: flex-end;
+     cursor: pointer;
+     font-size: 24px;
+     margin: 10px;
+}
+.close-btn4 {
+     align-self: flex-end;
+     cursor: pointer;
+     font-size: 24px;
+     margin: 10px;
+}
+.close-btn5 {
+     align-self: flex-end;
+     cursor: pointer;
+     font-size: 24px;
+     margin: 10px;
+}
+.close-btn6 {
+     align-self: flex-end;
+     cursor: pointer;
+     font-size: 24px;
+     margin: 10px;
+}
+.close-btn7 {
+     align-self: flex-end;
+     cursor: pointer;
+     font-size: 24px;
+     margin: 10px;
+}
+.close-btn8 {
+     align-self: flex-end;
+     cursor: pointer;
+     font-size: 24px;
+     margin: 10px;
+}
+.close-btn9 {
+     align-self: flex-end;
+     cursor: pointer;
+     font-size: 24px;
+     margin: 10px;
+}
+.close-Donate {
+     align-self: flex-end;
+     cursor: pointer;
+     font-size: 24px;
+     margin: 10px;
+}
+iframe {
+      flex: 1;
+      border: none;
+      border-radius: 0 0 8px 8px;
+}
+body {
+   font-family: 'Helvetica', sans-serif;
+}
+.icon-align {
+  vertical-align: text-bottom; /* or try middle, baseline */
+  line-height: 1;
+}
+</style>
+<HEAD>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+<div id="spinner" style="
+  display:none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 20%;
+  width: 10px;
+  height: 12px;
+  animation: spin 1s linear infinite; ">
+</div>
+<script>
+      const ROOT_URL = window.location.hostname.includes("localhost")
+        ? "http://localhost:5000"
+        : "https://firmamento.nyuad.nyu.edu/Fbook";
+
+      const ROOT_URL_POST = window.location.hostname.includes("localhost")
+        ? "http://localhost:5000/uploads"
+        : "https://firmamento.nyuad.nyu.edu/Fbook/uploads";
+
+
+      const favicon = document.createElement("link");
+      favicon.rel = "icon";
+      favicon.type = "image/x-icon";
+      favicon.href = `${ROOT_URL}/logo/fbook_logo.png`;
+      document.head.appendChild(favicon);
+
+</script>
+  <meta charset="UTF-8">
+  <title>F-book on astronomy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</HEAD>
+<table border=0><tr valign="top"><td id="bg-cell" style="background-image: url(`${ROOT_URL}/logo/FirmamentoSky-logo2.png`); background-size: cover; background-position: center;">
+<div id="fbook" style="width:80vw; height:90vh;">
+  <div id="al"></div>
+</div>
+</td><td style="background-color: #fff5e6"><sm> <div style="width:18vw; text-align: left;">
+<h1>
+  <center>
+    <a id="custom-logo0" class="title-button">
+      <span style="margin-right: 35px; margin-top: 125px; display: inline-block;">☰ Chapters</span>
+    </a>
+  </center>
+</h1>
+<!-- Modal for Table -->
+<div id="tableModal" class="modal modal-table">
+  <div class="modal-content-table">
+    <span class="close-btn-table" onclick="closeTableModal()">&times;</span>
+    <iframe id="tableFrame" src="libraryTable.html" allowfullscreen></iframe>
+  </div>
+</div>
+<br>
+<a id="custom-logo1" class="chapter-button">- Foreword -</a>
+<!-- Modal -->
+<div id="myModal1" class="modal">
+  <div class="modal-content">
+    <span class="close-btn1">&times;</span>
+    <iframe id="forewordFrame" src="" allow="microphone; autoplay"></iframe>
+  </div>
+</div>
+<a id="custom-logo2" class="chapter-button"><span style="margin-right: 35px;">Astronomical sources</span></a>
+<!-- Modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <iframe id="surveyFrame" src="" allow="microphone; autoplay"></iframe>
+  </div>
+</div>
+<a id="custom-logo3" class="chapter-button"><span style="margin-right: 65px;">2-The solar system</span></a>
+<div id="myModal3" class="modal">
+  <div class="modal-content">
+    <span class="close-btn3">&times;</span>
+  <iframe id="questionsFrame" src="" allow="microphone; autoplay"></iframe>
+  </div>
+</div>
+<a id="custom-logo4" class="chapter-button"><span style="margin-right: 40px;">3-Cosmic backgrounds</span></a>
+<div id="myModal4" class="modal">
+  <div class="modal-content">
+    <span class="close-btn4">&times;</span>
+  <iframe id="backgroundsFrame" src="" allow="microphone; autoplay"></iframe>
+  </div>
+</div>
+<a id="custom-logo5" class="chapter-button"><span style="margin-right: 100px;">4-Cosmology</span></a>
+<div id="myModal5" class="modal">
+  <div class="modal-content">
+    <span class="close-btn5">&times;</span>
+  <iframe id="cosmologyFrame" src="" allow="microphone; autoplay"></iframe>
+  </div>
+</div>
+<a id="custom-logo6" class="chapter-button"><span style="margin-right: 30px;">5-Emission mechanisms</span></a>
+<div id="myModal6" class="modal">
+  <div class="modal-content">
+    <span class="close-btn6">&times;</span>
+  <iframe id="emissionFrame" src="" allow="microphone; autoplay"></iframe>
+  </div>
+</div>
+<a id="custom-logo7" class="chapter-button"><span style="margin-right: 100px;">6-Exoplanets</span></a>
+<div id="myModal7" class="modal">
+  <div class="modal-content">
+    <span class="close-btn7">&times;</span>
+  <iframe id="exoFrame" src="" allow="microphone; autoplay"></iframe>
+  </div>
+</div>
+<a id="custom-logo8" class="chapter-button"><span style="margin-right: 105px;">7-Dark skies</span></a>
+<div id="myModal8" class="modal">
+  <div class="modal-content">
+    <span class="close-btn8">&times;</span>
+  <iframe id="darkFrame" src="" allow="microphone; autoplay"></iframe>
+  </div>
+</div>
+<a id="custom-logo9" class="chapter-button"><span style="margin-right: 5px;">8-Multi-messenger astronomy</span></a>
+<div id="myModal9" class="modal">
+  <div class="modal-content">
+    <span class="close-btn9">&times;</span>
+  <iframe id="multimessengerFrame" src="" allow="microphone; autoplay"></iframe>
+  </div>
+</div>
+<a id="custom-logox" class="chapter-button"><span style="margin-right: 5px;"><i class="fa-regular fa-user"></i> Your chapter</span></a>
+<div id="myModalx" class="modal">
+  <div class="modal-content">
+    <span class="close-btnx">&times;</span>
+  <iframe id="userFrame" src="" allow="microphone; autoplay"></iframe>
+  </div>
+</div>
+<div style="margin-top: 40px;"><center><a id="custom-Donate" class="donate-button">Donate</div></a></center>
+<div id="myModalDonate" class="modal">
+  <div class="modal-content">
+    <span class="close-Donate">&times;</span>
+    <iframe id="DonateFrame" src="" allow="microphone; autoplay"></iframe>
+  </div>
+</div>
+</div></sm>
+</td></tr><tr><td colspan="2" align="left" style="background-color: #fff5e6">
+<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 40px;">
+  <strong><i class="fas fa-cog"></i> Settings: &nbsp;</strong>
+  
+<div class="dropdown">
+    <button class="dropdown-button" id="dropdowncw-language" onclick="closeAllModals()">Language</button>
+    <div class="dropdown-content">
+      <a href="#" onclick="selectLanguage('Arabic')">العربية (Arabic)</a>
+      <a href="#" onclick="selectLanguage('Armenian')">Հայերեն (Armenian)</a>
+      <a href="#" onclick="selectLanguage('Chinese')">中文 (Chinese)</a>
+      <a href="#" onclick="selectLanguage('English')">English</a>
+      <a href="#" onclick="selectLanguage('French')">Français (French)</a>
+      <a href="#" onclick="selectLanguage('German')">Deutsch (German)</a>
+      <a href="#" onclick="selectLanguage('Italian')">Italiano (Italian)</a>
+      <a href="#" onclick="selectLanguage('Japanese')">日本語 (Japanese)</a>
+      <a href="#" onclick="selectLanguage('Portuguese')">Português (Portuguese)</a>
+      <a href="#" onclick="selectLanguage('Russian')">Русский (Russian)</a>
+      <a href="#" onclick="selectLanguage('Spanish')">Español (Spanish)</a>
+      <a href="#" onclick="selectLanguage('Custom')">🛠 Your language</a>
+    </div>
+</div>
+<img id="worldIcon" src="" alt="World icon" width="20" height="20">
+<div id="customLanguageInput" style="display:none; margin-top: 5px;">
+  <div class="tooltip">
+    <input type="text" id="customLangField" placeholder="Enter your language" style="padding: 6px; border-radius: 6px; width: 150px;">
+    <span class="tooltiptext">Here you can specify a language that is not included in the list.<br>Note: This will only influence the AI-generated output, not the interface.</span>
+  </div>
+</div>
+<div class="dropdown">
+    <i class="fas fa-comment-alt-lines"></i>
+    <button class="dropdown-button" id="dropdowncw-response" onclick="closeAllModals()">Response type</button>
+    <div class="dropdown-content">
+      <a href="#" onclick="selectResponse('for children')"><i class="fas fa-baby"></i> For children</a>
+      <a href="#" onclick="selectResponse('basic')"><i class="fas fa-person-walking"></i> Basic level</a>
+      <a href="#" onclick="selectResponse('high school students')"><i class="fas fa-book-open-reader"></i> High school students</a>
+      <a href="#" onclick="selectResponse('advanced')"><i class="fas fa-graduation-cap "></i> Technical/Advanced</a>
+      <a href="#" onclick="selectResponse('for teachers')"><i class="fas fa-chalkboard-teacher"></i> For teachers</a>
+    </div>
+</div>
+  <img id="responseIcon" src="" alt="Response icon" width="20" height="20">
+&nbsp;
+<div class="dropdown">
+  <!-- Dropdown trigger -->
+  <div class="tooltip">
+    <button class="dropdown-button" id="uploadButton" onclick="closeAllModals(); generateLesson('standard')">
+      <i class="fas fa-book"></i> Your chapter data
+    </button>
+    <span class="tooltiptext">Upload a file to set the content for "your chapter"</span>
+  </div>
+
+  <!-- Dropdown content -->
+  <div class="dropdown-content">
+    <a href="#" onclick="triggerFileUpload(); generateLesson('standard')"> <span class="material-symbols-outlined">upload</span> Upload a chapter file</a>
+    <a href="example_file.txt" download onclick="generateLesson('standard')"> <span class="material-symbols-outlined">download</span>Download example of chapter file </a>
+    <a href="#" onclick="generateLesson('Custom')"><span class="material-symbols-outlined">auto_awesome</span> AI-generated chapter file</a>
+    <a href="#" onclick="openTableModal()"><span class="material-symbols-outlined">local_library</span> Library of additional chapter files</a>
+  </div>
+
+  <!-- Hidden custom input -->
+  <div id="customUploadInput" style="display:none; margin-top: 5px;">
+    <input type="text" id="customTopicField" placeholder="Enter topic" style="padding: 6px; border-radius: 6px; width: 150px;">
+    <button id="submitBtn" onclick="runRemoteScript()">🚀 Go</button>
+  </div>
+
+  <!-- Hidden file input -->
+  <form id="uploadForm" method="POST" enctype="multipart/form-data">
+    <input type="file" id="fileInput" name="file" style="display: none;">
+  </form>
+</div>
+<script>
+  function triggerFileUpload() {
+    document.getElementById('fileInput').click();
+  }
+  // Automatically submit the form when a file is selected
+  document.getElementById('fileInput').addEventListener('change', function () {
+    if (this.files.length > 0) {
+      const fileIn = this.files[0].name;
+      document.getElementById('uploadForm').submit();
+      const chapterName = fileIn.replace(/^chapter_/, '').replace(/\.txt$/, '');
+      // ✅ SHOW SUCCESS BANNER
+      const message = window.parent.document.createElement('div');
+      message.textContent = '✅ Chapter "' + chapterName + '" loaded as "Your chapter"!';
+
+      message.style.position = 'fixed';
+      message.style.top = '20px';
+      message.style.left = '50%';
+      message.style.transform = 'translateX(-50%)';
+      message.style.background = '#4CAF50';
+      message.style.color = 'white';
+      message.style.padding = '10px 20px';
+      message.style.borderRadius = '8px';
+      message.style.fontSize = '16px';
+      message.style.zIndex = '10000';
+      window.parent.document.body.appendChild(message);
+
+      // ✅ REDIRECT AFTER 2 SECONDS
+      setTimeout(() => {
+        const base = window.parent.ROOT_URL_GET || '';
+        window.parent.location.href = `${base}/Fbook/index.html`;
+      }, 2000);
+    }
+  });
+</script>
+
+&nbsp;
+<strong><i class="fas fa-book"></i> Tutorials: &nbsp;</strong>
+<div class="dropdown">
+   <button class="dropdown-button" id="dropdowncw-youtube" onclick="closeAllModals()"><i class="fab fa-youtube" style="font-size: 20px; color: red;"></i> YouTube demos</button>
+   <div class="dropdown-content">
+      <a href="https://youtu.be/2ohXRaqJXsc" target="_blank">F-Book overview</a>
+      <a href="https://youtu.be/Om2uAyLGxqY" target="_blank">How to select languages</a>
+      <a href="https://youtu.be/qbUcG4f1LB0" target="_blank">How to show astronomical data</a>
+      <a href="https://youtu.be/qh3RmKmcefQ" target="_blank">How to set up "Your chapter"</a>
+   </div>  
+</div>  
+&nbsp;
+<audio id="introAudio" src="F-book.wav"></audio>
+<div class="tooltip">
+   <button type="button" id="audioButton"><i class="fas fa-volume-high"></i> Audio introduction</button>
+   <span class="tooltiptext">Audio generated with Google notebookLM</span>
+</div>
+<script>
+  const audio = document.getElementById("introAudio");
+  const button = document.getElementById("audioButton");
+
+  button.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play().catch(err => console.error("Audio play error:", err));
+    } else {
+      audio.pause();
+    }
+  });
+</script>
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const uploadButton = document.getElementById('uploadButton');
+  const form = document.getElementById('uploadForm');
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) {
+      form.submit(); // submits the form after a file is chosen
+    }
+  });
+</script>
+</div>
+</td></tr>
+</table>
+<script>
+let selectedLanguage = "English"; // default value
+let selectedTopic;
+
+function  generateLesson(choice) {
+  const customTopicDiv = document.getElementById('customUploadInput');
+
+  if (choice === "Custom") {
+    customTopicDiv.style.display = "block";
+    customTopicField.value = "";         // Clear the text
+    customTopicField.focus();
+    customTopicField.addEventListener("input", () => {
+      selectedTopic = customTopicField.value;
+    });
+  } else {
+    customTopicDiv.style.display = "none";
+  }
+}
+
+
+function selectLanguage(lang) {
+  selectedLanguage = lang;
+
+  // Update button label
+  document.getElementById('dropdowncw-language').textContent = lang;
+
+  // Handle custom language input field
+  const customInputDiv = document.getElementById('customLanguageInput');
+  const customLangField = document.getElementById('customLangField');
+
+  if (lang === "Custom") {
+    customInputDiv.style.display = "block";
+    customLangField.value = "";         // Clear the text
+    customLangField.focus();
+    customLangField.addEventListener("input", () => {
+      selectedLanguage = 'custom: ' + customLangField.value;
+    });
+    if (customLangField.value === "") {
+      selectedLanguage = 'English';
+    }
+  } else {
+    customInputDiv.style.display = "none";
+  }
+
+  updateChapterLabels();
+}
+
+let selectedResponseLevel = "basic"; // default value
+function selectResponse(resp) {
+   selectedResponseLevel = resp;
+   document.getElementById('dropdowncw-response').textContent = resp;
+
+}
+function closeAllModals() {
+  const modals = document.querySelectorAll(".modal");
+  modals.forEach(modal => {
+    modal.style.display = "none";
+    const iframe = modal.querySelector("iframe");
+    if (iframe) iframe.src = "";
+  });
+}
+
+//  a button
+ const modal = document.getElementById("myModal");
+ const iframe = document.getElementById("surveyFrame");
+ const imageButton = document.getElementById("custom-logo2");
+ // Click on image triggers the modal
+ imageButton.addEventListener("click", function() {
+  closeAllModals();
+   iframe.src = `${ROOT_URL}/firmamento-ai-AstronomicalQuestions.html?lang=` + 
+              selectedLanguage + 
+              "&level=" + 
+              selectedResponseLevel;
+   modal.style.display = "flex";
+   //alert("iframe.src " + iframe.src)
+ }); 
+ // Close button in modal
+ document.querySelector(".close-btn").addEventListener("click", function() {
+   iframe.src = "";
+   modal.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModal").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe.src = "";
+     this.style.display = "none";
+   }
+ });
+//  another button
+ const modal1 = document.getElementById("myModal1");
+ const iframe1 = document.getElementById("forewordFrame");
+ const imageButton1= document.getElementById("custom-logo1");
+ imageButton1.addEventListener("click", function() {
+  closeAllModals();
+   iframe1.src = `${ROOT_URL}/Foreword.html?lang=` +
+              selectedLanguage +
+              "&level=" +
+              selectedResponseLevel;
+   modal1.style.display = "flex";
+ });
+ // Close button in modal
+ document.querySelector(".close-btn1").addEventListener("click", function() {
+   iframe1.src = "";
+   modal1.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModal1").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe1.src = "";
+     this.style.display = "none";
+   }
+ });
+
+//  another button
+ const modal3 = document.getElementById("myModal3");
+ const iframe3 = document.getElementById("questionsFrame");
+ const imageButton3 = document.getElementById("custom-logo3");
+ imageButton3.addEventListener("click", function() {
+  closeAllModals();
+   iframe3.src = `${ROOT_URL}/firmamento-ai-SolarSystem.html?lang=` +
+              selectedLanguage +
+              "&level=" +
+              selectedResponseLevel;
+   modal3.style.display = "flex";
+ }); 
+ // Close button in modal
+ document.querySelector(".close-btn3").addEventListener("click", function() {
+   iframe3.src = "";
+   modal3.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModal3").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe3.src = "";
+     this.style.display = "none";
+   }
+ });
+//  another button
+ const modal4 = document.getElementById("myModal4");
+ const iframe4 = document.getElementById("backgroundsFrame");
+ const imageButton4 = document.getElementById("custom-logo4");
+ imageButton4.addEventListener("click", function() {
+  closeAllModals();
+   iframe4.src = `${ROOT_URL}/firmamento-ai-CosmicBackgrounds.html?lang=` +
+              selectedLanguage +
+              "&level=" +
+              selectedResponseLevel;
+   modal4.style.display = "flex";
+ }); 
+ // Close button in modal
+ document.querySelector(".close-btn4").addEventListener("click", function() {
+   iframe4.src = "";
+   modal4.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModal4").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe4.src = "";
+     this.style.display = "none";
+   }
+ });
+//  another button
+ const modal5 = document.getElementById("myModal5");
+ const iframe5 = document.getElementById("cosmologyFrame");
+ const imageButton5 = document.getElementById("custom-logo5");
+ imageButton5.addEventListener("click", function() {
+  closeAllModals();
+   iframe5.src = `${ROOT_URL}/firmamento-ai-Cosmology.html?lang=` +
+              selectedLanguage +
+              "&level=" +
+              selectedResponseLevel;
+   modal5.style.display = "flex";
+ });
+ // Close button in modal
+ document.querySelector(".close-btn5").addEventListener("click", function() {
+   iframe5.src = "";
+   modal5.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModal5").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe5.src = "";
+     this.style.display = "none";
+   }
+ });
+//  another button
+ const modal6 = document.getElementById("myModal6");
+ const iframe6 = document.getElementById("emissionFrame");
+ const imageButton6 = document.getElementById("custom-logo6");
+ imageButton6.addEventListener("click", function() {
+  closeAllModals();
+   iframe6.src = `${ROOT_URL}/firmamento-ai-AstroEmissionMechanisms.html?lang=` +
+              selectedLanguage +
+              "&level=" +
+              selectedResponseLevel;
+   modal6.style.display = "flex";
+ });
+ // Close button in modal
+ document.querySelector(".close-btn6").addEventListener("click", function() {
+   iframe6.src = "";
+   modal6.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModal6").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe6.src = "";
+     this.style.display = "none";
+   }
+ });
+//  another button
+ const modal7 = document.getElementById("myModal7");
+ const iframe7 = document.getElementById("exoFrame");
+ const imageButton7 = document.getElementById("custom-logo7");
+ imageButton7.addEventListener("click", function() {
+  closeAllModals();
+   iframe7.src = `${ROOT_URL}/firmamento-ai-Exoplanets.html?lang=` +
+              selectedLanguage +
+              "&level=" +
+              selectedResponseLevel;
+   modal7.style.display = "flex";
+ });
+ // Close button in modal
+ document.querySelector(".close-btn7").addEventListener("click", function() {
+   iframe7.src = "";
+   modal7.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModal7").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe7.src = "";
+     this.style.display = "none";
+   }
+ });
+//  another button
+ const modal8 = document.getElementById("myModal8");
+ const iframe8 = document.getElementById("darkFrame");
+ const imageButton8 = document.getElementById("custom-logo8");
+ imageButton8.addEventListener("click", function() {
+  closeAllModals();
+   iframe8.src = `${ROOT_URL}/firmamento-ai-DarkSkies.html?lang=`+
+              selectedLanguage + 
+              "&level=" + 
+              selectedResponseLevel;
+   modal8.style.display = "flex";
+ });
+ // Close button in modal
+ document.querySelector(".close-btn8").addEventListener("click", function() {
+   iframe8.src = "";
+   modal8.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModal8").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe8.src = "";
+     this.style.display = "none";
+   }
+ });
+//  another button
+ const modal9 = document.getElementById("myModal9");
+ const iframe9 = document.getElementById("multimessengerFrame");
+ const imageButton9 = document.getElementById("custom-logo9");
+ imageButton9.addEventListener("click", function() {
+  closeAllModals();
+   iframe9.src = `${ROOT_URL}/firmamento-ai-Multimessenger.html?lang=` +
+              selectedLanguage +
+              "&level=" +
+              selectedResponseLevel;
+   modal9.style.display = "flex";
+ });
+ // Close button in modal
+ document.querySelector(".close-btn9").addEventListener("click", function() {
+   iframe9.src = "";
+   modal9.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModal9").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe9.src = "";
+     this.style.display = "none";
+   }
+ });
+//  Users button
+ const modalx = document.getElementById("myModalx");
+ const iframex = document.getElementById("userFrame");
+ const imageButtonx = document.getElementById("custom-logox");
+ imageButtonx.addEventListener("click", function() {
+  closeAllModals();
+  iframex.src = `${ROOT_URL}/firmamento-ai-user.html?lang=` +
+              selectedLanguage +
+              "&level=" +
+              selectedResponseLevel;
+   modalx.style.display = "flex";
+ });
+ // Close button in modal
+ document.querySelector(".close-btnx").addEventListener("click", function() {
+   iframex.src = "";
+   modalx.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModalx").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframex.src = "";
+     this.style.display = "none";
+   }
+ });
+//  Donate button
+ const modalDonate = document.getElementById("myModalDonate");
+ const iframeDonate = document.getElementById("DonateFrame");
+ const imageButtonDonate = document.getElementById("custom-Donate");
+ imageButtonDonate.addEventListener("click", function() {
+  closeAllModals();
+   iframeDonate.src = `${ROOT_URL}/Donate.html?lang=`+selectedLanguage;
+   modalDonate.style.display = "flex";
+ });
+// Close button in modal
+ document.querySelector(".close-Donate").addEventListener("click", function() {
+   iframeDonate.src = "";
+   modalDonate.style.display = "none";
+ });
+// Close modal by clicking outside modal content
+ document.getElementById("myModalDonate").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframeDonate.src = "";
+     this.style.display = "none";
+   }
+ });
+//translate to selected language
+    const translations = {
+      English: {
+        chapters: "☰ Chapters",
+        donate: "Donate",
+        chapterNames: [
+          "<i class=\"fas fa-feather-alt\"></i> Foreword ",
+          "<i class=\"fa-regular fa-star\"></i> Astronomical sources",
+          "<i class=\"fas fa-sun\"></i> The solar system",
+          "<i class=\"fas fa-broadcast-tower\"></i> Cosmic backgrounds",
+          "<i class=\"fas fa-circle-notch\"></i> Cosmology",
+          "<i class=\"fas fa-bolt\"></i> Emission mechanisms",
+          "<i class=\"fas fa-globe\"></i> Exoplanets",
+          "<i class=\"fas fa-star-and-crescent\"></i> Dark skies",
+          "<i class=\"fas fa-atom\"></i> Multi-messenger astronomy",
+          "<i class=\"fa-solid fa-user-astronaut\"></i> Your chapter"
+        ]
+      },
+      French: {
+        chapters: "☰ Chapitres",
+        donate: "Faire un don",
+        chapterNames: [
+          "<i class=\"fas fa-feather-alt\"></i> Préface",
+          "<i class=\"fa-regular fa-star\"></i> Sources astronomiques",
+          "<i class=\"fa-regular fa-sun\"></i> Le système solaire",
+          "<i class=\"fas fa-broadcast-tower\"></i> Fonds cosmiques",
+          "<i class=\"fas fa-circle-notch\"></i> Cosmologie",
+          "<i class=\"fas fa-bolt\"></i> Mécanismes d'émission",
+          "<i class=\"fas fa-globe\"></i> Exoplanètes",
+          "<i class=\"fas fa-star-and-crescent\"></i> Ciels sombres",
+          "<i class=\"fas fa-atom\"></i> Astronomie multi-messagers",
+          "<i class=\"fa-solid fa-user-astronaut\"></i> Votre chapitre"
+        ]
+      },
+      Spanish: {
+        chapters: "☰ Capítulos",
+        donate: "Donar",
+        chapterNames: [
+          "<i class=\"fas fa-feather-alt\"></i> Prólogo",
+          "<i class=\"fa-regular fa-star\"></i> Fuentes astronómicas",
+          "<i class=\"fas fa-sun\"></i> El sistema solar",
+          "<i class=\"fas fa-broadcast-tower\"></i> Fondos cósmicos",
+          "<i class=\"fas fa-circle-notch\"></i> Cosmología",
+          "<i class=\"fas fa-bolt\"></i> Mecanismos de emisión",
+          "<i class=\"fas fa-globe\"></i> Exoplanetas",
+          "<i class=\"fas fa-star-and-crescent\"></i> Cielos oscuros",
+          "<i class=\"fas fa-atom\"></i> Astronomía multimensajero",
+          "<i class=\"fa-solid fa-user-astronaut\"></i> Tu capítulo"
+        ]
+      },
+      German: {
+        chapters: "☰ Kapitel",
+        donate: "Spenden",
+        chapterNames: [
+          "<i class=\"fas fa-feather-alt\"></i> Vorwort",
+          "<i class=\"fa-regular fa-star\"></i> Astronomische Quellen",
+          "<i class=\"fas fa-sun\"></i> Das Sonnensystem",
+          "<i class=\"fas fa-broadcast-tower\"></i> Kosmische Hintergründe",
+          "<i class=\"fas fa-circle-notch\"></i> Kosmologie",
+          "<i class=\"fas fa-bolt\"></i> Emissionsmechanismen",
+          "<i class=\"fas fa-globe\"></i> Exoplaneten",
+          "<i class=\"fas fa-star-and-crescent\"></i> Dunkle Himmel",
+          "<i class=\"fas fa-atom\"></i> Multibotenastronomie",
+          "<i class=\"fa-solid fa-user-astronaut\"></i> Dein Kapitel"
+        ]
+      },
+      Italian: {
+        chapters: "☰ Capitoli",
+        donate: "Dona",
+        chapterNames: [
+          "<i class=\"fas fa-feather-alt\"></i> Prefazione",
+          "<i class=\"fa-regular fa-star\"></i> Sorgenti astronomiche",
+          "<i class=\"fas fa-sun\"></i> Il sistema solare",
+          "<i class=\"fas fa-broadcast-tower\"></i> Fondi cosmici",
+          "<i class=\"fas fa-circle-notch\"></i> Cosmologia",
+          "<i class=\"fas fa-bolt\"></i> Meccanismi di emissione",
+          "<i class=\"fas fa-globe\"></i> Esopianeti",
+          "<i class=\"fas fa-star-and-crescent\"></i> Cieli bui",
+          "<i class=\"fas fa-atom\"></i> Astronomia multi-messaggera",
+          "<i class=\"fa-solid fa-user-astronaut\"></i> Il tuo capitolo"
+        ]
+      },
+      Japanese: {
+        chapters: "☰ 章",
+        donate: "寄付する",
+        chapterNames: [
+          "<i class=\"fas fa-feather-alt\"></i> はじめに",
+          "<i class=\"fa-regular fa-star\"></i> 天文の情報源",
+          "<i class=\"fas fa-sun\"></i> 太陽系",
+          "<i class=\"fas fa-broadcast-tower\"></i> 宇宙背景",
+          "<i class=\"fas fa-circle-notch\"></i> 宇宙論",
+          "<i class=\"fas fa-bolt\"></i> 放射メカニズム",
+          "<i class=\"fas fa-globe\"></i> 系外惑星",
+          "<i class=\"fas fa-star-and-crescent\"></i> 暗い空",
+          "<i class=\"fas fa-atom\"></i> マルチメッセンジャー天文学",
+          "<i class=\"fa-solid fa-user-astronaut\"></i> あなたの章"
+        ]
+      },
+      Chinese: {
+        chapters: "☰ 章节",
+        donate: "捐赠",
+        chapterNames: [
+          "<i class=\"fas fa-feather-alt\"></i> 前言",
+          "<i class=\"fa-regular fa-star\"></i> 天文源",
+          "<i class=\"fas fa-sun\"></i> 太阳系",
+          "<i class=\"fas fa-broadcast-tower\"></i> 宇宙背景",
+          "<i class=\"fas fa-circle-notch\"></i> 宇宙学",
+          "<i class=\"fas fa-bolt\"></i> 发射机制",
+          "<i class=\"fas fa-globe\"></i> 系外行星",
+          "<i class=\"fas fa-star-and-crescent\"></i> 黑暗天空",
+          "<i class=\"fas fa-atom\"></i> 多信使天文学",
+          "<i class=\"fa-solid fa-user-astronaut\"></i> 你的章节"
+        ]
+      },
+      Portuguese: {
+        chapters: "☰ Capítulos",
+        donate: "Doar",
+        chapterNames: [
+          "<i class=\"fas fa-feather-alt\"></i> Prefácio",
+          "<i class=\"fa-regular fa-star\"></i> Fontes astronômicas",
+          "<i class=\"fas fa-sun\"></i> O sistema solar",
+          "<i class=\"fas fa-broadcast-tower\"></i> Fundos cósmicos",
+          "<i class=\"fas fa-circle-notch\"></i> Cosmologia",
+          "<i class=\"fas fa-bolt\"></i> Mecanismos de emissão",
+          "<i class=\"fas fa-globe\"></i> Exoplanetas",
+          "<i class=\"fas fa-star-and-crescent\"></i> Céus escuros",
+          "<i class=\"fas fa-atom\"></i> Astronomia multimensageira",
+          "<i class=\"fa-solid fa-user-astronaut\"></i> Seu capítulo"
+        ]
+      },
+      Russian: {
+        chapters: "☰ Главы",
+        donate: "Пожертвовать",
+        chapterNames: [
+          "<i class=\"fas fa-feather-alt\"></i> Предисловие",
+          "<i class=\"fa-regular fa-star\"></i> Астрономические источники",
+          "<i class=\"fas fa-sun\"></i> Солнечная система",
+          "<i class=\"fas fa-broadcast-tower\"></i> Космические фоны",
+          "<i class=\"fas fa-circle-notch\"></i> Космология",
+          "<i class=\"fas fa-bolt\"></i> Механизмы излучения",
+          "<i class=\"fas fa-globe\"></i> Экзопланеты",
+          "<i class=\"fas fa-star-and-crescent\"></i> Темное небо",
+          "<i class=\"fas fa-atom\"></i> Мульти-мессенджерная астрономия",
+          "<i class=\"fa-solid fa-user-astronaut\"></i> Ваша глава"
+        ]
+      },
+      Arabic: { 
+         chapters: "☰ الفصول", 
+         donate: "تبرع", 
+         chapterNames: [
+           "<i class=\"fas fa-feather-alt\"></i> المقدمة",
+           "<i class=\"fa-regular fa-star\"></i> المصادر الفلكية",
+           "<i class=\"fa-regular fa-sun\"></i> النظام الشمسي",
+           "<i class=\"fas fa-broadcast-tower\"></i> الخلفيات الكونية",
+           "<i class=\"fas fa-circle-notch\"></i> علم الكون",
+           "<i class=\"fas fa-bolt\"></i> آليات الانبعاث",
+           "<i class=\"fas fa-globe\"></i> الكواكب الخارجية",
+           "<i class=\"fas fa-star-and-crescent\"></i> السماء المظلمة",
+           "<i class=\"fas fa-atom\"></i> علم الفلك متعدد الرسل",
+           "<i class=\"fa-solid fa-user-astronaut\"></i> فصلك"
+         ],
+      },
+      Armenian: { 
+         chapters: "☰ Գլուխներ", 
+         donate: "Նվիրաբերել", 
+         chapterNames: [
+            "<i class=\"fas fa-feather-alt\"></i> Նախաբանի",
+            "<i class=\"fa-regular fa-star\"></i> Աստղագիտական աղբյուրներ",
+            "<i class=\"fa-regular fa-sun\"></i> Արևային համակարգ",
+            "<i class=\"fas fa-broadcast-tower\"></i> Տիեզերական ֆոն",
+            "<i class=\"fas fa-circle-notch\"></i> Տիեզերագիտություն",
+            "<i class=\"fas fa-bolt\"></i> Ճառագայթման մեխանիզմներ",
+            "<i class=\"fas fa-globe\"></i> Էկզոմոլորակներ",
+            "<i class=\"fas fa-star-and-crescent\"></i> Մութ երկինք",
+            "<i class=\"fas fa-atom\"></i> Բազմասուրհանդես աստղագիտություն",
+            "<i class=\"fa-solid fa-user-astronaut\"></i> Քո գլուխը"
+        ] 
+      }
+    };
+
+    function updateChapterLabels() {
+      const t = translations[selectedLanguage] || translations.English;
+      document.getElementById("custom-logo0").innerHTML = `<span>${t.chapters}</span>`;
+      const ids = ["custom-logo1", "custom-logo2", "custom-logo3", "custom-logo4", "custom-logo5", "custom-logo6", "custom-logo7", "custom-logo8", "custom-logo9", "custom-logox"];
+      ids.forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = `<span>${t.chapterNames[i]}</span>`;
+      });
+      document.getElementById("custom-Donate").textContent = t.donate;
+    }
+
+    window.onload = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const lang = urlParams.get('lang') || 'English';
+      selectLanguage(lang);
+      document.getElementById("bg-cell").style.backgroundImage = `url(${ROOT_URL}/logo/FirmamentoSky-logo2.png)`;
+      document.getElementById("worldIcon").src = `${ROOT_URL}/logo/world.png`;
+      document.getElementById("responseIcon").src = `${ROOT_URL}/logo/bullseye.png`;
+      document.getElementById("uploadForm").action = `${ROOT_URL}/uploads`;
+
+      const audioButton = document.getElementById("audioButton");
+      const audioElement = document.getElementById("introAudio");
+      // Set audio file dynamically
+      audioElement.src = `${ROOT_URL}/F-book.wav`;
+    };
+
+function runRemoteScript() {
+
+  let finalQuestion;
+  const spinner = document.getElementById('spinner');
+  spinner.style.display = "block";
+
+  finalQuestion=`Please set up a lesson on ${selectedTopic} for an audience of ${selectedResponseLevel} level by providing a file structured strictly as follows: first line (in English): Language: ${selectedLanguage}, second line a question about ${selectedTopic} followed by a comma and a label for the question. Up to ten questions. Do not use commas in the questions, the label should be informative, not too short but max four words.`
+      const url = `${ROOT_URL}/run-script?param1=${encodeURIComponent(finalQuestion)}&param2=${encodeURIComponent(selectedLanguage)}`;
+  fetch(url)
+    .then(response => response.text())
+    .then(result => {
+       spinner.style.display = "none";
+       // ✅ Create a Blob and trigger file download
+       const blob = new Blob([result], { type: "text/plain" });
+       const downloadLink = document.createElement("a");
+       downloadLink.href = URL.createObjectURL(blob);
+       fileName = 'chapter_' + selectedTopic
+         .trim()
+         .split(/\s+/)
+         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+         .join('') + ".txt";
+       downloadLink.download = fileName; // name of the downloaded file
+       downloadLink.click();
+    })
+    .catch(error => {
+      spinner.style.display = "none";
+      outputDiv.textContent = "Error: " + error;
+      outputDiv.innerHTML = "Failed to load content.";
+    });
+}
+function openTableModal() {
+  closeAllModals(); // reuse existing function
+  const modal = document.getElementById('tableModal');
+  const iframe = document.getElementById('tableFrame');
+  iframe.src = `${ROOT_URL}/libraryTable.html?lang=${encodeURIComponent(selectedLanguage)}`;
+  modal.style.display = 'flex';
+} 
+
+function closeTableModal() {
+  const modal = document.getElementById('tableModal');
+  const iframe = document.getElementById('tableFrame');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+</script>
+</HTML>

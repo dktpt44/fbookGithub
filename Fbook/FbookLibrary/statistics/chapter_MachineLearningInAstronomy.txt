@@ -1,0 +1,11 @@
+Language: English  
+How can machine learning improve the analysis of astronomical data?, Application in Astronomy  
+What types of machine learning algorithms are most effective in processing large astronomical datasets?, Algorithms for Astronomy  
+In what ways is deep learning used to classify celestial objects?, Deep Learning Applications  
+How does machine learning help in detecting exoplanets from light curves?, Exoplanet Detection Techniques  
+What role does unsupervised learning play in identifying patterns in astronomical surveys?, Unsupervised Learning Roles  
+How can reinforcement learning be utilized for optimizing telescope scheduling and observation?, Reinforcement Learning Uses  
+What are the challenges of applying machine learning to dynamic astronomical phenomena?, Challenges in Application  
+How do neural networks contribute to image reconstruction in astronomy?, Neural Networks in Imaging  
+What impact does machine learning have on the future of astronomical research?, Future Research Impact  
+How is transfer learning applied to enhance models for different astronomical tasks?, Transfer Learning Applications

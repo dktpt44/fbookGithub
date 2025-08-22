@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firmamento-Aladin surveys description</title>
+  <style>
+    #resultOutput {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 300px; /* Limit height */
+      overflow-y: auto; /* Enable scrolling if content exceeds */
+    }
+    table {
+      width: 70%; /* The table will take up the full width but max it out */
+      max-width: 600px; /* Set the maximum width for the table */
+      margin: 0 auto; /* Center the table horizontally */
+      border-collapse: collapse;
+    }
+    @keyframes spin {
+     0% { transform: rotate(0deg); }
+     100% { transform: rotate(360deg); }
+    }
+    body {
+      font-family: 'Helvetica', sans-serif;
+      font-size: 14px;
+    }
+
+  </style>
+</head>
+<body style="background-color: #d6f8ff">
+<img class="logoImg" style="transform: rotate(0deg); "src="http://localhost:5000/logo/firmamento_AI_logo.png" alt="Firmamento-AI LOGO" height="40">
+<div id="spinner" style="
+  display:none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 22px;
+  animation: spin 1s linear infinite;
+"></div>
+<br><br>
+<table border="0" cellpadding="10" style="border-collapse: collapse; background-color: #d6f8ff;">
+  <tr>
+    <td align="center" colspan="3"; style="font-size: 22px;">Astronomical surveys description</td>
+  </tr>
+  <tr>
+    <td align="center">Survey name <img class="logoImg" src="http://localhost:5000/logo/telescope.png" alt="LOGO" width="30" height="30"></td>
+    <td></td>
+    <td align="center">Choose your language<img class="logoImg" src="http://localhost:5000/logo/world.png" alt="LOGO" width="20" height="20"></td>
+  </tr>
+  <tr>
+    <td align="center">
+      <select id="param1Dropdown" onchange="toggleCustomInput()"></select>
+    </td>
+    <td></td>
+    <td align="center">
+      <select id="param2" onchange="updateTopicOptions()">
+        <option value="Arabic">العربية (Arabic)</option>
+        <option value="Armenian">Հայերեն (Armenian)</option>
+        <option value="Chinese">中文 (Chinese)</option>
+        <option value="English" selected>English</option>
+        <option value="French">Français (French)</option>
+        <option value="German">Deutsch (German)</option>
+        <option value="Italian">Italiano (Italian)</option>
+        <option value="Japanese">日本語 (Japanese)</option>
+        <option value="Portuguese">Português (Portuguese)</option>
+        <option value="Russian">Русский (Russian)</option>
+        <option value="Spanish">Español (Spanish)</option>
+      </select>
+    </td>
+    </tr><tr>
+    <td></td><td align="center">
+      <button onclick="runRemoteScript()">Submit</button>
+    </td><td></td>
+  </tr>
+  <tr>
+    <td><input colspan="3" type="text" id="param1Custom" placeholder="Enter your question" style="display:none;" size="30" maxlength="100"></td>
+  </tr>
+  <tr>
+     <td colspan="3">
+       <div id="resultOutput" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9; white-space: pre-wrap; word-wrap: break-word; max-height: 300px; overflow-y: auto;"></div>
+     </td>
+  </tr>
+  <tr>
+    <td colspan="3" align="right" style="font-size: 12px;">&copy;Paolo Giommi, based on ChatGPT</td>
+  </tr>
+</table>
+<script>
+    const topics = {
+     English: [
+      { value: "Tell me about the astronomical survey named NVSS with bibliographic reference and max sensitivity to point sources", label: "NVSS" },
+      { value: "Tell me about the astronomical survey named VLASS with bibliographic reference and max sensitivity to point sources", label: "VLASS" },
+      { value: "Tell me about the astronomical radio survey named VCSS1 with bibliographic reference and max sensitivity to point sources", label: "VCSS1" },
+      { value: "Tell me about the astronomical survey named TGSSADR with bibliographic reference and max sensitivity to point sources", label: "TGSSADR" },
+      { value: "Tell me about the astronomical survey named EMU with bibliographic reference and max sensitivity to point sources", label: "EMU" },
+      { value: "Tell me about the astronomical survey named RACS with bibliographic reference and max sensitivity to point sources", label: "RACS" },
+      { value: "Tell me about the astronomical survey named ALLWISE with bibliographic reference and max sensitivity to point sources", label: "ALLWISE" },
+      { value: "Tell me about the astronomical survey named unWISE with bibliographic reference and max sensitivity to point sources", label: "unWISE" },
+      { value: "Tell me about the astronomical survey named 2MASS with bibliographic reference and max sensitivity to point sources", label: "2MASS" },
+      { value: "Tell me about the astronomical survey named SPITZER with bibliographic reference and max sensitivity to point sources", label: "SPITZER" },
+      { value: "Tell me about the astronomical survey named HERSCHEL with bibliographic reference and max sensitivity to point sources", label: "HERSCHEL" },
+      { value: "Tell me about the astronomical survey named DSS2 with bibliographic reference and max sensitivity to point sources", label: "DSS2" },
+      { value: "Tell me about the astronomical survey named DES-DR2 with bibliographic reference and max sensitivity to point sources", label: "DES-DR2" },
+      { value: "Tell me about the astronomical survey named PanSTARRS with bibliographic reference and max sensitivity to point sources", label: "PanSTARRS" },
+      { value: "Tell me about the astronomical survey named DESI Legacy Survey with bibliographic reference and max sensitivity to point sources", label: "DESI Legacy Survey" },
+      { value: "Tell me about the astronomical survey named DENIS-I with bibliographic reference and max sensitivity to point sources", label: "DENIS-I" },
+      { value: "Tell me about the astronomical survey named SKYMAPPER with bibliographic reference and max sensitivity to point sources", label: "SKYMAPPER" },
+      { value: "Tell me about the astronomical survey named EUCLID release Q1 with bibliographic reference and max sensitivity to point sources", label: "EUCLID-Q1" },
+      { value: "Tell me about the astronomical survey named GALEXGR6 with bibliographic reference and max sensitivity to point sources", label: "GALEXGR6" },
+      { value: "Tell me about the astronomical survey named SWIFT UVOT with bibliographic reference and max sensitivity to point sources", label: "SWIFT UVOT" },
+      { value: "Tell me about the astronomical survey named eRASS1 in hips format with bibliographic reference and max sensitivity to point sources", label: "eRASS1" },
+      { value: "Tell me about the astronomical survey named SWIFT-BAT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-BAT" },
+      { value: "Tell me about the astronomical survey named XMM-NEWTON in hips format with bibliographic reference and max sensitivity to point sources", label: "XMM-NEWTON" },
+      { value: "Tell me about the astronomical survey named CHANDRA with bibliographic reference and max sensitivity to point sources", label: "CHANDRA" },
+      { value: "Tell me about the astronomical survey named RASS with bibliographic reference and max sensitivity to point sources", label: "RASS" },
+      { value: "Tell me about the astronomical survey named MAXI with bibliographic reference and max sensitivity to point sources", label: "MAXI" },
+      { value: "Tell me about the astronomical survey named FERMI-LAT with bibliographic reference and max sensitivity to point sources", label: "FERMI-LAT" },
+      { value: "Tell me about the astronomical survey named SWIFT-XRT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-XRT" },
+      { value: "Tell me about the astronomical survey named NUSTAR with bibliographic reference and max sensitivity to point sources", label: "NuSTAR" },
+      { value: "custom", label: "Ask your question "}
+     ],
+     Italian: [
+      { value: "Tell me about the astronomical survey named NVSS with bibliographic reference and max sensitivity to point sources", label: "NVSS" },
+      { value: "Tell me about the astronomical survey named VLASS with bibliographic reference and max sensitivity to point sources", label: "VLASS" },
+      { value: "Tell me about the astronomical radio survey named VCSS1 with bibliographic reference and max sensitivity to point sources", label: "VCSS1" },
+      { value: "Tell me about the astronomical survey named TGSSADR with bibliographic reference and max sensitivity to point sources", label: "TGSSADR" },
+      { value: "Tell me about the astronomical survey named EMU with bibliographic reference and max sensitivity to point sources", label: "EMU" },
+      { value: "Tell me about the astronomical survey named RACS with bibliographic reference and max sensitivity to point sources", label: "RACS" },
+      { value: "Tell me about the astronomical survey named ALLWISE with bibliographic reference and max sensitivity to point sources", label: "ALLWISE" },
+      { value: "Tell me about the astronomical survey named unWISE with bibliographic reference and max sensitivity to point sources", label: "unWISE" },
+      { value: "Tell me about the astronomical survey named 2MASS with bibliographic reference and max sensitivity to point sources", label: "2MASS" },
+      { value: "Tell me about the astronomical survey named SPITZER with bibliographic reference and max sensitivity to point sources", label: "SPITZER" },
+      { value: "Tell me about the astronomical survey named HERSCHEL with bibliographic reference and max sensitivity to point sources", label: "HERSCHEL" },
+      { value: "Tell me about the astronomical survey named DSS2 with bibliographic reference and max sensitivity to point sources", label: "DSS2" },
+      { value: "Tell me about the astronomical survey named DES-DR2 with bibliographic reference and max sensitivity to point sources", label: "DES-DR2" },
+      { value: "Tell me about the astronomical survey named PanSTARRS with bibliographic reference and max sensitivity to point sources", label: "PanSTARRS" },
+      { value: "Tell me about the astronomical survey named DESI legacy survey with bibliographic reference and max sensitivity to point sources", label: "DESI legacy Survey" },
+      { value: "Tell me about the astronomical survey named DENIS-I with bibliographic reference and max sensitivity to point sources", label: "DENIS-I" },
+      { value: "Tell me about the astronomical survey named SKYMAPPER with bibliographic reference and max sensitivity to point sources", label: "SKYMAPPER" },
+      { value: "Tell me about the astronomical survey named EUCLID-Q1 with bibliographic reference and max sensitivity to point sources", label: "EUCLID-Q1" },
+      { value: "Tell me about the astronomical survey named GALEXGR6 with bibliographic reference and max sensitivity to point sources", label: "GALEXGR6" },
+      { value: "Tell me about the astronomical survey named SWIFT UVOT with bibliographic reference and max sensitivity to point sources", label: "SWIFT UVOT" },
+      { value: "Tell me about the astronomical survey named eRASS1 in hips format with bibliographic reference and max sensitivity to point sources", label: "eRASS1" },
+      { value: "Tell me about the astronomical survey named SWIFT-BAT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-BAT" },
+      { value: "Tell me about the astronomical survey named XMM-NEWTON with bibliographic reference and max sensitivity to point sources", label: "XMM-NEWTON" },
+      { value: "Tell me about the astronomical survey named CHANDRA with bibliographic reference and max sensitivity to point sources", label: "CHANDRA" },
+      { value: "Tell me about the astronomical survey named RASS with bibliographic reference and max sensitivity to point sources", label: "RASS" },
+      { value: "Tell me about the astronomical survey named MAXI with bibliographic reference and max sensitivity to point sources", label: "MAXI" },
+      { value: "Tell me about the astronomical survey named FERMI-LAT with bibliographic reference and max sensitivity to point sources", label: "FERMI-LAT" },
+      { value: "Tell me about the astronomical survey named SWIFT-XRT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-XRT" },
+      { value: "Tell me about the astronomical survey named NUSTAR with bibliographic reference and max sensitivity to point sources", label: "NuSTAR" },
+      { value: "custom", label: "Fai la tua domanda" }
+     ],
+     Armenian: [
+      { value: "Tell me about the astronomical survey named NVSS with bibliographic reference and max sensitivity to point sources", label: "NVSS աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named VLASS with bibliographic reference and max sensitivity to point sources", label: "VLASS աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical radio survey named VCSS1 with bibliographic reference and max sensitivity to point sources", label: "VCSS1 աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named TGSSADR with bibliographic reference and max sensitivity to point sources", label: "TGSSADR աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named EMU with bibliographic reference and max sensitivity to point sources", label: "EMU աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named RACS with bibliographic reference and max sensitivity to point sources", label: "RACS աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named ALLWISE with bibliographic reference and max sensitivity to point sources", label: "ALLWISE աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named unWISE with bibliographic reference and max sensitivity to point sources", label: "unWISE աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named 2MASS with bibliographic reference and max sensitivity to point sources", label: "2MASS աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named SPITZER with bibliographic reference and max sensitivity to point sources", label: "SPITZER աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named HERSCHEL with bibliographic reference and max sensitivity to point sources", label: "HERSCHEL աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named DSS2 with bibliographic reference and max sensitivity to point sources", label: "DSS2 աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named DES-DR2 with bibliographic reference and max sensitivity to point sources", label: "DES-DR2 աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named PanSTARRS with bibliographic reference and max sensitivity to point sources", label: "ՊանՍԹԱՌՍ" },
+      { value: "Tell me about the astronomical survey named DESI legacy survey with bibliographic reference and max sensitivity to point sources", label: "DESI ժառանգական աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named DENIS-I with bibliographic reference and max sensitivity to point sources", label: "DENIS-I աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named SKYMAPPER with bibliographic reference and max sensitivity to point sources", label: "SKYMAPPER աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named EUCLID-Q1 with bibliographic reference and max sensitivity to point sources", label: "EUCLID-Q1" },
+      { value: "Tell me about the astronomical survey named GALEXGR6 with bibliographic reference and max sensitivity to point sources", label: "GALEXGR6 աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named SWIFT UVOT with bibliographic reference and max sensitivity to point sources", label: "SWIFT UVOT աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named eRASS1 in hips format with bibliographic reference and max sensitivity to point sources", label: "eRASS1 (HiPS ձևաչափով) աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named SWIFT-BAT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-BAT աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named XMM-NEWTON with bibliographic reference and max sensitivity to point sources", label: "XMM-NEWTON աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named CHANDRA with bibliographic reference and max sensitivity to point sources", label: "CHANDRA աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named RASS with bibliographic reference and max sensitivity to point sources", label: "RASS աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named MAXI with bibliographic reference and max sensitivity to point sources", label: "MAXI աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named FERMI-LAT with bibliographic reference and max sensitivity to point sources", label: "FERMI-LAT աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named SWIFT-XRT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-XRT աստղագիտական դիտարկում" },
+      { value: "Tell me about the astronomical survey named NUSTAR with bibliographic reference and max sensitivity to point sources", label: "NuSTAR աստղագիտական դիտարկում" },
+      { value: "custom", label: "Տվեք ձեր հարցը աստղագիտական դիտարկումների մասին" }
+     ],
+    Chinese: [
+      { value: "Tell me about the astronomical survey named NVSS with bibliographic reference and max sensitivity to point sources", label: "NVSS 天文巡天" },
+      { value: "Tell me about the astronomical survey named VLASS with bibliographic reference and max sensitivity to point sources", label: "VLASS 天文巡天" },
+      { value: "Tell me about the astronomical radio survey named VCSS1 with bibliographic reference and max sensitivity to point sources", label: "VCSS1 天文巡天" },
+      { value: "Tell me about the astronomical survey named TGSSADR with bibliographic reference and max sensitivity to point sources", label: "TGSSADR 天文巡天" },
+      { value: "Tell me about the astronomical survey named EMU with bibliographic reference and max sensitivity to point sources", label: "EMU 天文巡天" },
+      { value: "Tell me about the astronomical survey named RACS with bibliographic reference and max sensitivity to point sources", label: "RACS 天文巡天" },
+      { value: "Tell me about the astronomical survey named ALLWISE with bibliographic reference and max sensitivity to point sources", label: "ALLWISE 天文巡天" },
+      { value: "Tell me about the astronomical survey named unWISE with bibliographic reference and max sensitivity to point sources", label: "unWISE 天文巡天" },
+      { value: "Tell me about the astronomical survey named 2MASS with bibliographic reference and max sensitivity to point sources", label: "2MASS 天文巡天" },
+      { value: "Tell me about the astronomical survey named SPITZER with bibliographic reference and max sensitivity to point sources", label: "SPITZER 天文巡天" },
+      { value: "Tell me about the astronomical survey named HERSCHEL with bibliographic reference and max sensitivity to point sources", label: "HERSCHEL 天文巡天" },
+      { value: "Tell me about the astronomical survey named DSS2 with bibliographic reference and max sensitivity to point sources", label: "DSS2 天文巡天" },
+      { value: "Tell me about the astronomical survey named DES-DR2 with bibliographic reference and max sensitivity to point sources", label: "DES-DR2 天文巡天" },
+      { value: "Tell me about the astronomical survey named PanSTARRS with bibliographic reference and max sensitivity to point sources", label: "泛星计划" }, 
+      { value: "Tell me about the astronomical survey named DESI legacy survey with bibliographic reference and max sensitivity to point sources", label: "DESI 遗产巡天" },
+      { value: "Tell me about the astronomical survey named DENIS-I with bibliographic reference and max sensitivity to point sources", label: "DENIS-I 天文巡天" },
+      { value: "Tell me about the astronomical survey named SKYMAPPER with bibliographic reference and max sensitivity to point sources", label: "SKYMAPPER 天文巡天" },
+      { value: "Tell me about the astronomical survey named EUCLID-Q1 with bibliographic reference and max sensitivity to point sources", label: "EUCLID-Q1" },
+      { value: "Tell me about the astronomical survey named GALEXGR6 with bibliographic reference and max sensitivity to point sources", label: "GALEXGR6 天文巡天" },
+      { value: "Tell me about the astronomical survey named SWIFT UVOT with bibliographic reference and max sensitivity to point sources", label: "SWIFT UVOT 天文巡天" },
+      { value: "Tell me about the astronomical survey named eRASS1 in hips format with bibliographic reference and max sensitivity to point sources", label: "eRASS1 (HiPS 格式) 天文巡天" },
+      { value: "Tell me about the astronomical survey named SWIFT-BAT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-BAT 天文巡天" },
+      { value: "Tell me about the astronomical survey named XMM-NEWTON with bibliographic reference and max sensitivity to point sources", label: "XMM-NEWTON 天文巡天" },
+      { value: "Tell me about the astronomical survey named CHANDRA with bibliographic reference and max sensitivity to point sources", label: "CHANDRA 天文巡天" },
+      { value: "Tell me about the astronomical survey named RASS with bibliographic reference and max sensitivity to point sources", label: "RASS 天文巡天" },
+      { value: "Tell me about the astronomical survey named MAXI with bibliographic reference and max sensitivity to point sources", label: "MAXI 天文巡天" },
+      { value: "Tell me about the astronomical survey named FERMI-LAT with bibliographic reference and max sensitivity to point sources", label: "FERMI-LAT 天文巡天" },
+      { value: "Tell me about the astronomical survey named SWIFT-XRT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-XRT 天文巡天" },
+      { value: "Tell me about the astronomical survey named NUSTAR with bibliographic reference and max sensitivity to point sources", label: "NuSTAR 天文巡天" },
+      { value: "custom", label: "提出你自己的天文问题" }
+     ],
+    Japanese: [
+      { value: "Tell me about the astronomical survey named NVSS with bibliographic reference and max sensitivity to point sources", label: "NVSS 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named VLASS with bibliographic reference and max sensitivity to point sources", label: "VLASS 天文サーベイ" },
+      { value: "Tell me about the astronomical radio survey named VCSS1 with bibliographic reference and max sensitivity to point sources", label: "VCSS1 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named TGSSADR with bibliographic reference and max sensitivity to point sources", label: "TGSSADR 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named EMU with bibliographic reference and max sensitivity to point sources", label: "EMU 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named RACS with bibliographic reference and max sensitivity to point sources", label: "RACS 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named ALLWISE with bibliographic reference and max sensitivity to point sources", label: "ALLWISE 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named unWISE with bibliographic reference and max sensitivity to point sources", label: "unWISE 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named 2MASS with bibliographic reference and max sensitivity to point sources", label: "2MASS 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named SPITZER with bibliographic reference and max sensitivity to point sources", label: "SPITZER 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named HERSCHEL with bibliographic reference and max sensitivity to point sources", label: "HERSCHEL 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named DSS2 with bibliographic reference and max sensitivity to point sources", label: "DSS2 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named DES-DR2 with bibliographic reference and max sensitivity to point sources", label: "DES-DR2 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named PanSTARRS with bibliographic reference and max sensitivity to point sources", label: "パンスターズ" },
+      { value: "Tell me about the astronomical survey named DESI legacy survey with bibliographic reference and max sensitivity to point sources", label: "DESI レガシーサーベイ" },
+      { value: "Tell me about the astronomical survey named DENIS-I with bibliographic reference and max sensitivity to point sources", label: "DENIS-I 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named SKYMAPPER with bibliographic reference and max sensitivity to point sources", label: "SKYMAPPER 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named EUCLID-Q1 with bibliographic reference and max sensitivity to point sources", label: "EUCLID-Q1" },
+      { value: "Tell me about the astronomical survey named GALEXGR6 with bibliographic reference and max sensitivity to point sources", label: "GALEXGR6 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named SWIFT UVOT with bibliographic reference and max sensitivity to point sources", label: "SWIFT UVOT 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named eRASS1 in hips format with bibliographic reference and max sensitivity to point sources", label: "eRASS1 (HiPS形式) 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named SWIFT-BAT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-BAT 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named XMM-NEWTON with bibliographic reference and max sensitivity to point sources", label: "XMM-NEWTON 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named CHANDRA with bibliographic reference and max sensitivity to point sources", label: "CHANDRA 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named RASS with bibliographic reference and max sensitivity to point sources", label: "RASS 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named MAXI with bibliographic reference and max sensitivity to point sources", label: "MAXI 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named FERMI-LAT with bibliographic reference and max sensitivity to point sources", label: "FERMI-LAT 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named SWIFT-XRT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-XRT 天文サーベイ" },
+      { value: "Tell me about the astronomical survey named NUSTAR with bibliographic reference and max sensitivity to point sources", label: "NuSTAR 天文サーベイ" },
+      { value: "custom", label: "天文サーベイに関する質問をする" }
+    ],
+    Arabic: [
+      { value: "Tell me about the astronomical survey named NVSS as well as a bibliographic refenrece", label: "استطلاع NVSS والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named VLASS as well as a bibliographic refenrece", label: "استطلاع VLASS والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical radio survey named VCSS1 as well as a bibliographic refenrece", label: "استطلاع VCSS1 والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named TGSSADR as well as a bibliographic refenrece", label: "استطلاع TGSSADR والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named EMU as well as a bibliographic refenrece", label: "استطلاع EMU والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named RACS as well as a bibliographic refenrece", label: "استطلاع RACS والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named ALLWISE as well as a bibliographic refenrece", label: "استطلاع ALLWISE والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named unWISE as well as a bibliographic refenrece", label: "استطلاع unWISE والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named 2MASS as well as a bibliographic refenrece", label: "استطلاع 2MASS والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named SPITZER as well as a bibliographic refenrece", label: "استطلاع SPITZER والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named HERSCHEL as well as a bibliographic refenrece", label: "استطلاع HERSCHEL والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named DSS2 as well as a bibliographic refenrece", label: "استطلاع DSS2 والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named DES-DR2 as well as a bibliographic refenrece", label: "استطلاع DES-DR2 والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named PanSTARRS with bibliographic reference and max sensitivity to point sources", label: "بان ستارز" },
+      { value: "Tell me about the astronomical survey named DESI legacy survey with bibliographic reference and max sensitivity to point sources", label: "استطلاع DESI legacy والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named DENIS-I as well as a bibliographic refenrece", label: "استطلاع DENIS-I والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named SKYMAPPER as well as a bibliographic refenrece", label: "استطلاع SKYMAPPER والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named EUCLID-Q1 with bibliographic reference and max sensitivity to point sources", label: "EUCLID-Q1" },
+      { value: "Tell me about the astronomical survey named GALEXGR6 as well as a bibliographic refenrece", label: "استطلاع GALEXGR6 والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named SWIFT UVOT as well as a bibliographic refenrece", label: "استطلاع SWIFT UVOT والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named eRASS1 in hips format as well as a bibliographic refenrece", label: "استطلاع eRASS1 (تنسيق hips) والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named SWIFT-BAT as well as a bibliographic refenrece", label: "استطلاع SWIFT-BAT والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named XMM-NEWTON as well as a bibliographic refenrece", label: "استطلاع XMM-NEWTON والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named CHANDRA as well as a bibliographic refenrece", label: "استطلاع CHANDRA والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named RASS as well as a bibliographic refenrece", label: "استطلاع RASS والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named MAXI as well as a bibliographic refenrece", label: "استطلاع MAXI والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named FERMI-LAT as well as a bibliographic refenrece", label: "استطلاع FERMI-LAT والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named SWIFT-XRT as well as a bibliographic refenrece", label: "استطلاع SWIFT-XRT والمراجع الببليوغرافية" },
+      { value: "Tell me about the astronomical survey named NUSTAR as well as a bibliographic refenrece", label: "استطلاع NuSTAR والمراجع الببليوغرافية" },
+      { value: "custom", label: "اكتب سؤالك الفلكي"}
+    ],
+    French: [
+      { value: "Tell me about the astronomical survey named NVSS with bibliographic reference and max sensitivity to point sources", label: "NVSS" },
+      { value: "Tell me about the astronomical survey named VLASS with bibliographic reference and max sensitivity to point sources", label: "VLASS" },
+      { value: "Tell me about the astronomical radio survey named VCSS1 with bibliographic reference and max sensitivity to point sources", label: "VCSS1" },
+      { value: "Tell me about the astronomical survey named TGSSADR with bibliographic reference and max sensitivity to point sources", label: "TGSSADR" },
+      { value: "Tell me about the astronomical survey named EMU with bibliographic reference and max sensitivity to point sources", label: "EMU" },
+      { value: "Tell me about the astronomical survey named RACS with bibliographic reference and max sensitivity to point sources", label: "RACS" },
+      { value: "Tell me about the astronomical survey named ALLWISE with bibliographic reference and max sensitivity to point sources", label: "ALLWISE" },
+      { value: "Tell me about the astronomical survey named unWISE with bibliographic reference and max sensitivity to point sources", label: "unWISE" },
+      { value: "Tell me about the astronomical survey named 2MASS with bibliographic reference and max sensitivity to point sources", label: "2MASS" },
+      { value: "Tell me about the astronomical survey named SPITZER with bibliographic reference and max sensitivity to point sources", label: "SPITZER" },
+      { value: "Tell me about the astronomical survey named HERSCHEL with bibliographic reference and max sensitivity to point sources", label: "HERSCHEL" },
+      { value: "Tell me about the astronomical survey named DSS2 with bibliographic reference and max sensitivity to point sources", label: "DSS2" },
+      { value: "Tell me about the astronomical survey named DES-DR2 with bibliographic reference and max sensitivity to point sources", label: "DES-DR2" },
+      { value: "Tell me about the astronomical survey named PanSTARRS with bibliographic reference and max sensitivity to point sources", label: "PanSTARRS" },
+      { value: "Tell me about the astronomical survey named DESI legacy survey with bibliographic reference and max sensitivity to point sources", label: "DESI legacy Survey" },
+      { value: "Tell me about the astronomical survey named DENIS-I with bibliographic reference and max sensitivity to point sources", label: "DENIS-I" },
+      { value: "Tell me about the astronomical survey named SKYMAPPER with bibliographic reference and max sensitivity to point sources", label: "SKYMAPPER" },
+      { value: "Tell me about the astronomical survey named EUCLID-Q1 with bibliographic reference and max sensitivity to point sources", label: "EUCLID-Q1" },
+      { value: "Tell me about the astronomical survey named GALEXGR6 with bibliographic reference and max sensitivity to point sources", label: "GALEXGR6" },
+      { value: "Tell me about the astronomical survey named SWIFT UVOT with bibliographic reference and max sensitivity to point sources", label: "SWIFT UVOT" },
+      { value: "Tell me about the astronomical survey named eRASS1 in hips format with bibliographic reference and max sensitivity to point sources", label: "eRASS1" },
+      { value: "Tell me about the astronomical survey named SWIFT-BAT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-BAT" },
+      { value: "Tell me about the astronomical survey named XMM-NEWTON with bibliographic reference and max sensitivity to point sources", label: "XMM-NEWTON" },
+      { value: "Tell me about the astronomical survey named CHANDRA with bibliographic reference and max sensitivity to point sources", label: "CHANDRA" },
+      { value: "Tell me about the astronomical survey named RASS with bibliographic reference and max sensitivity to point sources", label: "RASS" },
+      { value: "Tell me about the astronomical survey named MAXI with bibliographic reference and max sensitivity to point sources", label: "MAXI" },
+      { value: "Tell me about the astronomical survey named FERMI-LAT with bibliographic reference and max sensitivity to point sources", label: "FERMI-LAT" },
+      { value: "Tell me about the astronomical survey named SWIFT-XRT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-XRT" },
+      { value: "Tell me about the astronomical survey named NUSTAR with bibliographic reference and max sensitivity to point sources", label: "NuSTAR" },
+      { value: "custom", label: "Posez votre question" }
+    ],
+    German: [
+      { value: "Tell me about the astronomical survey named NVSS with bibliographic reference and max sensitivity to point sources", label: "NVSS" },
+      { value: "Tell me about the astronomical survey named VLASS with bibliographic reference and max sensitivity to point sources", label: "VLASS" },
+      { value: "Tell me about the astronomical radio survey named VCSS1 with bibliographic reference and max sensitivity to point sources", label: "VCSS1" },
+      { value: "Tell me about the astronomical survey named TGSSADR with bibliographic reference and max sensitivity to point sources", label: "TGSSADR" },
+      { value: "Tell me about the astronomical survey named EMU with bibliographic reference and max sensitivity to point sources", label: "EMU" },
+      { value: "Tell me about the astronomical survey named RACS with bibliographic reference and max sensitivity to point sources", label: "RACS" },
+      { value: "Tell me about the astronomical survey named ALLWISE with bibliographic reference and max sensitivity to point sources", label: "ALLWISE" },
+      { value: "Tell me about the astronomical survey named unWISE with bibliographic reference and max sensitivity to point sources", label: "unWISE" },
+      { value: "Tell me about the astronomical survey named 2MASS with bibliographic reference and max sensitivity to point sources", label: "2MASS" },
+      { value: "Tell me about the astronomical survey named SPITZER with bibliographic reference and max sensitivity to point sources", label: "SPITZER" },
+      { value: "Tell me about the astronomical survey named HERSCHEL with bibliographic reference and max sensitivity to point sources", label: "HERSCHEL" },
+      { value: "Tell me about the astronomical survey named DSS2 with bibliographic reference and max sensitivity to point sources", label: "DSS2" },
+      { value: "Tell me about the astronomical survey named DES-DR2 with bibliographic reference and max sensitivity to point sources", label: "DES-DR2" },
+      { value: "Tell me about the astronomical survey named PanSTARRS with bibliographic reference and max sensitivity to point sources", label: "PanSTARRS" },
+      { value: "Tell me about the astronomical survey named DESI legacy survey with bibliographic reference and max sensitivity to point sources", label: "DESI legacy Survey" },
+      { value: "Tell me about the astronomical survey named DENIS-I with bibliographic reference and max sensitivity to point sources", label: "DENIS-I" },
+      { value: "Tell me about the astronomical survey named SKYMAPPER with bibliographic reference and max sensitivity to point sources", label: "SKYMAPPER" },
+      { value: "Tell me about the astronomical survey named EUCLID-Q1 with bibliographic reference and max sensitivity to point sources", label: "EUCLID-Q1" },
+      { value: "Tell me about the astronomical survey named GALEXGR6 with bibliographic reference and max sensitivity to point sources", label: "GALEXGR6" },
+      { value: "Tell me about the astronomical survey named SWIFT UVOT with bibliographic reference and max sensitivity to point sources", label: "SWIFT UVOT" },
+      { value: "Tell me about the astronomical survey named eRASS1 in hips format with bibliographic reference and max sensitivity to point sources", label: "eRASS1" },
+      { value: "Tell me about the astronomical survey named SWIFT-BAT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-BAT" },
+      { value: "Tell me about the astronomical survey named XMM-NEWTON with bibliographic reference and max sensitivity to point sources", label: "XMM-NEWTON" },
+      { value: "Tell me about the astronomical survey named CHANDRA with bibliographic reference and max sensitivity to point sources", label: "CHANDRA" },
+      { value: "Tell me about the astronomical survey named RASS with bibliographic reference and max sensitivity to point sources", label: "RASS" },
+      { value: "Tell me about the astronomical survey named MAXI with bibliographic reference and max sensitivity to point sources", label: "MAXI" },
+      { value: "Tell me about the astronomical survey named FERMI-LAT with bibliographic reference and max sensitivity to point sources", label: "FERMI-LAT" },
+      { value: "Tell me about the astronomical survey named SWIFT-XRT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-XRT" },
+      { value: "Tell me about the astronomical survey named NUSTAR with bibliographic reference and max sensitivity to point sources", label: "NuSTAR" },
+      { value: "custom", label: "Stelle deine eigene Frage" }
+    ],
+    Portuguese: [
+      { value: "Tell me about the astronomical survey named NVSS with bibliographic reference and max sensitivity to point sources", label: "NVSS" },
+      { value: "Tell me about the astronomical survey named VLASS with bibliographic reference and max sensitivity to point sources", label: "VLASS" },
+      { value: "Tell me about the astronomical radio survey named VCSS1 with bibliographic reference and max sensitivity to point sources", label: "VCSS1" },
+      { value: "Tell me about the astronomical survey named TGSSADR with bibliographic reference and max sensitivity to point sources", label: "TGSSADR" },
+      { value: "Tell me about the astronomical survey named EMU with bibliographic reference and max sensitivity to point sources", label: "EMU" },
+      { value: "Tell me about the astronomical survey named RACS with bibliographic reference and max sensitivity to point sources", label: "RACS" },
+      { value: "Tell me about the astronomical survey named ALLWISE with bibliographic reference and max sensitivity to point sources", label: "ALLWISE" },
+      { value: "Tell me about the astronomical survey named unWISE with bibliographic reference and max sensitivity to point sources", label: "unWISE" },
+      { value: "Tell me about the astronomical survey named 2MASS with bibliographic reference and max sensitivity to point sources", label: "2MASS" },
+      { value: "Tell me about the astronomical survey named SPITZER with bibliographic reference and max sensitivity to point sources", label: "SPITZER" },
+      { value: "Tell me about the astronomical survey named HERSCHEL with bibliographic reference and max sensitivity to point sources", label: "HERSCHEL" },
+      { value: "Tell me about the astronomical survey named DSS2 with bibliographic reference and max sensitivity to point sources", label: "DSS2" },
+      { value: "Tell me about the astronomical survey named DES-DR2 with bibliographic reference and max sensitivity to point sources", label: "DES-DR2" },
+      { value: "Tell me about the astronomical survey named PanSTARRS with bibliographic reference and max sensitivity to point sources", label: "PanSTARRS" },
+      { value: "Tell me about the astronomical survey named DESI legacy survey with bibliographic reference and max sensitivity to point sources", label: "DESI legacy Survey" },
+      { value: "Tell me about the astronomical survey named DENIS-I with bibliographic reference and max sensitivity to point sources", label: "DENIS-I" },
+      { value: "Tell me about the astronomical survey named SKYMAPPER with bibliographic reference and max sensitivity to point sources", label: "SKYMAPPER" },
+      { value: "Tell me about the astronomical survey named EUCLID-Q1 with bibliographic reference and max sensitivity to point sources", label: "EUCLID-Q1" },
+      { value: "Tell me about the astronomical survey named GALEXGR6 with bibliographic reference and max sensitivity to point sources", label: "GALEXGR6" },
+      { value: "Tell me about the astronomical survey named SWIFT UVOT with bibliographic reference and max sensitivity to point sources", label: "SWIFT UVOT" },
+      { value: "Tell me about the astronomical survey named eRASS1 in hips format with bibliographic reference and max sensitivity to point sources", label: "eRASS1" },
+      { value: "Tell me about the astronomical survey named SWIFT-BAT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-BAT" },
+      { value: "Tell me about the astronomical survey named XMM-NEWTON with bibliographic reference and max sensitivity to point sources", label: "XMM-NEWTON" },
+      { value: "Tell me about the astronomical survey named CHANDRA with bibliographic reference and max sensitivity to point sources", label: "CHANDRA" },
+      { value: "Tell me about the astronomical survey named RASS with bibliographic reference and max sensitivity to point sources", label: "RASS" },
+      { value: "Tell me about the astronomical survey named MAXI with bibliographic reference and max sensitivity to point sources", label: "MAXI" },
+      { value: "Tell me about the astronomical survey named FERMI-LAT with bibliographic reference and max sensitivity to point sources", label: "FERMI-LAT" },
+      { value: "Tell me about the astronomical survey named SWIFT-XRT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-XRT" },
+      { value: "Tell me about the astronomical survey named NUSTAR with bibliographic reference and max sensitivity to point sources", label: "NuSTAR" },
+      { value: "custom", label: "Faça sua pergunta" }
+    ],
+    Spanish: [
+      { value: "Tell me about the astronomical survey named NVSS with bibliographic reference and max sensitivity to point sources", label: "NVSS" },
+      { value: "Tell me about the astronomical survey named VLASS with bibliographic reference and max sensitivity to point sources", label: "VLASS" },
+      { value: "Tell me about the astronomical radio survey named VCSS1 with bibliographic reference and max sensitivity to point sources", label: "VCSS1" },
+      { value: "Tell me about the astronomical survey named TGSSADR with bibliographic reference and max sensitivity to point sources", label: "TGSSADR" },
+      { value: "Tell me about the astronomical survey named EMU with bibliographic reference and max sensitivity to point sources", label: "EMU" },
+      { value: "Tell me about the astronomical survey named RACS with bibliographic reference and max sensitivity to point sources", label: "RACS" },
+      { value: "Tell me about the astronomical survey named ALLWISE with bibliographic reference and max sensitivity to point sources", label: "ALLWISE" },
+      { value: "Tell me about the astronomical survey named unWISE with bibliographic reference and max sensitivity to point sources", label: "unWISE" },
+      { value: "Tell me about the astronomical survey named 2MASS with bibliographic reference and max sensitivity to point sources", label: "2MASS" },
+      { value: "Tell me about the astronomical survey named SPITZER with bibliographic reference and max sensitivity to point sources", label: "SPITZER" },
+      { value: "Tell me about the astronomical survey named HERSCHEL with bibliographic reference and max sensitivity to point sources", label: "HERSCHEL" },
+      { value: "Tell me about the astronomical survey named DSS2 with bibliographic reference and max sensitivity to point sources", label: "DSS2" },
+      { value: "Tell me about the astronomical survey named DES-DR2 with bibliographic reference and max sensitivity to point sources", label: "DES-DR2" },
+      { value: "Tell me about the astronomical survey named PanSTARRS with bibliographic reference and max sensitivity to point sources", label: "PanSTARRS" },
+      { value: "Tell me about the astronomical survey named DESI legacy survey with bibliographic reference and max sensitivity to point sources", label: "DESI legacy Survey" },
+      { value: "Tell me about the astronomical survey named DENIS-I with bibliographic reference and max sensitivity to point sources", label: "DENIS-I" },
+      { value: "Tell me about the astronomical survey named SKYMAPPER with bibliographic reference and max sensitivity to point sources", label: "SKYMAPPER" },
+      { value: "Tell me about the astronomical survey named EUCLID-Q1 with bibliographic reference and max sensitivity to point sources", label: "EUCLID-Q1" },
+      { value: "Tell me about the astronomical survey named GALEXGR6 with bibliographic reference and max sensitivity to point sources", label: "GALEXGR6" },
+      { value: "Tell me about the astronomical survey named SWIFT UVOT with bibliographic reference and max sensitivity to point sources", label: "SWIFT UVOT" },
+      { value: "Tell me about the astronomical survey named eRASS1 in hips format with bibliographic reference and max sensitivity to point sources", label: "eRASS1" },
+      { value: "Tell me about the astronomical survey named SWIFT-BAT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-BAT" },
+      { value: "Tell me about the astronomical survey named XMM-NEWTON with bibliographic reference and max sensitivity to point sources", label: "XMM-NEWTON" },
+      { value: "Tell me about the astronomical survey named CHANDRA with bibliographic reference and max sensitivity to point sources", label: "CHANDRA" },
+      { value: "Tell me about the astronomical survey named RASS with bibliographic reference and max sensitivity to point sources", label: "RASS" },
+      { value: "Tell me about the astronomical survey named MAXI with bibliographic reference and max sensitivity to point sources", label: "MAXI" },
+      { value: "Tell me about the astronomical survey named FERMI-LAT with bibliographic reference and max sensitivity to point sources", label: "FERMI-LAT" },
+      { value: "Tell me about the astronomical survey named SWIFT-XRT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-XRT" },
+      { value: "Tell me about the astronomical survey named NUSTAR with bibliographic reference and max sensitivity to point sources", label: "NuSTAR" },
+      { value: "custom", label: "Haz tu propia pregunta" }
+    ],
+    Russian: [
+      { value: "Tell me about the astronomical survey named NVSS with bibliographic reference and max sensitivity to point sources", label: "NVSS" },
+      { value: "Tell me about the astronomical survey named VLASS with bibliographic reference and max sensitivity to point sources", label: "VLASS" },
+      { value: "Tell me about the astronomical radio survey named VCSS1 with bibliographic reference and max sensitivity to point sources", label: "VCSS1" },
+      { value: "Tell me about the astronomical survey named TGSSADR with bibliographic reference and max sensitivity to point sources", label: "TGSSADR" },
+      { value: "Tell me about the astronomical survey named EMU with bibliographic reference and max sensitivity to point sources", label: "EMU" },
+      { value: "Tell me about the astronomical survey named RACS with bibliographic reference and max sensitivity to point sources", label: "RACS" },
+      { value: "Tell me about the astronomical survey named ALLWISE with bibliographic reference and max sensitivity to point sources", label: "ALLWISE" },
+      { value: "Tell me about the astronomical survey named unWISE with bibliographic reference and max sensitivity to point sources", label: "unWISE" },
+      { value: "Tell me about the astronomical survey named 2MASS with bibliographic reference and max sensitivity to point sources", label: "2MASS" },
+      { value: "Tell me about the astronomical survey named SPITZER with bibliographic reference and max sensitivity to point sources", label: "SPITZER" },
+      { value: "Tell me about the astronomical survey named HERSCHEL with bibliographic reference and max sensitivity to point sources", label: "HERSCHEL" },
+      { value: "Tell me about the astronomical survey named DSS2 with bibliographic reference and max sensitivity to point sources", label: "DSS2" },
+      { value: "Tell me about the astronomical survey named DES-DR2 with bibliographic reference and max sensitivity to point sources", label: "DES-DR2" },
+      { value: "Tell me about the astronomical survey named DESI legacy survey with bibliographic reference and max sensitivity to point sources", label: "DESI Legacy Survey" },
+      { value: "Tell me about the astronomical survey named DENIS-I with bibliographic reference and max sensitivity to point sources", label: "DENIS-I" },
+      { value: "Tell me about the astronomical survey named SKYMAPPER with bibliographic reference and max sensitivity to point sources", label: "SKYMAPPER" },
+      { value: "Tell me about the astronomical survey named EUCLID-Q1 with bibliographic reference and max sensitivity to point sources", label: "EUCLID-Q1" },
+      { value: "Tell me about the astronomical survey named GALEXGR6 with bibliographic reference and max sensitivity to point sources", label: "GALEXGR6" },
+      { value: "Tell me about the astronomical survey named SWIFT UVOT with bibliographic reference and max sensitivity to point sources", label: "SWIFT UVOT" },
+      { value: "Tell me about the astronomical survey named eRASS1 in hips format with bibliographic reference and max sensitivity to point sources", label: "eRASS1" },
+      { value: "Tell me about the astronomical survey named SWIFT-BAT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-BAT" },
+      { value: "Tell me about the astronomical survey named XMM-NEWTON with bibliographic reference and max sensitivity to point sources", label: "XMM-NEWTON" },
+      { value: "Tell me about the astronomical survey named CHANDRA with bibliographic reference and max sensitivity to point sources", label: "CHANDRA" },
+      { value: "Tell me about the astronomical survey named RASS with bibliographic reference and max sensitivity to point sources", label: "RASS" },
+      { value: "Tell me about the astronomical survey named MAXI with bibliographic reference and max sensitivity to point sources", label: "MAXI" },
+      { value: "Tell me about the astronomical survey named FERMI-LAT with bibliographic reference and max sensitivity to point sources", label: "FERMI-LAT" },
+      { value: "Tell me about the astronomical survey named SWIFT-XRT with bibliographic reference and max sensitivity to point sources", label: "SWIFT-XRT" },
+      { value: "Tell me about the astronomical survey named NUSTAR with bibliographic reference and max sensitivity to point sources", label: "NuSTAR" },
+      { value: "custom", label: "Задайте свой вопрос" }
+    ]
+    };
+    function updateTopicOptions() {
+    const language = document.getElementById("param2").value;
+    const dropdown = document.getElementById("param1Dropdown");
+
+    // Clear current options
+    dropdown.innerHTML = "";
+
+    // Populate with new options based on language
+    topics[language].forEach(topic => {
+      const option = document.createElement("option");
+      option.value = topic.value;
+      option.textContent = topic.label;
+      dropdown.appendChild(option);
+    });
+  }
+
+  // Initial load with English as default
+    updateTopicOptions();
+  </script>
+
+<script>
+    function toggleCustomInput() {
+      const dropdown = document.getElementById('param1Dropdown');
+      const customInput = document.getElementById('param1Custom');
+
+      if (dropdown.value === 'custom') {
+        customInput.style.display = 'inline';
+      } else {
+        customInput.style.display = 'none';
+      }
+    }
+    function runRemoteScript() {
+      const dropdown = document.getElementById('param1Dropdown');
+      const customInput = document.getElementById('param1Custom');
+      const param2 = document.getElementById('param2').value;
+
+      // Use custom question if 'Other...' is selected
+      const param1 = (dropdown.value === 'custom') ? customInput.value : dropdown.value;
+      // Clear the output div content before fetching new data
+      const outputDiv = document.getElementById('resultOutput');
+      const spinner = document.getElementById('spinner');
+      // Show the spinner
+      spinner.style.display = "block";
+
+      outputDiv.innerHTML = "";  // Clears the content of the div
+
+      const url = `http://localhost:5000/run-script?param1=${encodeURIComponent(param1)}&param2=${encodeURIComponent(param2)}`;
+      fetch(url)
+        .then(response => response.text())
+        .then(result => {
+          // Hide the spinner
+          spinner.style.display = "none";
+         // Show the result
+         outputDiv.textContent = result;
+          // Write the result to the resultOutput div
+          //const resultDiv = document.getElementById('resultOutput');
+          //resultDiv.textContent =  result;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          spinner.style.display = "none";
+          outputDiv.innerHTML = "Failed to load content.";
+        });
+/*      fetch(url)
+        .then(response => response.text())
+        .then(result => {
+          // Write the result to the resultOutput div
+          const resultDiv = document.getElementById('resultOutput');
+          resultDiv.textContent =  result;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });*/
+    }
+</script>
+</body>
+</html>

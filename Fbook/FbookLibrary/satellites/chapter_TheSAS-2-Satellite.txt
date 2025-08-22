@@ -1,0 +1,11 @@
+Language: English  
+What is the primary mission of the SAS2 satellite?, Mission Purpose  
+When was the SAS2 satellite launched?, Launch Date  
+What type of data does SAS2 primarily collect?, Data Type  
+Who was responsible for the development of SAS2?, Developer Organization  
+What is the significance of the SAS2 satellite in space science?, Scientific Importance  
+How does SAS2 contribute to our understanding of cosmic rays?, Cosmic Rays Contribution  
+In which year did SAS2 start its mission?, Mission Start Year  
+What orbit does the SAS2 satellite operate in?, Operational Orbit  
+How long was the planned mission duration for SAS2?, Mission Duration  
+What technologies were used in the design of SAS2?, Design Technologies

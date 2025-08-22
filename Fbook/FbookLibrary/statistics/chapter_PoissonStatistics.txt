@@ -1,0 +1,11 @@
+Language: English  
+What is Poisson Statistics used for in astronomy, definition and applications to astronomy  
+How do you calculate the Poisson probability, formula  
+What are the key characteristics of a Poisson distribution, characteristics  
+What does the parameter lambda represent in Poisson statistics, parameter explanation  
+Can you give an example of a real-world scenario for Poisson distribution, example  
+How is Poisson distribution related to binomial distribution, relationship  
+What is the mean and variance of a Poisson distribution, mean and variance  
+In which types of situations would you use Poisson statistics, applications  
+What are common misconceptions about Poisson distribution, misconceptions  
+How do you determine if data fits a Poisson distribution, fit assessment

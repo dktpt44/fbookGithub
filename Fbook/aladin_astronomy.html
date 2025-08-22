@@ -1,0 +1,530 @@
+<HTML style="background-color:#ffffff">
+<style>
+sm {
+  font-size: 10px;
+ }
+.title {
+  font-size: 13px;
+ }
+body {
+ font-family: Tahoma, sans-serif;
+ margin:0;
+ padding:0;
+}
+#custom-logo {
+   position: relative;
+   top: 162px;
+   left: 2px;
+   width: 36px;
+   height: auto;
+   z-index: 1000;
+}
+#custom-logo2 {
+   position: fixed;
+   top: 15px;
+   left: 92%;
+   width: 50px;
+   height: auto;
+   z-index: 1000;
+}
+#custom-logo3 {
+   position: fixed;
+   top: 200px;
+   left: 2px;
+   width: 43px;
+   height: auto;
+   z-index: 1000;
+}
+/* Modal Styling */
+.info_modal {
+   display: none;
+   position: fixed;
+   bottom: 110px;
+   left: 10px;
+   width: 30%;
+   height: 55%;
+   background: rgba(0, 0, 0, 0.0);
+   justify-content: center;
+   align-items: center;
+   z-index: 1000;
+   }
+.info_modal-content {
+   background-color: rgba(255, 255, 255, 0.); /* translucent white */
+      padding: 0;
+      border-radius: 0px;
+      width: 100%;
+      height: 100%;
+      max-width: 900px;
+      max-height: 600px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.0);
+      display: flex;
+      flex-direction: column;
+      color: #ffffff;
+}
+.source_modal {
+   display: none;
+   position: fixed;
+   bottom: 120px;
+   left: 190px;
+   width: 90%;
+   height: 3%;
+   background: rgba(0, 0, 0, 0.0);
+   justify-content: center;
+   align-items: center;
+   z-index: 1000;
+   }
+.source_modal-content {
+   background-color: rgba(255, 255, 255, 0.); /* translucent white */
+      border: 0px dotted white;
+      padding: 0;
+      border-radius: 0px;
+      width: 100%;
+      height: 100%;
+      max-width: 1000px;
+      max-height: 50px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.0);
+      display: flex;
+      flex-direction: column;
+      color: #ffffff;
+}
+.modal2 {
+   display: none;
+   position: fixed;
+   bottom: 150px;
+   left: 180px;
+   width: 55%;
+   height: 65%;
+   background: rgba(0, 0, 0, 0.6);
+   justify-content: center;
+   align-items: center;
+   z-index: 1000;
+   }
+.modal2-content {
+   background-color: rgba(255, 255, 255, 0.8);
+      padding: 0;
+      border-radius: 0px;
+      width: 100%;
+      height: 100%;
+      max-width: 900px;
+      max-height: 600px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.0);
+      display: flex;
+      flex-direction: column;
+      color: #333;
+}
+.close-btn {
+      align-self: flex-end;
+      cursor: pointer;
+      font-size: 24px;
+      margin: 10px;
+}
+.close-btn3 {
+     align-self: flex-end;
+     cursor: pointer;
+     font-size: 24px;
+     margin: 10px;
+}
+iframe {
+      flex: 1;
+      border: none;
+      border-radius: 0 0 8px 8px;
+}
+    body {
+      font-family: 'Helvetica', sans-serif;
+    }
+</style>
+<HEAD>
+   <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js" charset="utf-8"></script>
+   <script type="text/javascript">var jqMenu = jQuery.noConflict();</script>
+   <script type="text/javascript">
+   var hipsDir=null;</script>
+</HEAD>
+<script>
+const ROOT_URL = window.location.hostname.includes("localhost")
+   ? "http://localhost:5000"
+   : "https://firmamento.nyuad.nyu.edu/Fbook";
+let requestedSurvey = null;
+let ra = null;
+let dec = null;
+let fovValue = null;
+let currentSource = null;
+let currentSurvey = null;
+let currentHtml = null;
+let item = null;
+let language = "English";
+window.onload = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  requestedSurvey = urlParams.get('survey') || 'DSS2';  
+  ra = urlParams.get('ra') || '0.0';  
+  dec = urlParams.get('dec') || '0.0';  
+  fovValue = urlParams.get('fov') || '1.0';  
+  currentHtml = urlParams.get('html') || 'details.html';  
+  currentSource = urlParams.get('source') || '?';  
+  language = urlParams.get('lang') || '?';
+  item = urlParams.get('item') || '?';
+  if (requestedSurvey == "DSS2") {
+    document.getElementById("DSS2").checked = true;
+    currentSurvey = "P/DSS2/color";
+  } else if (requestedSurvey == "unWISE") {
+    document.getElementById("unWISE").checked = true;
+    currentSurvey = "unWISE";
+  } else if (requestedSurvey == "JWST/F200W") {
+    document.getElementById("JWST/F200W").checked = true;
+    currentSurvey = "P/JWST/F200W";
+  } else if (requestedSurvey == "allWISE") {
+    document.getElementById("allwise").checked = true;
+    currentSurvey = "P/allWISE/color";
+  } else if (requestedSurvey == "PanSTARRS") {
+    document.getElementById("PANSTARRS").checked = true;
+    currentSurvey = "P/PanSTARRS/DR1/color-z-zg-g";
+  } else if (requestedSurvey == "RASS") {
+    document.getElementById("RASS").checked = true;
+    currentSurvey = "P/RASS";
+  } else if (requestedSurvey == "XMM-EPIC") {
+    document.getElementById("XMM-EPIC").checked = true;
+    currentSurvey = "XMM/EPIC-RGB";
+  } else if (requestedSurvey == "GALEXGR6_7") {
+    document.getElementById("GALEXGR6_7").checked = true;
+    currentSurvey = "GALEXGR6_7";
+  } else if (requestedSurvey == "DESI") {
+    document.getElementById("DESI").checked = true;
+    currentSurvey = "P/DESI-Legacy-Surveys/DR10/i";
+  } else if (requestedSurvey == "SDSS9") {
+    document.getElementById("SDSS9").checked = true;
+    currentSurvey = "P/SDSS9/color";
+  } else if (requestedSurvey == "Chandra") {
+    document.getElementById("Chandra").checked = true;
+    currentSurvey = "Chandra color";
+  } else if (requestedSurvey == "ZTF") {
+    document.getElementById("ZTF").checked = true;
+    currentSurvey = "ZTF/DR7/color";
+  } else if (requestedSurvey == "2MASS") {
+    document.getElementById("2MASS").checked = true;
+    currentSurvey = "P/2MASS/color";
+  } else if (requestedSurvey == "Fermi-LAT") {
+    document.getElementById("Fermi-LAT").checked = true;
+    currentSurvey = "P/Fermi/color";
+  } else if (requestedSurvey == "constellations") {
+    document.getElementById("CONSTELLATIONS3").checked = true;
+    currentSurvey = "CONSTELLATIONS3";
+  } else if (requestedSurvey == "NVSS") {
+    document.getElementById("NVSS").checked = true;
+    currentSurvey = "NVSS";
+  } else {
+//    alert("Data for Survey " + requestedSurvey + " not available");
+    document.getElementById("DSS2").checked = true;
+    currentSurvey = "P/DSS2/color";
+  }
+//  alert("currentSurvey " + currentSurvey + " ra " + ra + " dec " + dec); 
+};
+</script>
+<script type="text/javascript" src="https://aladin.u-strasbg.fr/AladinLite/api/v2/latest/aladin.min.js" charset="utf-8"></script>
+<table><tr valign="top"><td>
+<div id="aladin-lite-div" style="width:80vw; height:95vh;">
+  <div id="al"></div>
+  <a href="https://firmamento.nyuad.nyu.edu" target="_blank" rel="noopener noreferrer">
+  <img
+    src="https://firmamento.nyuad.nyu.edu/static/media/firmamento_logo_orange.png"
+    id="custom-logo"
+    alt="Firmamento logo"
+    title="Firmamento logo">
+   </a>
+  </div>
+</td><td style="background-color: #ebfafaff"><sm> <div style="width:18vw;">
+<b><center>Radio surveys</center></b>
+<input id="NVSS" type="radio"   name="survey" value="NVSS"><label for="NVSS">NVSS (1.4 GHz)</label><br>
+--&nbsp;&nbsp;&nbsp;<b>VLASS</b> (3GHz)&nbsp;&nbsp;&nbsp;--<br>
+<input id="VLASS_Epoch1" type="radio"   name="survey" value="VLASS_Epoch1"><label for="VLASS_Epoch1">Epoch 1</label>
+<input id="VLASS2.2" type="radio"   name="survey" value="VLASS2.2"><label for="VLASS2.2">2.2</label>
+<input id="VLASS3.1" type="radio"   name="survey" value="VLASS3.1"><label for="VLASS3.1">3.1</label><br>
+<input id="VCSS1" type="radio"   name="survey" value="VCSS1"><label for="VCSS1">VCSS1 (340 MHz)</label><br>
+<input id="TGSSADR" type="radio"   name="survey" value="TGSSADR"><label for="TGSSADR">TGSSADR (150 MHz)</label><br>
+--&nbsp;&nbsp;&nbsp;<b>RACS</b>&nbsp;&nbsp;&nbsp;--<br>
+<input id="RACS-low" type="radio"   name="survey" value="RACS-low"><label for="RACS-low">Low-887 MHz</label>
+<input id="RACS-mid" type="radio"   name="survey" value="RACS-mid"><label for="RACS-mid">Mid-1367 MHz</label><br>
+<input id="RACS-high" type="radio"   name="survey" value="RACS-high"><label for="RACS-high">High-1655 MHz</label><br>
+<b><center>IR surveys</center></b>
+<input id="allwise" type="radio"   name="survey" value="P/allWISE/color"><label for="allwise">AllWISE</label><br>
+<input id="unWISE"  type="radio"   name="survey" value="unWISE"><label for="unWISE">unWISE color</label><br>
+<input id="2MASS" type="radio"   name="survey" value="P/2MASS/color"><label for="2MASS">2MASS</label><br>
+<input id="Spitzer/IRAC134" type="radio"   name="survey" value="Spitzer/IRAC134"><label for="Spitzer/IRAC134">Spitzer/IRAC134</label><br>
+<input id="Herschel/color" type="radio" name="survey" value="Herschel/color"><label for="Herschel/color">Herschel/color</label><br>
+<input id="JWST/OPEN" type="radio" name="survey" value="P/JWST/OPEN"><label for="JWST/OPEN">JWST/OPEN</label>
+<input id="JWST/F200W" type="radio" name="survey" value="P/JWST/F200W"><label for="JWST/F200W">JWST/F200W</label><br>
+<b><center>OpticalUV surveys</center></b>
+<input id="DSS2" type="radio"   name="survey" value="P/DSS2/color"><label for="DSS2">DSS2</label><br>
+<input id="PANSTARRS" type="radio"   name="survey" value="P/PanSTARRS/DR1/color-z-zg-g"  checked="checked"><label for="P/PanSTARRS/DR1/color">PanSTARRS-DR1</label><br>
+<input id="DESI" type="radio"   name="survey" value="P/DESI-Legacy-Surveys/DR10/i"><label for="DESI">DESI Legacy Surveys</label>
+<input id="SDSS9" type="radio"   name="survey" value="P/SDSS9/color"><label for="SDSS9">SDSS9</label><br>
+<input id="ZTF"   type="radio" name="survey" value="ZTF/DR7/color"><label for="ZTF/DR7/color">ZTF-DR7</label><br>
+<input id="EUCLIDQ1" type="radio"   name="survey" value="P/Euclid/Q1/color"><label for="EUCLIDQ1">EUCLID-Q1</label><br>
+<input id="GALEXGR6_7" type="radio"  name="survey" value="GALEXGR6_7"><label for="GALEXGR6_7">GALEXGR6_7</label><br>
+--&nbsp;&nbsp;&nbsp;<b>Swift-UVOT</b>&nbsp;&nbsp;&nbsp;--<br>
+<input id="Swift-UVOT-M2" type="radio"  name="survey" value="Swift-UVOT-M2"><label for="Swift-UVOT-M2">M2</label>
+<input id="Swift-UVOT-W1" type="radio"  name="survey" value="Swift-UVOT-W1"><label for="Swift-UVOT-W1">W1</label>
+<input id="Swift-UVOT-W2" type="radio"  name="survey" value="Swift-UVOT-W2"><label for="Swift-UVOT-W2">W2</label><br>
+<b><center>X-ray/&gamma;-ray surveys</center></b>
+ --&nbsp;&nbsp;&nbsp;<b>eRASS1</b>&nbsp;&nbsp;&nbsp;--<br>
+<input id="eRosita" type="radio"  name="survey" value="eRASS1_RGB_Rate_c010"><label for="eROSITA-RGB">Color</label>
+<input id="eRosita" type="radio"  name="survey" value="eRASS1_024_Rate_c010"><label for="eROSITA-024">0.2-2.3 keV</label>
+<input id="eRosita" type="radio"  name="survey" value="eRASS1_023_Rate_c010"><label for="eROSITA-023">2.3-5 keV</label><br>
+<input id="Swift-BAT" type="radio"  name="survey" value="Swift-BAT"><label for="Swift-BAT">Swift-BAT(14-20keV)</label><br>
+<input id="XMM-PN" type="radio"  name="survey" value="XMM/PN/color"><label for="XMM/PN/color">XMM-PN</label>
+<input id="XMM-EPIC" type="radio"  name="survey" value="XMM/EPIC-RGB"><label for="XMM/EPIC-RGB">XMM-EPIC</label><br>
+<input id="Chandra" type="radio"  name="survey" value="Chandra color"><label for="Chandra color">Chandra</label><br>
+<input id="RASS" type="radio"  name="survey" value="P/RASS"><label for="P/RASS">RASS</label><br>
+<input id="MAXI-GSC" type="radio"  name="survey" value="MAXI-GSC"><label for="MAXI-GSC">MAXI-GSC</label><br>
+<input id="Fermi-LAT" type="radio"  name="survey" value="P/Fermi/color"><label for="P/Fermi/color">Fermi-LAT</label><br>
+<input id="TestSwift" type="radio"  name="survey" value="OU/P/SwiftXRT"><label for="TestSwift"><font color=red>Swift-XRT</font></label>
+<input id="Swift-Col" type="radio"  name="survey" value="OU/P/SwiftXRT-color"><label for="Swift-Col"><font color=red>Swift-XRT color</font></label><br>
+<input id="TestNuSTAR" type="radio"  name="survey" value="FIRMAMENTO/P/NuSTAR"><label for="TestNuSTAR"><font color=red>NuSTAR</font></label>
+<!-- Image acting as a button -->
+<img
+  src="http://localhost:5000/Fbook/logo/firmamento_logo_help.png"
+  id="custom-logo2"
+  alt="Show surveys description page"
+  title="Surveys description page"
+  style="cursor: pointer;"
+/>
+<!-- Modal -->
+<div id="myModal" class="modal2">
+  <div class="modal2-content">
+    <span class="close-btn">&times;</span>
+    <iframe id="surveyFrame" src=""></iframe>
+  </div>
+</div> 
+<img
+  src="http://localhost:5000/Fbook/logo/F-logo-info.png"
+  id="custom-logo3"
+  alt="Source information button"
+  title="Source information button"
+  style="cursor: pointer;"
+/> 
+<div id="myModal3" class="info_modal">
+  <div class="info_modal-content">
+    <span class="close-btn3">&times;</span>
+ <iframe id="questionsFrame" src=""></iframe>
+  </div>
+</div>
+<div id="myModalS" class="source_modal">
+  <div class="source_modal-content">
+    <span class="close-btn3">&times;</span>
+ <iframe id="sourceFrame" src=""></iframe>
+  </div>
+</div>
+</div></sm></td></tr><tr><td> <center> 
+<input id="CONSTELLATIONS3" type="radio"  name="survey" value="CONSTELLATIONS3"><label for="Constellations">Constellations</label>
+</center></td> </tr>
+</table>
+<script type="text/javascript" src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js" charset="utf-8"></script>
+<script type="text/javascript">
+let aladin;
+A.init.then(() => {
+   aladin = A.aladin("#aladin-lite-div", {survey: 'P/DSS2/color',showSimbadPointerControl: 'True', fov:0.2, target:'20.0000 10.0000'});
+
+   aladin.gotoRaDec(ra,dec);
+   aladin.setFov(fovValue);
+   hipsDir = "https://erosita.mpe.mpg.de/dr1/erodat/static/hips/eRASS1_RGB_Rate_c010/";
+   aladin.setImageSurvey(aladin.createImageSurvey('eRASS1_RGB_Rate_c010','eRASS1_RGB_Rate_c010',hipsDir,'equatorial',6,{imgFormat:'png'}));
+
+   hipsDir = "https://erosita.mpe.mpg.de/dr1/erodat/static/hips/eRASS1_024_Rate_c010/";
+   aladin.setImageSurvey(aladin.createImageSurvey('eRASS1_024_Rate_c010','eRASS1_024_Rate_c010',hipsDir,'equatorial',6,{imgFormat:'png'}));
+
+   hipsDir = "https://erosita.mpe.mpg.de/dr1/erodat/static/hips/eRASS1_023_Rate_c010/";
+   aladin.setImageSurvey(aladin.createImageSurvey('eRASS1_023_Rate_c010','eRASS1_023_Rate_c010',hipsDir,'equatorial',6,{imgFormat:'png'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/NVSS/intensity/";
+   aladin.setImageSurvey(aladin.createImageSurvey('NVSS','NVSS',hipsDir,'equatorial',5,{imgFormat:'jpg'}));
+
+   hipsDir = "http://localhost:5000/SwiftXRTColor/";
+   //hipsDir = "https://firmamento.nyuad.nyu.edu/PilotHiPS-color/";
+   aladin.setImageSurvey(aladin.createImageSurvey("OU/P/SwiftXRT-color","Swift-col",hipsDir,"equatorial",8,{imgFormat:"png"}));
+   hipsDir = "http://localhost:5000/SwiftHiPS//";
+   //hipsDir = "https://firmamento.nyuad.nyu.edu/PilotHiPS/";
+   aladin.setImageSurvey(aladin.createImageSurvey("OU/P/SwiftXRT","TestSwift",hipsDir,"equatorial",8,{imgFormat:"png"}));
+   //hipsDir = "http://localhost:5000/PilotHiPS-NuSTAR/";
+   hipsDir = "http://localhost:5000/PilotHiPS-NuSTAR/";
+   aladin.setImageSurvey(aladin.createImageSurvey("FIRMAMENTO/P/NuSTAR","TestNuSTAR",hipsDir,"equatorial",8,{imgFormat:"png"}));
+   hipsDir = "https://www.aoc.nrao.edu/~jmarvil/emuHiPS/";
+   aladin.setImageSurvey(aladin.createImageSurvey('EMU','EMU',hipsDir,'equatorial',7,{imgFormat:'png'}));
+
+   hipsDir = "https://archive-new.nrao.edu/vlass/HiPS/VLASS2.2/Quicklook/";
+   aladin.setImageSurvey(aladin.createImageSurvey('VLASS2.2','VLASS2.2',hipsDir,'equatorial',9,{imgFormat:'png'}));
+
+   hipsDir = "https://archive-new.nrao.edu/vlass/HiPS/VLASS3.1/Quicklook/";
+   aladin.setImageSurvey(aladin.createImageSurvey('VLASS3.1','VLASS3.1',hipsDir,'equatorial',9,{imgFormat:'png'}));
+
+   hipsDir = "https://archive-new.nrao.edu/vlass/HiPS/VLASS_Epoch1/Quicklook/";
+   aladin.setImageSurvey(aladin.createImageSurvey('VLASS_Epoch1','VLASS_Epoch1',hipsDir,'equatorial',9,{imgFormat:'png'}));
+
+   hipsDir = "https://archive-new.nrao.edu/vlass/HiPS/VCSS1/Images_vcss1_HiPS/";
+   aladin.setImageSurvey(aladin.createImageSurvey('VCSS1','VCSS1',hipsDir,'equatorial',8,{imgFormat:'png'}));
+
+   hipsDir = "https://casda.csiro.au/hips/RACS/low/I/";
+   aladin.setImageSurvey(aladin.createImageSurvey('RACS-low','RACS-low',hipsDir,'equatorial',8,{imgFormat:'png'}));
+
+   hipsDir = "https://casda.csiro.au/hips/RACS/mid/I/";
+   aladin.setImageSurvey(aladin.createImageSurvey('RACS-mid','RACS-mid',hipsDir,'equatorial',8,{imgFormat:'png'}));
+
+   hipsDir = "https://www.atnf.csiro.au/research/RACS/RACShigh1_I1/";
+   aladin.setImageSurvey(aladin.createImageSurvey('RACS-high','RACS-high',hipsDir,'equatorial',9,{imgFormat:'png'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/DECaLS/DR5/color/";
+   aladin.setImageSurvey(aladin.createImageSurvey('DECaLS/DR5/color','DECaLS/DR5/color',hipsDir,'equatorial',11,{imgFormat:'jpg'}));
+
+   hipsDir = "https://alasky.cds.unistra.fr/DENIS/CDS_P_DENIS_I/";
+   aladin.setImageSurvey(aladin.createImageSurvey('P/DENIS/I','DENIS-I',hipsDir,'equatorial',9,{imgFormat:'png'}));
+
+   hipsDir = "https://alasky.cds.unistra.fr/DESI-legacy-surveys/DR10/CDS_P_DESI-Legacy-Surveys_DR10_i/";
+   aladin.setImageSurvey(aladin.createImageSurvey('P/DESI-Legacy-Surveys/DR10/i','DESI',hipsDir,'equatorial',11,{imgFormat:'png'}));
+
+   hipsDir = "https://alasky.cds.unistra.fr/JWST/CDS_P_JWST_OPEN/";
+   aladin.setImageSurvey(aladin.createImageSurvey('P/JWST/OPEN','JWST/OPEN',hipsDir,'equatorial',14,{imgFormat:'png'}));
+
+   hipsDir = "https://alasky.cds.unistra.fr/JWST/CDS_P_JWST_F200W/";
+   aladin.setImageSurvey(aladin.createImageSurvey('P/JWST/F200W','JWST/F200W',hipsDir,'equatorial',14,{imgFormat:'png'}));
+
+   hipsDir = "https://skymapper.anu.edu.au/CDS_P_skymapper-color/";
+   aladin.setImageSurvey(aladin.createImageSurvey('SkyMapper','SkyMapper',hipsDir,'equatorial',9,{imgFormat:'jpg'}));
+
+   hipsDir = "https://alasky.cds.unistra.fr/CDS/P/Euclid/Q1/color";
+   aladin.setImageSurvey(aladin.createImageSurvey('P/Euclid/Q1/color','EUCLIDQ1',hipsDir,'equatorial',13,{imgFormat:'png'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/RASS/";
+   aladin.setImageSurvey(aladin.createImageSurvey('P/RASS','RASS',hipsDir,'equatorial',4,{imgFormat:'jpg'}));
+
+   hipsDir = "https://erosita.mpe.mpg.de/ExposureHiPS/eRASS3/946/eROSITA_exposure_021/";
+   aladin.setImageSurvey(aladin.createImageSurvey('eROSITA exposure','eROSITA exposure',hipsDir,'equatorial',5,{imgFormat:'png'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/SUMSS/";
+   aladin.setImageSurvey(aladin.createImageSurvey('SUMSS','SUMSS',hipsDir,'equatorial',6,{imgFormat:'png'}));
+
+   hipsDir = "https://xcatdb.unistra.fr/PNColor/";
+   aladin.setImageSurvey(aladin.createImageSurvey('XMM/PN/color','XMM/PN/color',hipsDir,'equatorial',7,{imgFormat:'png'}));
+
+   hipsDir = "https://esdchips.esac.esa.int/XMM-Newton/EPIC-RGB/";
+   aladin.setImageSurvey(aladin.createImageSurvey('XMM/EPIC-RGB','XMM/EPIC-RGB',hipsDir,'equatorial',7,{imgFormat:'jpg'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/CHANDRA/cxc.harvard.edu_P_cda_hips_allsky_rgb/";
+   aladin.setImageSurvey(aladin.createImageSurvey('Chandra color','Chandra color',hipsDir,'equatorial',11,{imgFormat:'png'}));
+
+   hipsDir = "https://data.darts.isas.jaxa.jp/pub/HiPS/MAXI-GSC_Image/";
+   aladin.setImageSurvey(aladin.createImageSurvey('MAXI-GSC','MAXI-GSC',hipsDir,'equatorial',3,{imgFormat:'png'}));
+
+   hipsDir = "https://data.darts.isas.jaxa.jp/pub/HiPS/SWIFT-BAT_Image/";
+   aladin.setImageSurvey(aladin.createImageSurvey('Swift-BAT image','Swift-BAT image',hipsDir,'equatorial',6,{imgFormat:'png'}));
+
+   hipsDir = "https://cade.irap.omp.eu/documents/Ancillary/4Aladin/BAT_14_20/";
+   aladin.setImageSurvey(aladin.createImageSurvey('Swift-BAT','Swift-BAT',hipsDir,'galactic',3,{imgFormat:'jpg'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/JAXA/JAXA_P_CONSTELLATIONS3/";
+   aladin.setImageSurvey(aladin.createImageSurvey('CONSTELLATIONS3','CONSTELLATIONS3',hipsDir,'equatorial',6,{imgFormat:'png'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/JAXA/JAXA_P_CONSTELLATIONS6/";
+   aladin.setImageSurvey(aladin.createImageSurvey('CONSTELLATIONS6','CONSTELLATIONS6',hipsDir,'equatorial',6,{imgFormat:'png'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/ZTF/DR7/CDS_P_ZTF_DR7_g/";
+   aladin.setImageSurvey(aladin.createImageSurvey('ZTF/DR7/color','ZTF/DR7/color',hipsDir,'equatorial',9,{imgFormat:'png'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/China-VO/China-VO_P_BASS_DR3_image/";
+   aladin.setImageSurvey(aladin.createImageSurvey('BASS/DR3/image','BASS/DR3/image',hipsDir,'equatorial',10,{imgFormat:'png'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/ESAC/ESAVO_P_HST_WFPC/";
+   aladin.setImageSurvey(aladin.createImageSurvey('HST/WFPC','HST/WFPC',hipsDir,'equatorial',13,{imgFormat:'jpg'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/MAMA/CDS_P_MAMA_color_posse_srcj/";
+   aladin.setImageSurvey(aladin.createImageSurvey('MAMA color','MAMA color',hipsDir,'equatorial',10,{imgFormat:'png'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/ESAC/ESAVO_P_Herschel_color/";
+   aladin.setImageSurvey(aladin.createImageSurvey('Herschel/color','Herschel/color',hipsDir,'equatorial',8,{imgFormat:'png'}));
+
+   hipsDir = "https://alasky.cds.unistra.fr/unWISE/color-W2-W1W2-W1/";
+   aladin.setImageSurvey(aladin.createImageSurvey('unWISE','unWISE',hipsDir,'equatorial',8,{imgFormat:'jpg'}));
+
+   hipsDir = "https://alaskybis.cds.unistra.fr/ESAC/ESAVO_P_Spitzer_IRAC134-RGB-bright/";
+   aladin.setImageSurvey(aladin.createImageSurvey('Spitzer/IRAC134','Spitzer/IRAC134',hipsDir,'equatorial',10,{imgFormat:'png'}));
+
+hipsDir = "https://hips.astron.nl/ASTRON/P/tgssadr/";    aladin.setImageSurvey(aladin.createImageSurvey('TGSSADR','TGSSADR',hipsDir,'equatorial',7,{imgFormat:'png'}));
+
+   hipsDir = "https://alasky.cds.unistra.fr/GALEX/GALEXGR6_7_color/";
+   aladin.setImageSurvey(aladin.createImageSurvey('GALEXGR6_7','GALEXGR6_7',hipsDir,'equatorial',9,{imgFormat:'png'}));
+
+   hipsDir = "https://alasky.cds.unistra.fr/DES/DR2/CDS_P_DES-DR2_ColorIRG/";
+   aladin.setImageSurvey(aladin.createImageSurvey('DES/DR2/CDS_P_DES-DR2_ColorIRG','DES-DR2',hipsDir,'equatorial',11,{imgFormat:'png'}));
+
+   hipsDir = "https://skyview.gsfc.nasa.gov/surveys/uvot/cnt/UVM2/";
+   aladin.setImageSurvey(aladin.createImageSurvey('Swift-UVOT-M2','Swift-UVOT-M2',hipsDir,'equatorial',9,{imgFormat:'png'}));
+
+   hipsDir = "https://skyview.gsfc.nasa.gov/surveys/uvot/cnt/UVW1/";
+   aladin.setImageSurvey(aladin.createImageSurvey('Swift-UVOT-W1','Swift-UVOT-W1',hipsDir,'equatorial',9,{imgFormat:'png'}));
+
+   hipsDir = "https://skyview.gsfc.nasa.gov/surveys/uvot/cnt/UVW2/";
+   aladin.setImageSurvey(aladin.createImageSurvey('Swift-UVOT-W2','Swift-UVOT-W2',hipsDir,'equatorial',9,{imgFormat:'png'}));
+
+   aladin.setBaseImageLayer(currentSurvey);
+   $("input[name=survey]").change(function() {  
+         if (($(this).val() == 'NVSS')  || ($(this).val() == 'unWISE')  || ($(this).val() == 'OU/P/SwiftXRT') || ($(this).val() == 'FIRMAMENTO/P/NuSTAR')) {  
+        cmap = 'eosb'; } else { cmap = 'native'; }
+      aladin.setBaseImageLayer($(this).val()).setColormap(cmap);
+   });
+});
+</script>
+<script>
+ const info_modal = document.getElementById("myModal");
+ const source_modal = document.getElementById("myModalS");
+ const iframe = document.getElementById("surveyFrame");
+ const imageButton = document.getElementById("custom-logo2");
+ // Click on image triggers the modal
+ imageButton.addEventListener("click", function() {
+   iframe.src = "Fbook/firmamento-ai-surveys.html";
+   info_modal.style.display = "flex";
+ }); 
+ // Close button in modal
+ document.querySelector(".close-btn").addEventListener("click", function() {
+   iframe.src = "";
+   info_modal.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModal").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe.src = "";
+     this.style.display = "none";
+   }
+ });
+//  another button
+ const modal3 = document.getElementById("myModal3");
+ const iframe3 = document.getElementById("questionsFrame");
+ const modal4 = document.getElementById("myModalS");
+ const iframe4 = document.getElementById("sourceFrame");
+ const imageButton3 = document.getElementById("custom-logo3");
+ imageButton3.addEventListener("click", function() {
+   iframe3.src = `${ROOT_URL}/${currentHtml}?source=${currentSource}&lang=${language}&survey=${requestedSurvey}&item=${item}`
+   iframe4.src = `${ROOT_URL}/Details2.html?source=${currentSource}&lang=${language}&survey=${requestedSurvey}&item=${item}`
+   modal3.style.display = "flex";
+   modal4.style.display = "flex";
+ }); 
+ // Close button in modal
+ document.querySelector(".close-btn3").addEventListener("click", function() {
+   iframe3.src = "";
+   modal3.style.display = "none";
+   iframe4.src = "";
+   modal4.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModal3").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe3.src = "";
+     this.style.display = "none";
+   }
+ });
+ document.getElementById("myModalS").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe4.src = "";
+     this.style.display = "none";
+   }
+ });
+</script>
+<script type="text/javascript">
+document.getElementById("hipsBase").innerHTML=hips
+</script>
+</HTML>

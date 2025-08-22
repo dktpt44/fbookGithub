@@ -1,0 +1,11 @@
+Language: English  
+What was the primary mission of the ROSAT Satellite?, Mission Purpose  
+When was the ROSAT Satellite launched?, Launch Date  
+What type of telescope did ROSAT use?, Telescope Type  
+Which wavelengths could ROSAT detect?, Detection Wavelengths  
+How long did ROSAT operate in space?, Operational Duration  
+What significant discoveries did ROSAT contribute to astronomy?, Key Discoveries  
+Who were the main participating agencies in the ROSAT project?, Participating Agencies  
+What was the orbital altitude of ROSAT?, Orbital Altitude  
+How did ROSAT improve our understanding of dark matter?, Dark Matter Insights  
+What challenges did researchers face during the mission?, Mission Challenges

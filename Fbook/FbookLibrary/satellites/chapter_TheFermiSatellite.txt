@@ -1,0 +1,11 @@
+Language: English  
+What is the purpose of the Fermi Satellite? , Purpose of Fermi  
+How long has the Fermi Satellite been in operation? , Operation Duration  
+What types of gamma rays does the Fermi Satellite detect? , Gamma Ray Types  
+What scientific fields benefit from the Fermi Satellite's data? , Benefiting Scientific Fields  
+What was the launch date of the Fermi Satellite? , Launch Date  
+What discoveries has the Fermi Satellite made? , Notable Discoveries  
+How does the Fermi Satellite contribute to understanding black holes? , Black Holes Insights  
+What technology does the Fermi Satellite use to observe the universe? , Observation Technology  
+How many years is the Fermi Satellite expected to operate? , Expected Operation Time  
+What collaborations support the Fermi Satellite mission? , Supporting Collaborations

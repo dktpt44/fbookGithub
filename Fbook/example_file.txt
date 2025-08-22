@@ -1,0 +1,12 @@
+Language:English
+
+What physical processes power the energy output of stars?, Stellar energy
+How do stars maintain balance between gravity and pressure?, Hydrostatic equilibrium
+What determines the lifespan of a star?, Stellar evolution
+How do stars of different masses evolve differently?, Mass and evolution of stars
+What are the internal structures of normal stars?, Stellar structure
+How is energy transported inside stars?, Energy transport in stars
+How do stars generate and distribute chemical elements?, Star nucleosynthesis
+How do stellar winds and magnetic fields affect stars?, Stellar winds and magnetism
+What observational methods reveal the properties of stars?, Stellar observations
+What happens when stars reach the end of their life?, Stellar death

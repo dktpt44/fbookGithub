@@ -1,0 +1,11 @@
+Language: English  
+What was the purpose of the CGRO satellite?, Purpose of CGRO  
+When was the CGRO satellite launched?, Launch Date  
+How long did the CGRO satellite operate?, Operational Duration  
+What scientific fields did CGRO focus on?, Scientific Focus Areas  
+Which organization developed the CGRO satellite?, Developer Organization  
+What were the main instruments on the CGRO satellite?, Main Instruments  
+How did the CGRO satellite contribute to astronomy?, Contributions to Astronomy  
+What major discoveries were made using CGRO data?, Major Discoveries  
+What were the main challenges faced during CGRO's mission?, Mission Challenges  
+When did the CGRO satellite cease operations?, End of Operations

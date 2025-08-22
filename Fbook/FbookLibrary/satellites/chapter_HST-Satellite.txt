@@ -1,0 +1,11 @@
+Language: English  
+What is the HST satellite, Question 1  
+When was the HST satellite launched, Question 2  
+What is the primary mission of the HST satellite, Question 3  
+How does the HST satellite observe space, Question 4  
+What types of observations can the HST satellite make, Question 5  
+What are the main instruments on the HST satellite, Question 6  
+How far above Earth does the HST satellite orbit, Question 7  
+What is one significant discovery made by the HST satellite, Question 8  
+Who operates the HST satellite, Question 9  
+Why is the HST satellite important for astronomy, Question 10

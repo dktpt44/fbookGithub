@@ -1,0 +1,11 @@
+Language: English  
+What is Gaussian Statistics, What is Gaussina statistics?  
+Why is the Gaussian distribution important, Importance of Distribution  
+What are the key characteristics of a Gaussian distribution, Key Characteristics  
+How do you identify a Gaussian distribution from a dataset, Identifying Distribution  
+What role does the mean play in Gaussian statistics, Role of Mean  
+What is the significance of the standard deviation in Gaussian statistics, Importance of Standard Deviation  
+How do you calculate probabilities using the Gaussian distribution, Calculating Probabilities  
+What is the central limit theorem and how does it relate to Gaussian statistics, Central Limit Theorem  
+In what fields is Gaussian statistics commonly used, Common Fields  
+What are the limitations of using Gaussian statistics, Limitations of Statistics

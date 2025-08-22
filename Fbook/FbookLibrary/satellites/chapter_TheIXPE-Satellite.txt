@@ -1,0 +1,11 @@
+Language: English  
+What is the purpose of the IXPE satellite?, Purpose of IXPE  
+When was the IXPE satellite launched?, Launch Date  
+How does IXPE gather data?, Data Collection Method  
+What type of radiation does IXPE study?, Radiation Type  
+What organization developed the IXPE satellite?, Development Organization  
+What orbit does the IXPE satellite operate in?, Operating Orbit  
+How long is IXPE expected to function?, Mission Duration  
+What are the key instruments on IXPE?, Key Instruments  
+How does IXPE contribute to astrophysics?, Astrophysics Contribution  
+What discoveries is IXPE expected to make?, Expected Discoveries

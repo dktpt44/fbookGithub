@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Firmamento-AI astronomical questions</title>
+  <meta charset="UTF-8" />
+  <script>
+    let language = "English";
+    let language_response = "";
+    let languageTest = "";
+    let selectedTopic = "";
+
+      const ROOT_URL = window.location.hostname.includes("localhost")
+        ? "http://localhost:5000"
+        : "https://firmamento.nyuad.nyu.edu/Fbook";
+
+      // Get 'lang' from URL, fallback to English
+      function getLanguageFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('lang') || 'English';
+      }
+    
+      // Get 'level' from URL, fallback to basic
+      function getLevelFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('level') || 'basic'; 
+      }
+      function clearOutputDiv() {
+         const outputDiv = document.getElementById('resultOutput');
+         outputDiv.innerHTML = "";
+      } 
+      window.onload = function () { 
+        languageTest = getLanguageFromURL();
+        const level    = getLevelFromURL();
+
+        if (languageTest.startsWith("custom:")) {
+          language_response = languageTest.split(":")[1];  // gets what's after "custom:"
+        } else {
+          language_response = languageTest
+          language = languageTest
+        }
+    
+        document.getElementById("param2").value = language;
+        //alert("Level from URL: " + level);
+  
+        document.getElementById("param3").value = level;
+        updateTopicOptions();
+
+       // Dynamically update ALL <img> and <a> elements with relative URLs
+       document.querySelectorAll("img").forEach(img => {
+         if (img.src.includes("/logo/")) {
+           const relativePath = img.src.split("/logo/")[1];
+           img.src = `${ROOT_URL}/logo/${relativePath}`;
+         }
+       });
+      };
+function copyResultOutput() {
+  const outputDiv = document.getElementById("resultOutput");
+  const text = outputDiv.textContent || outputDiv.innerText;
+
+  navigator.clipboard.writeText(text)
+    .then(() => showCopyNotification())
+    .catch(err => console.error("Failed to copy: ", err));
+}
+
+function showCopyNotification() {
+  const note = document.getElementById("copyNote");
+  note.style.opacity = 1;
+
+  setTimeout(() => {
+    note.style.opacity = 0;
+  }, 500);
+}
+</script>
+<style>
+.data_button {
+   background: #cc0066;
+   color: #fff;
+   border: none;
+   padding: 8px 16px;
+   margin: 8px;
+   border-radius: 8px;
+   font-size: 15px;
+   cursor: pointer;
+   transition: background 0.3s ease;
+   text-decoration: none;
+}     
+.data_button:hover { 
+   background: #cc0066;
+}
+       
+.copy-button {
+  background-color: transparent;
+  //background-color: #4CAF50; /* green */
+  color: #333;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}       
+      
+.copy-button:hover {
+  background-color: transparent;
+  //background-color: #45a049; 
+}     
+/* Tooltip code */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}     
+        
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black; 
+  color: #fff; 
+  text-align: center;
+  border-radius: 6px; 
+  padding: 5px 0;
+        
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}      
+        
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/* Rocket code */
+    #rocket {
+      position: absolute;
+      bottom: -115px;
+      left: 200px;
+      font-size: 30px;
+      transition: transform 5s ease-in-out, opacity 0.5s;
+      opacity: 1;
+    }
+
+    #rocket.launch {
+
+      transform: translate(1000px, -1200px);
+    }
+
+    #rocket.hidden {
+      opacity: 0;
+    }
+
+    #result {
+      margin-top: 40px;
+      font-size: 0px;
+    }
+/* Rocket code */
+  .highlight {
+    color: #0d2059;
+    margin: 0;
+  }
+  label {
+    font-size: 14px;
+    margin-right: 10px;
+    color: #333;
+  }   
+
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+      
+    padding: 2px 10px; 
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 18px;
+    color: #333;
+    cursor: pointer;
+    min-width: 200px;
+  }
+
+    #resultOutput {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 300px; /* Limit height */
+      overflow-y: auto; /* Enable scrolling if content exceeds */
+    }
+    table {
+      width: 80%; /* The table will take up the full width but max it out */
+      max-width: 900px; /* Set the maximum width for the table */
+      margin: 0 auto; /* Center the table horizontally */
+      border-collapse: collapse;
+    }
+    @keyframes spin {
+     0% { transform: rotate(0deg); }
+     100% { transform: rotate(360deg); }
+    }
+    body {
+      font-family: 'Helvetica', sans-serif;
+      font-size: 14px;
+    }
+    audio-recorder {
+      display: inline-block;
+      font-family: 'Segoe UI', sans-serif;
+      max-width: 340px;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 18px;
+      background: #fdfdfd;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      text-align: center;
+      vertical-align: top;
+      margin: 0;
+      padding: 0;
+    }
+    button {
+     // background: #4f46e5;
+      background: #ff8000;
+     // color: #fff;
+      color: #111;
+      border: none;
+      padding: 10px 16px;
+      margin: 8px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #3730a3;
+    }
+    button:disabled {
+      background: #a5b4fc;
+      cursor: not-allowed;
+    }
+    audio {
+      margin-top: 15px;
+      width: 100%;
+      outline: none;
+    }
+    .transcript {
+      margin-top: 20px;
+      padding: 12px;
+      background: #f3f4f6;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: left;
+      min-height: 40px;
+    }
+  </style>
+
+<script>
+const uiTexts = {
+    English: {
+        title: "A Living Guide to the Cosmos",
+        subtitle: "An AI-Curated, Multi-Media, Multi-Lingual Interactive Guide to the Universe",
+        chapter: "Chapter 4 - Cosmology",
+        sourceLabel: "Cosmology topic",
+        typeLabel: "Type of response",
+        languageLabel: "Choose your language"
+    },
+    French: {
+        title: "Un Guide Vivant du Cosmos",
+        subtitle: "Un Guide Interactif Multimédia, Multilingue, Curé par l'IA de l'Univers",
+        chapter: "Chapitre 4 - Cosmologie",
+        sourceLabel: "Sujet de la cosmologie",
+        typeLabel: "Type de réponse",
+        languageLabel: "Choisissez votre langue"
+    },
+    Italian: {
+        title: "Una Guida Vivente al Cosmo",
+        subtitle: "Una Guida Interattiva Multimediale, Multilingue, Curata dall'IA sull'Universo",
+        chapter: "Capitolo 4 - Cosmologia",
+        sourceLabel: "Argomento della cosmologia",
+        typeLabel: "Tipo di risposta",
+        languageLabel: "Scegli la tua lingua"
+    },
+    Spanish: {
+        title: "Una Guía Viva del Cosmos",
+        subtitle: "Una Guía Interactiva Multimedial, Multilingüe, Curada por IA del Universo",
+        chapter: "Capítulo 4 - Cosmología",
+        sourceLabel: "Tema de la cosmología",
+        typeLabel: "Tipo de respuesta",
+        languageLabel: "Elige tu idioma"
+    },
+    German: {
+        title: "Ein Lebendiger Führer zum Kosmos",
+        subtitle: "Ein Interaktiver, Multimedialer, Mehrsprachiger Führer des Universums, Kuratiert von KI",
+        chapter: "Kapitel 4 - Kosmologie",
+        sourceLabel: "Thema der Kosmologie",
+        typeLabel: "Antworttyp",
+        languageLabel: "Wählen Sie Ihre Sprache"
+    },
+    Russian: {
+        title: "Живой гид по космосу",
+        subtitle: "Интерактивный мультимедийный многоязычный гид по Вселенной, подготовленный ИИ",
+        chapter: "Глава 4 - Космология",
+        sourceLabel: "Тема космологии",
+        typeLabel: "Тип ответа",
+        languageLabel: "Выберите ваш язык"
+    },
+    Armenian: {
+        title: "Կոսմոսի կենդանի ուղեցույց",
+        subtitle: "Արհեստական ինտելեկտի կողմից պատրաստված բազմալեզու և բազմամեդիա ինտերակտիվ ուղեցույց տիեզերքի մասին",
+        chapter: "Գլուխ 4 - Տիեզերագիտություն",
+        sourceLabel: "Տիեզերագիտության թեմա",
+        typeLabel: "Պատասխանի տեսակ",
+        languageLabel: "Ընտրեք ձեր լեզուն"
+    },
+    Chinese: {
+        title: "宇宙生动指南",
+        subtitle: "一个由人工智能策划的、多媒体、多语言的互动宇宙指南",
+        chapter: "第4章 - 宇宙学",
+        sourceLabel: "宇宙学主题",
+        typeLabel: "回答类型",
+        languageLabel: "选择您的语言"
+    },
+    Japanese: {
+        title: "宇宙への生きたガイド",
+        subtitle: "AIによってキュレーションされた、マルチメディア・多言語インタラクティブガイド",
+        chapter: "第4章 - 宇宙論",
+        sourceLabel: "宇宙論のテーマ",
+        typeLabel: "回答の種類",
+        languageLabel: "言語を選択してください"
+    },
+    Arabic: {
+        title: "دليل حي للكون",
+        subtitle: "دليل تفاعلي متعدد الوسائط ومتعدد اللغات للكون من تنسيق الذكاء الاصطناعي",
+        chapter: "الفصل 4 - علم الكونيات",
+        sourceLabel: "موضوع علم الكونيات",
+        typeLabel: "نوع الاستجابة",
+        languageLabel: "اختر لغتك"
+    },
+    Portuguese: {
+        title: "Um Guia Vivo do Cosmos",
+        subtitle: "Um Guia Interativo Multimídia, Multilíngue, Curado por IA do Universo",
+        chapter: "Capítulo 4 - Cosmologia",
+        sourceLabel: "Tema da cosmologia",
+        typeLabel: "Tipo de resposta",
+        languageLabel: "Escolha seu idioma"
+    }
+};
+
+function updateUIText(language) {
+  const texts = uiTexts[language] || uiTexts["English"];
+  document.getElementById("mainTitle").innerHTML = `<strong class="highlight">${texts.title}</strong>`;
+  document.getElementById("subTitle").innerHTML = `<p class="highlight">${texts.subtitle}</p>`;
+  document.getElementById("chapterTitle").innerHTML = `<p class="highlight">${texts.chapter}</p>`;
+  document.getElementById("sourceLabel").innerHTML = `${texts.sourceLabel} <img src="${ROOT_URL}/logo/telescope.png" alt="LOGO" width="30" height="30">`;
+  document.getElementById("typeLabel").innerHTML = `${texts.typeLabel} <img src="${ROOT_URL}/logo/bullseye.png" alt="LOGO" width="25" height="25">`;
+  document.getElementById("languageLabel").innerHTML = `${texts.languageLabel} <img src="${ROOT_URL}/logo/world.png" alt="LOGO" width="20" height="20">`;
+}
+</script>
+
+</head>
+<body style="background-color: rgba(240, 225, 205, 0.2);">
+<table border="0" style="border-collapse: collapse; background-color: transparent; width: 99%; table-layout: fixed;">
+<tr><td align="left">
+<img class="logoImg" style="transform: rotate(0deg); "src="${ROOT_URL}/logo/firmamento_AI_logo.png" alt="Firmamento-AI LOGO" height="40"></td>
+<td align="right"><img class="logoImg"  src="${ROOT_URL}/logo/fbook_logo.png" alt="Firmamento-ifbook LOGO" height="40"></td></tr>
+</table>
+<div id="rocket" style="...">
+  🚀  
+</div>
+<div id="spinner" style="
+  display:none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 22px;
+  animation: spin 1s linear infinite; ">
+</div>
+<br>
+<table border="0" cellpadding="1" 
+  style="border-collapse: collapse; background-color: transparent; width: 90%; table-layout: fixed;">
+
+  
+<tr>
+  <td colspan="3" align="center" style="font-size: 30px;" id="mainTitle">
+    <strong>A Living Guide to the Cosmos</strong>
+  </td>
+</tr>
+<tr>
+  <td colspan="3" align="center" style="font-size: 18px;">
+    <span id="subTitle">An AI-Curated, Multi-Media, Multi-Lingual Interactive Guide to the Universe</span>
+    <br><br>
+    <span id="chapterTitle">Chapter 4 - Cosmology</span>
+  </td>
+</tr>
+<tr>
+  <td align="center" id="sourceLabel">
+    Astronomical source <img src="${ROOT_URL}/logo/telescope.png" alt="LOGO" width="30" height="30">
+  </td>
+  <td align="center" id="typeLabel">
+    Type of response <img src="${ROOT_URL}/logo/bullseye.png" alt="LOGO" width="25" height="25">
+  </td>
+  <td align="center" id="languageLabel">
+    Choose your language <img src="${ROOT_URL}/logo/world.png" alt="LOGO" width="20" height="20">
+  </td>
+</tr>
+
+  <tr>
+    <td align="center">
+      <select id="param1Dropdown" onchange="toggleCustomInput();clearOutputDiv()"></select>
+    </td>
+    <td align="center">
+    <select id="param3">
+      <option value="for children">For children</option>
+      <option value="basic">Basic</option>
+      <option value="high school students">Students (high School) </option>
+      <option value="advanced">Technical/Advanced</option>
+      <option value="for teachers">For teachers</option>
+    </select>
+    </td>
+    <td align="center">
+      <select id="param2" onchange="updateTopicOptions()">
+        <option value="Arabic">العربية (Arabic)</option>
+        <option value="Armenian">Հայերեն (Armenian)</option>
+        <option value="Chinese">中文 (Chinese)</option>
+        <option value="English" selected>English</option>
+        <option value="French">Français (French)</option>
+        <option value="German">Deutsch (German)</option>
+        <option value="Italian">Italiano (Italian)</option>
+        <option value="Japanese">日本語 (Japanese)</option>
+        <option value="Portuguese">Português (Portuguese)</option>
+        <option value="Russian">Русский (Russian)</option>
+        <option value="Spanish">Español (Spanish)</option>
+      </select>
+    </td></tr>
+    <tr><td></td><td align="center" valign="top"><label><input type="radio" name="answerLength" value="brief" checked> Brief</label>
+            <label><input type="radio" name="answerLength" value="lengthy"> Lengthy</label>
+    </td><td></td></tr>
+
+<tr>
+    <td> <input type="text" id="param1Custom" placeholder="Enter your astronomical/scientific question" style="display:none;" size="35" maxlength="100"></td>
+    <td align="center">
+      <button id="submitBtn" onclick="runRemoteScript()" style="width: 70px; height: 30px; text-align: center; padding: 0;">Submit</button><img class="logoImg" src="${ROOT_URL}/logo/rocket.png" alt="LOGO" width="25" height="25">
+    <div id="result"></div>
+    </td>
+    <!--td style="text-align:center;">
+    <a href="#" onclick="playAudio()">Firmamento deep dive (audio)<img class="logoImg" src="${ROOT_URL}/logo/audio.png" alt="LOGO" width="20" height="20"></a>
+    </td>
+    <audio id="firmamentoAudio" src="${ROOT_URL}/Firmamento.wav"></audio-->
+</td></tr>
+  <tr>
+     <td colspan="3">
+       <button onclick="copyResultOutput()" class="copy-button">📋 Copy</button>
+       <span id="copyNote" style="opacity:0; margin-left: 8px; transition: opacity 0.3s;">Copied!</span>
+       <div id="resultOutput" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9; white-space: pre-wrap; word-wrap: break-word; max-height: 300px; overflow-y: auto; resize: horizontal;"><small>Ouptut based on ChatGPT</small></div>
+     </td>
+  </tr>
+  <tr>
+    <td colspan="3" align="right" style="font-size: 12px; "padding: 10px;">&nbsp;</td>
+  </tr>
+  </table>
+<table border="0" style="width: 90%;" cellpadding="1">
+  <tr>
+    <td align="center" id="dataLabel">
+      <span id="extraInfoButtonContainer" class="data_button" style="display: none;"></span>
+    </td>
+    <td valign="top" align="center" cellspan="2"> <audio-recorder></audio-recorder></td>
+  </tr>
+  <tr><td colspan="3" align="right">&copy;Paolo Giommi for firmamento</td></tr>
+</table>
+<script>
+   const topics = {
+    English: [
+          { value: "Tell me what is cosmology", label: "What is cosmology" },
+          { value: "Tell me about historical cosmological models", label: "Historical cosmological models" },
+          { value: "Tell me about modern cosmological models", label: "Modern cosmological models" },
+          { value: "Tell me about cosmological Big Bang", label: "The Big Bang" },
+          { value: "What was there before the Big Bang", label: "Before the Big Bang?" },
+          { value: "Tell me about cosmological inflation", label: "Cosmological inflation" },
+          { value: "Tell me about matter and antimatter in the universe", label: "Matter and antimatter in the universe" },
+          { value: "Tell me about dark matter and dark energy in the universe", label: "Dark matter and dark energy" },
+          { value: "Tell me about the hot early universe before the CMB scattering", label: "The hot early universe" },
+          { value: "Tell me about the recombination epoch in the universe", label: "The recombination epoch" },
+          { value: "Tell me about the the cosmic dark ages", label: "The cosmic dark ages" },
+          { value: "Tell me about the cosmic dawn", label: "The cosmic dawn" },
+          { value: "Tell me when the first stars were formed in the universe", label: "The first stars" },
+          { value: "Tell me when the first galaxies were formed in the universe", label: "The first galaxies" },
+          { value: "Tell me about the cosmic web", label: "The cosmic web" },
+          { value: "Tell me about the cosmological evolution of galaxies", label: "Cosmological evolution of galaxies" },
+          { value: "Tell me about the cosmological evolution of AGNs", label: "Cosmological evolution of AGNs" },
+          { value: "Tell me about the cosmological evolution of quasars", label: "Cosmological evolution of quasars" },
+          { value: "Is the universe finite or infinite?", label: "Is the universe infinite?" },
+          { value: "Tell me about the antropic principle and its relevance in cosmology", label: "The antropic principle" },
+          { value: "custom", label: "Ask your cosmology question" }
+    ],
+    Russian: [
+          { value: "Tell me what is cosmology", label: "Что такое космология" },
+          { value: "Tell me about historical cosmological models", label: "Исторические космологические модели" },
+          { value: "Tell me about modern cosmological models", label: "Современные космологические модели" },
+          { value: "Tell me about cosmological Big Bang", label: "Большой взрыв" },
+          { value: "Tell me about cosmological inflation", label: "Космологическая инфляция" },
+          { value: "Tell me about matter and antimatter in the universe", label: "Материя и антиматерия во Вселенной" },
+          { value: "Tell me about dark matter and dark energy in the universe", label: "Тёмная материя и тёмная энергия" },
+          { value: "Tell me about hot early universe before the CMB scattering", label: "Горячая ранняя Вселенная" },
+          { value: "Tell me about cosmic microwave background", label: "Космическое микроволновое фоновое излучение" },
+          { value: "Tell me about cosmology at radio frequencies", label: "Космология на радиочастотах" },
+          { value: "Tell me about cosmology at optical frequencies", label: "Космология на оптических частотах" },
+          { value: "Tell me about the cosmic web", label: "Космическая сеть" },
+          { value: "Tell me about the cosmological evolution of galaxies", label: "Космологическая эволюция галактик" },
+          { value: "Tell me about the cosmological evolution of quasars", label: "Космологическая эволюция квазаров" },
+          { value: "custom", label: "Задайте ваш вопрос по космологии" }
+    ],
+    Italian: [
+          { value: "Tell me what is cosmology", label: "Cos'è la cosmologia" },
+          { value: "Tell me about historical cosmological models", label: "Modelli cosmologici storici" },
+          { value: "Tell me about modern cosmological models", label: "Modelli cosmologici moderni" },
+          { value: "Tell me about cosmological Big Bang", label: "Il Big Bang" },
+          { value: "Tell me about cosmological inflation", label: "Inflazione cosmologica" },
+          { value: "Tell me about matter and antimatter in the universe", label: "Materia e antimateria nell'universo" },
+          { value: "Tell me about dark matter and dark energy in the universe", label: "Materia oscura e energia oscura" },
+          { value: "Tell me about hot early universe before the CMB scattering", label: "L'universo caldo primordiale" },
+          { value: "Tell me about cosmic microwave background", label: "Radiazione cosmica di fondo" },
+          { value: "Tell me about cosmology at radio frequencies", label: "Cosmologia a frequenze radio" },
+          { value: "Tell me about cosmology at optical frequencies", label: "Cosmologia a frequenze ottiche" },
+          { value: "Tell me about the cosmic web", label: "La ragnatela cosmica" },
+          { value: "Tell me about the cosmological evolution of galaxies", label: "Evoluzione cosmologica delle galassie" },
+          { value: "Tell me about the cosmological evolution of quasars", label: "Evoluzione cosmologica dei quasar" },
+          { value: "custom", label: "Fai una domanda sulla cosmologia" }
+    ],
+    Armenian: [
+          { value: "Tell me what is cosmology", label: "Ինչ է աստղագիտությունը" },
+          { value: "Tell me about historical cosmological models", label: "Պատմական աստղաֆիզիկական մոդելներ" },
+          { value: "Tell me about modern cosmological models", label: "Ավանդական աստղաֆիզիկական մոդելներ" },
+          { value: "Tell me about cosmological Big Bang", label: "Մեծ պայթյուն" },
+          { value: "Tell me about cosmological inflation", label: "Կոսմիկական ինֆլացիա" },
+          { value: "Tell me about matter and antimatter in the universe", label: "Բառություն և հակաբառություն տիեզերքում" },
+          { value: "Tell me about dark matter and dark energy in the universe", label: "Մութ նյութ և մութ էներգիա" },
+          { value: "Tell me about hot early universe before the CMB scattering", label: "Ողջունում տաք տիեզերքը" },
+          { value: "Tell me about cosmic microwave background", label: "Կոսմիկական միկրոալիքային ֆոն" },
+          { value: "Tell me about cosmology at radio frequencies", label: "Կոսմոլոգիա ռադիո հաճախականություններով" },
+          { value: "Tell me about cosmology at optical frequencies", label: "Կոսմոլոգիա օպտիկական հաճախականություններով" },
+          { value: "Tell me about the cosmic web", label: "Կոսմիկական համացանց" },
+          { value: "Tell me about the cosmological evolution of galaxies", label: "Կոսմոլոգիական տարրեր գալակտիկաների" },
+          { value: "Tell me about the cosmological evolution of quasars", label: "Կոսմոլոգիական տարրեր քվազարների" },
+          { value: "custom", label: "Զանգահարել ձեր աստղագիտության հարցը" }
+    ],
+    Chinese: [
+          { value: "Tell me what is cosmology", label: "什么是宇宙学" },
+          { value: "Tell me about historical cosmological models", label: "历史的宇宙模型" },
+          { value: "Tell me about modern cosmological models", label: "现代宇宙学模型" },
+          { value: "Tell me about cosmological Big Bang", label: "宇宙大爆炸" },
+          { value: "Tell me about cosmological inflation", label: "宇宙膨胀" },
+          { value: "Tell me about matter and antimatter in the universe", label: "宇宙中的物质和反物质" },
+          { value: "Tell me about dark matter and dark energy in the universe", label: "暗物质与暗能量" },
+          { value: "Tell me about hot early universe before the CMB scattering", label: "早期高温宇宙" },
+          { value: "Tell me about cosmic microwave background", label: "宇宙微波背景" },
+          { value: "Tell me about cosmology at radio frequencies", label: "无线电频率下的宇宙学" },
+          { value: "Tell me about cosmology at optical frequencies", label: "光学频率下的宇宙学" },
+          { value: "Tell me about the cosmic web", label: "宇宙网络" },
+          { value: "Tell me about the cosmological evolution of galaxies", label: "银河系的宇宙演化" },
+          { value: "Tell me about the cosmological evolution of quasars", label: "类星体的宇宙演化" },
+          { value: "custom", label: "提问你的宇宙学问题" }
+    ],
+    Japanese: [
+          { value: "Tell me what is cosmology", label: "宇宙論とは" },
+          { value: "Tell me about historical cosmological models", label: "歴史的な宇宙論モデル" },
+          { value: "Tell me about modern cosmological models", label: "現代の宇宙論モデル" },
+          { value: "Tell me about cosmological Big Bang", label: "ビッグバン" },
+          { value: "Tell me about cosmological inflation", label: "宇宙膨張" },
+          { value: "Tell me about matter and antimatter in the universe", label: "宇宙の物質と反物質" },
+          { value: "Tell me about dark matter and dark energy in the universe", label: "暗黒物質と暗黒エネルギー" },
+          { value: "Tell me about hot early universe before the CMB scattering", label: "CMB散乱前の熱い初期宇宙" },
+          { value: "Tell me about cosmic microwave background", label: "宇宙背景放射" },
+          { value: "Tell me about cosmology at radio frequencies", label: "ラジオ周波数での宇宙論" },
+          { value: "Tell me about cosmology at optical frequencies", label: "光学周波数での宇宙論" },
+          { value: "Tell me about the cosmic web", label: "宇宙の網" },
+          { value: "Tell me about the cosmological evolution of galaxies", label: "銀河の宇宙論的進化" },
+          { value: "Tell me about the cosmological evolution of quasars", label: "クエーサーの宇宙論的進化" },
+          { value: "custom", label: "あなたの宇宙論の質問をしてください" }
+    ],
+    Arabic: [
+          { value: "Tell me what is cosmology", label: "ما هي علم الكونيات" },
+          { value: "Tell me about historical cosmological models", label: "النماذج التاريخية لعلم الكونيات" },
+          { value: "Tell me about modern cosmological models", label: "النماذج الحديثة لعلم الكونيات" },
+          { value: "Tell me about cosmological Big Bang", label: "الانفجار الكبير" },
+          { value: "Tell me about cosmological inflation", label: "التضخم الكوني" },
+          { value: "Tell me about matter and antimatter in the universe", label: "المادة والمادة المضادة في الكون" },
+          { value: "Tell me about dark matter and dark energy in the universe", label: "المادة المظلمة والطاقة المظلمة" },
+          { value: "Tell me about hot early universe before the CMB scattering", label: "الكون المبكر الساخن قبل تشتت إشعاع الخلفية الكونية" },
+          { value: "Tell me about cosmic microwave background", label: "إشعاع الخلفية الكونية" },
+          { value: "Tell me about cosmology at radio frequencies", label: "علم الكونيات عند الترددات الراديوية" },
+          { value: "Tell me about cosmology at optical frequencies", label: "علم الكونيات عند الترددات الضوئية" },
+          { value: "Tell me about the cosmic web", label: "الشبكة الكونية" },
+          { value: "Tell me about the cosmological evolution of galaxies", label: "التطور الكوني للمجرات" },
+          { value: "Tell me about the cosmological evolution of quasars", label: "التطور الكوني للكوازارات" },
+          { value: "custom", label: "اطرح سؤالك حول علم الكونيات" }
+    ],
+    French: [
+          { value: "Tell me what is cosmology", label: "Qu'est-ce que la cosmologie" },
+          { value: "Tell me about historical cosmological models", label: "Modèles cosmologiques historiques" },
+          { value: "Tell me about modern cosmological models", label: "Modèles cosmologiques modernes" },
+          { value: "Tell me about cosmological Big Bang", label: "Le Big Bang cosmologique" },
+          { value: "Tell me about cosmological inflation", label: "L'inflation cosmologique" },
+          { value: "Tell me about matter and antimatter in the universe", label: "Matière et antimatière dans l'univers" },
+          { value: "Tell me about dark matter and dark energy in the universe", label: "Matière noire et énergie noire" },
+          { value: "Tell me about hot early universe before the CMB scattering", label: "L'univers primitif chaud avant la diffusion du CMB" },
+          { value: "Tell me about cosmic microwave background", label: "Fond diffus cosmologique" },
+          { value: "Tell me about cosmology at radio frequencies", label: "Cosmologie à fréquences radio" },
+          { value: "Tell me about cosmology at optical frequencies", label: "Cosmologie à fréquences optiques" },
+          { value: "Tell me about the cosmic web", label: "La toile cosmique" },
+          { value: "Tell me about the cosmological evolution of galaxies", label: "Évolution cosmologique des galaxies" },
+          { value: "Tell me about the cosmological evolution of quasars", label: "Évolution cosmologique des quasars" },
+          { value: "custom", label: "Posez votre question cosmologique" }
+    ],
+    German: [
+          { value: "Tell me what is cosmology", label: "Was ist Kosmologie" },
+          { value: "Tell me about historical cosmological models", label: "Historische kosmologische Modelle" },
+          { value: "Tell me about modern cosmological models", label: "Moderne kosmologische Modelle" },
+          { value: "Tell me about cosmological Big Bang", label: "Der Urknall" },
+          { value: "Tell me about cosmological inflation", label: "Kosmologische Inflation" },
+          { value: "Tell me about matter and antimatter in the universe", label: "Materie und Antimaterie im Universum" },
+          { value: "Tell me about dark matter and dark energy in the universe", label: "Dunkle Materie und Dunkle Energie" },
+          { value: "Tell me about hot early universe before the CMB scattering", label: "Das heiße frühe Universum vor der CMB-Streuung" },
+          { value: "Tell me about cosmic microwave background", label: "Kosmische Mikrowellen-Hintergrundstrahlung" },
+          { value: "Tell me about cosmology at radio frequencies", label: "Kosmologie bei Radiofrequenzen" },
+          { value: "Tell me about cosmology at optical frequencies", label: "Kosmologie bei optischen Frequenzen" },
+          { value: "Tell me about the cosmic web", label: "Das kosmische Netz" },
+          { value: "Tell me about the cosmological evolution of galaxies", label: "Kosmologische Evolution der Galaxien" },
+          { value: "Tell me about the cosmological evolution of quasars", label: "Kosmologische Evolution der Quasare" },
+          { value: "custom", label: "Stellen Sie Ihre kosmologischen Fragen" }
+    ],
+    Portuguese: [
+          { value: "Tell me what is cosmology", label: "O que é cosmologia" },
+          { value: "Tell me about historical cosmological models", label: "Modelos cosmológicos históricos" },
+          { value: "Tell me about modern cosmological models", label: "Modelos cosmológicos modernos" },
+          { value: "Tell me about cosmological Big Bang", label: "O Big Bang" },
+          { value: "Tell me about cosmological inflation", label: "Inflação cosmológica" },
+          { value: "Tell me about matter and antimatter in the universe", label: "Matéria e antimateria no universo" },
+          { value: "Tell me about dark matter and dark energy in the universe", label: "Matéria escura e energia escura" },
+          { value: "Tell me about hot early universe before the CMB scattering", label: "O universo primitivo quente antes da dispersão do CMB" },
+          { value: "Tell me about cosmic microwave background", label: "Fundo cósmico de micro-ondas" },
+          { value: "Tell me about cosmology at radio frequencies", label: "Cosmologia em frequências de rádio" },
+          { value: "Tell me about cosmology at optical frequencies", label: "Cosmologia em frequências ópticas" },
+          { value: "Tell me about the cosmic web", label: "A teia cósmica" },
+          { value: "Tell me about the cosmological evolution of galaxies", label: "Evolução cosmológica das galáxias" },
+          { value: "Tell me about the cosmological evolution of quasars", label: "Evolução cosmológica dos quasares" },
+          { value: "custom", label: "Pergunte sua questão cosmológica" }
+    ],
+    Spanish: [
+          { value: "Tell me what is cosmology", label: "¿Qué es la cosmología?" },
+          { value: "Tell me about historical cosmological models", label: "Modelos cosmológicos históricos" },
+          { value: "Tell me about modern cosmological models", label: "Modelos cosmológicos modernos" },
+          { value: "Tell me about cosmological Big Bang", label: "El Big Bang cosmológico" },
+          { value: "Tell me about cosmological inflation", label: "La inflación cosmológica" },
+          { value: "Tell me about matter and antimatter in the universe", label: "Materia y antimateria en el universo" },
+          { value: "Tell me about dark matter and dark energy in the universe", label: "Materia oscura y energía oscura" },
+          { value: "Tell me about hot early universe before the CMB scattering", label: "El universo primitivo caliente antes de la dispersión del CMB" },
+          { value: "Tell me about cosmic microwave background", label: "Fondo cósmico de microondas" },
+          { value: "Tell me about cosmology at radio frequencies", label: "Cosmología en frecuencias de radio" },
+          { value: "Tell me about cosmology at optical frequencies", label: "Cosmología en frecuencias ópticas" },
+          { value: "Tell me about the cosmic web", label: "La red cósmica" },
+          { value: "Tell me about the cosmological evolution of galaxies", label: "Evolución cosmológica de las galaxias" },
+          { value: "Tell me about the cosmological evolution of quasars", label: "Evolución cosmológica de los cuásares" },
+          { value: "custom", label: "Haz tu pregunta sobre cosmología" }
+    ]
+    };
+const levels = {
+  English: [
+    { value: "for children", label: "For children" },
+    { value: "basic", label: "Basic" },
+    { value: "high school students", label: "Students (High School)" },
+    { value: "advanced", label: "Technical/advanced" },
+    { value: "for teachers", label: "For teachers" }
+  ],    
+  Arabic: [
+    { value: "for children", label: "للأطفال" }, 
+    { value: "basic", label: "أساسي" },
+    { value: "high school students", label: "طلاب (المدرسة الثانوية)" },
+    { value: "advanced", label: "تقني/متقدم" },
+    { value: "for teachers", label: "للمعلمين" }
+  ],      
+  Armenian: [
+    { value: "for children", label: "Մանկական" },
+    { value: "basic", label: "Հիմնական" },
+    { value: "high school students", label: "Ուսանողներ (միջնակարգ դպրոց)" },
+    { value: "advanced", label: "Տեխնիկական/առաջադեմ" },
+    { value: "for teachers", label: "Ուսուցիչների համար" }
+  ],   
+  Chinese: [
+    { value: "for children", label: "儿童版" },
+    { value: "basic", label: "基础" },
+    { value: "high school students", label: "学生（高中）" },
+    { value: "advanced", label: "技术/高级" },
+    { value: "for teachers", label: "教师版" }
+  ],
+  French: [
+    { value: "for children", label: "Pour les enfants" },
+    { value: "basic", label: "De base" },
+    { value: "high school students", label: "Étudiants (Lycée)" },
+    { value: "advanced", label: "Technique/avancé" },
+    { value: "for teachers", label: "Pour les enseignants" }
+  ],
+  German: [
+    { value: "for children", label: "Für Kinder" },
+    { value: "basic", label: "Grundlegend" },
+    { value: "high school students", label: "Schüler (Gymnasium)" },
+    { value: "advanced", label: "Technisch/fortgeschritten" },
+    { value: "for teachers", label: "Für Lehrer" }
+  ],
+  Italian: [
+    { value: "for children", label: "Per bambini" },
+    { value: "basic", label: "Base" },
+    { value: "high school students", label: "Studenti (Scuola superiore)" },
+    { value: "advanced", label: "Tecnico/avanzato" },
+    { value: "for teachers", label: "Per insegnanti" }
+  ],
+  Japanese: [
+    { value: "for children", label: "子供向け" },
+    { value: "basic", label: "基本" },
+    { value: "high school students", label: "学生（高校）" },
+    { value: "advanced", label: "技術的／上級" },
+    { value: "for teachers", label: "教師向け" }
+  ],
+  Portuguese: [
+    { value: "for children", label: "Para crianças" },
+    { value: "basic", label: "Básico" },
+    { value: "high school students", label: "Estudantes (Ensino médio)" },
+    { value: "advanced", label: "Técnico/avançado" },
+    { value: "for teachers", label: "Para professores" }
+  ],
+  Russian: [
+    { value: "for children", label: "Для детей" },
+    { value: "basic", label: "Базовый" },
+    { value: "high school students", label: "Ученики (Старшие классы)" },
+    { value: "advanced", label: "Технический/продвинутый" },
+    { value: "for teachers", label: "Для учителей" }
+  ],
+  Spanish: [
+    { value: "for children", label: "Para niños" },
+    { value: "basic", label: "Básico" },
+    { value: "high school students", label: "Estudiantes (Escuela secundaria)" },
+    { value: "advanced", label: "Técnico/avanzado" },
+    { value: "for teachers", label: "Para profesores" }
+  ]
+};
+</script>
+
+<script>
+    function toggleCustomInput() {
+      const dropdown = document.getElementById('param1Dropdown');
+      const customInput = document.getElementById('param1Custom');
+
+      if (dropdown.value === 'custom') {
+        customInput.style.display = 'inline';
+      } else {
+        customInput.style.display = 'none';
+        customInput.value = ""; // Clear the custom input when not using it
+      }
+    }
+function runNewChapterScript() {
+  let focusQuestion;
+  const dropdown = document.getElementById('param1Dropdown');
+  const focusTopic = dropdown.options[dropdown.selectedIndex].text;
+  //const focusTopic = document.getElementById('param1Dropdown').value;
+  const focusLanguage = document.getElementById('param2').value;
+  const focusLevel = document.getElementById('param3').value;
+  const spinner = document.getElementById('spinner');
+  spinner.style.display = "block";
+
+  focusQuestion=`Please set up a lesson on ${focusTopic} for an audience of ${focusLevel} level by providing a file structured strictly as follows: first line (in English): Language: ${focusLanguage}, second line a question about ${focusTopic} (in an astronomical or scientific context)followed by a comma and a label for the question. Up to ten questions. Do not use commas in the questions, the label should be informative, not too short but max four words.`
+      const url = `${ROOT_URL}/run-script?param1=${encodeURIComponent(focusQuestion)}&param2=${encodeURIComponent(focusLanguage)}`;
+  fetch(url)
+    .then(response => response.text())
+    .then(result => {
+       spinner.style.display = "none";
+       // ✅ Create a Blob and trigger file download
+       const blob = new Blob([result], { type: "text/plain" });
+       const downloadLink = document.createElement("a");
+       downloadLink.href = URL.createObjectURL(blob);
+       fileName = 'chapter_' + selectedTopic.trim().replace(/\s+/g, '') + ".txt";
+       downloadLink.download = fileName; // name of the downloaded file
+       //downloadLink.download = "output.txt"; // name of the downloaded file
+       downloadLink.click();
+    })
+    .catch(error => {
+      spinner.style.display = "none";
+      outputDiv.textContent = "Error: " + error;
+      outputDiv.innerHTML = "Failed to load content.";
+    });
+}
+
+function runRemoteScript() {
+  const topic = document.getElementById('param1Dropdown').value;
+  const language = document.getElementById('param2').value;
+  const level = document.getElementById('param3').value;
+  const lengthChoice = document.querySelector('input[name="answerLength"]:checked').value;
+
+  // Use custom question if 'Other...' is selected
+  const customInputText = document.getElementById('param1Custom').value; 
+
+  const outputDiv = document.getElementById('resultOutput');
+  const spinner = document.getElementById('spinner');
+
+  outputDiv.innerHTML = "";
+  spinner.style.display = "block";
+
+  // Build final question text with level and lengthy included
+  let finalQuestion;
+  if (customInputText.trim() !== "") {
+    finalQuestion = customInputText.trim();
+  } else {
+    finalQuestion = `${topic} at a ${level} level in a ${lengthChoice} way`;
+  }
+      const url = `${ROOT_URL}/run-script?param1=${encodeURIComponent(finalQuestion)}&param2=${encodeURIComponent(language_response)}`;
+
+  fetch(url)
+    .then(response => response.text())
+    .then(result => {
+      spinner.style.display = "none";
+      outputDiv.textContent = result;
+   // Get selected topic from dropdown
+   const topicDropdown = document.getElementById("param1Dropdown");
+   const selectedOption = topicDropdown.options[topicDropdown.selectedIndex];
+   topicLabel = selectedOption?.textContent || "";
+
+   // Update selectedTopic (used by generateLesson)
+   selectedTopic = topicLabel.trim();
+
+    // ✅ Append new button after Submit completes
+    const extraBtn = document.createElement("a");
+    extraBtn.href = "#";
+    extraBtn.className = "data_button tooltip";
+    extraBtn.textContent = "Expand topic";
+
+    // Tooltip element
+    const tooltipSpan = document.createElement("span");
+    tooltipSpan.className = "tooltiptext";
+    tooltipSpan.textContent = "Click to expand on the selected topic in a dedicated chapter ";
+
+    // Append tooltip to button
+    extraBtn.appendChild(tooltipSpan);
+
+    // Add to DOM
+    document.getElementById("extraInfoButtonContainer").appendChild(extraBtn);
+    document.getElementById("extraInfoButtonContainer").style.display = "inline"; // Make sure it's visible
+
+    extraBtn.onclick = () => {
+      runNewChapterScript();
+   };
+
+    // extraBtn.onclick = () => generateLesson("Custom");
+    const container = document.getElementById("extraInfoButtonContainer");
+    container.innerHTML = ''; // Clear previous button if any
+    container.appendChild(extraBtn);
+  })
+    .catch(error => {
+      spinner.style.display = "none";
+      outputDiv.textContent = "Error: " + error;
+      outputDiv.innerHTML = "Failed to load content.";
+    });
+}
+  </script>
+
+</body>
+<script>
+class AudioRecorder extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot.innerHTML = `
+      <div>
+        <button id="recordBtn">🎙️  Ask your question</button>
+        <button id="stopBtn" disabled>⏹️  Stop</button>
+        <button id="transcribeBtn" disabled>📝 Transcribe</button>
+        <audio id="audioPlayer" controls></audio>
+        <div id="transcript" class="transcript"></div>
+      </div>
+    `;
+  }
+
+  connectedCallback() {
+    const recordBtn = this.shadowRoot.querySelector('#recordBtn');
+    const stopBtn = this.shadowRoot.querySelector('#stopBtn');
+    const transcribeBtn = this.shadowRoot.querySelector('#transcribeBtn');
+    const audioPlayer = this.shadowRoot.querySelector('#audioPlayer');
+    const transcriptDiv = this.shadowRoot.querySelector('#transcript');
+
+    let mediaRecorder;
+    let audioChunks = [];
+    let audioBlob;
+
+    recordBtn.onclick = async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorder.start();
+      recordBtn.disabled = true;
+      stopBtn.disabled = false;
+      transcribeBtn.disabled = true;
+
+      audioChunks = [];
+
+      mediaRecorder.addEventListener("dataavailable", event => {
+        audioChunks.push(event.data);
+      });
+
+      mediaRecorder.addEventListener("stop", () => {
+        audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        audioPlayer.src = audioUrl;
+
+        transcribeBtn.disabled = false;
+      });
+    };
+
+    stopBtn.onclick = () => {
+      mediaRecorder.stop();
+      recordBtn.disabled = false;
+      stopBtn.disabled = true;
+    };
+
+    transcribeBtn.onclick = async () => {
+      transcribeBtn.disabled = true;
+      transcriptDiv.textContent = "⏳ Transcribing...";
+
+      const formData = new FormData();
+      formData.append("file", audioBlob, "audio.wav");
+      formData.append("model", "whisper-1");
+  
+      try {
+        const response = await fetch("http://localhost:3000/transcribe", {
+          method: "POST",
+          body: formData
+        });
+       
+        const data = await response.json();
+  
+        if (data.text) { 
+          document.getElementById('param1Custom').value = data.text;
+          document.getElementById('param1Dropdown').value = 'custom';
+          toggleCustomInput();
+    
+          transcriptDiv.textContent = "✅ Transcription sent to your question box!";
+        } else {
+          transcriptDiv.textContent = "❌ Transcription failed.";
+          console.error("No text in response:", data);
+        }
+      } catch (err) {
+        transcriptDiv.textContent = "❌ Error during transcription.";
+        console.error(err); 
+      } finally {
+        transcribeBtn.disabled = false;
+      }
+    };
+  };
+};
+
+customElements.define('audio-recorder', AudioRecorder);
+
+/* Rocket code */
+    const submitBtn = document.getElementById("submitBtn");
+    const rocket = document.getElementById("rocket");
+    const result = document.getElementById("result");
+    
+    submitBtn.addEventListener("click", () => {
+      // Reset result and rocket visibility
+      result.textContent = "";
+      rocket.classList.remove("hidden");
+
+      // Start rocket launch
+      rocket.classList.add("launch");
+       
+      // Simulate async result after 3s 
+      setTimeout(() => {
+        result.textContent = "🚀 Result is back!";
+        rocket.classList.add("hidden");
+        rocket.classList.remove("launch");
+      }, 3000);
+    });
+/* Rocket code */ 
+     function updateLevelOptions(language) {
+       const chosenLevel = document.getElementById("param3").value;
+       const dropdown = document.getElementById("param3");
+       dropdown.innerHTML = "";
+       levels[language].forEach(level => { 
+         const option = document.createElement("option");
+         option.value = level.value;
+        
+         //if (level.value === "basic") {
+         if (level.value === chosenLevel) {
+           option.selected = true;
+         }
+        
+         option.textContent = level.label;
+         dropdown.appendChild(option);
+       });
+     }
+      function updateTopicOptions() {
+        const language = document.getElementById("param2").value;
+        const dropdown = document.getElementById("param1Dropdown");
+
+        dropdown.innerHTML = "";
+        topics[language].forEach(topic => {
+          const option = document.createElement("option");
+          if ( topic.value == 'Tell me about the astronomical sources named normal stars' ) {
+             option.selected = true;
+          } 
+          option.value = topic.value;
+          option.textContent = topic.label;
+          dropdown.appendChild(option);
+        });
+      
+        updateUIText(language);
+        updateLevelOptions(language);
+      }
+
+</script>
+</html>

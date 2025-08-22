@@ -1,0 +1,11 @@
+Language: English  
+What is the purpose of the WMAP Satellite? , purpose of WMAP  
+How does the WMAP Satellite measure cosmic microwave background radiation? , measurement method  
+When was the WMAP Satellite launched into space? , launch date  
+What significant discovery did WMAP make about the universe? , major discovery  
+How long did WMAP operate in space? , operational duration  
+What does WMAP stand for in the context of astronomy? , acronym meaning  
+Where was the WMAP Satellite launched from? , launch site  
+What type of data does the WMAP Satellite collect? , data type  
+How has WMAP contributed to our understanding of the Big Bang? , Big Bang contribution  
+What is the significance of the cosmic microwave background radiation studied by WMAP? , significance of CMB

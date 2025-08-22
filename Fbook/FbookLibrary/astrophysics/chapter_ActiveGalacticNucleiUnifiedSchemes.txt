@@ -1,0 +1,11 @@
+Language: English  
+What are Active Galactic Nuclei, AGN Overview  
+How do we classify AGN, Classification Methods  
+What causes the energy output in AGN, Energy Sources  
+What is the role of supermassive black holes, Black Hole Importance  
+How do we observe AGN across different wavelengths, Observational Techniques  
+What is the significance of the unified model, Unified Model Significance  
+How does orientation affect AGN appearance, Orientation Impact  
+What types of AGN exist, Types of AGN  
+What is a quasar and its characteristics, Quasar Definition  
+How does AGN research impact our understanding of the universe, Research Significance

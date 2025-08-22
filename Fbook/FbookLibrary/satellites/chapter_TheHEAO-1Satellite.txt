@@ -1,0 +1,11 @@
+Language: English  
+What was the purpose of the HEAO-1 Satellite?, Purpose of HEAO-1  
+When was the HEAO-1 Satellite launched?, Launch Date  
+What type of instruments did HEAO-1 carry?, Instruments on HEAO-1  
+Which organization developed the HEAO-1 Satellite?, Developer of HEAO-1  
+What kind of data did HEAO-1 collect?, Data Collected by HEAO-1  
+How long did HEAO-1 operate in space?, Operational Duration  
+What significant discovery was made by HEAO-1?, Key Discoveries of HEAO-1  
+What was the HEAO-1's orbit like?, HEAO-1 Orbit Details  
+Who were the principal investigators for the HEAO-1 mission?, Principal Investigators  
+How did HEAO-1 contribute to astrophysics?, Contribution to Astrophysics

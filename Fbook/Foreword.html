@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foreword</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        text-align: left;
+        text-color: #0d2059;
+        padding: 5px;
+      }
+      .container {
+        background-color: #fff5e6;
+        padding: 20px;
+        max-width: 800px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      h1 {
+        color: #0d2059;
+      }
+      p {
+        font-size: 15px;
+        color: #0d2059;
+        margin-bottom: 30px;
+      }
+    </style>
+    <script>
+      function getLanguageFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('lang') || 'English';
+      }
+
+      const translations = {
+        English: {
+          title: "<center>Foreword</center>",
+          text: `This modern online tool on astronomy, astrophysics, and related topics draws 
+                inspiration from the <a href="https://openuniverse.cbpf.br" target="_blank"> United Nations Open Universe initiative</a> 
+                (<a href="https://arxiv.org/abs/1805.08505" target="_blank">Giommi et al. 2018</a>)
+                and is being developed as part of the <a href="https://firmamento.nyuad.nyu.edu" target="_blank">Firmamento platform</a>
+                (<a href="https://iopscience.iop.org/article/10.3847/1538-3881/ad216a" target="_blank">Tripathi et al. 2024</a>). 
+                <br><p>
+                The tool integrates cutting-edge web technologies, multimedia features, multilingual support, and it is  
+                powered by generative AI systems — with plans to incorporate a custom-developed large language model (LLM) in the near future.
+                As part of the firmamento platform it integrates seamlessly with open access professional scientific data.
+                <p>Designed for maximum inclusivity, the book attempts to adapt to readers at all levels—from curious children and general 
+                audiences to students, teachers and professional scientists.<br>
+                <br>Firmamento and this book aim to become a unified platform for discovery, learning, and research - what might have 
+                seemed like a utopian vision 
+                just a few years ago. The unprecedented pace of technological advancement is now turning this ambitious goal into real 
+                possibility, enabling breakthroughs that were hardly imaginable in the recent past.
+                <br><center>If you wish to help us continue the development of this vision please support us.</center><br>
+                <br>Paolo Giommi <br>Please note that this tool relies on ChaptGPT (4.1-mini for the base version). While very powerful, 
+                ChatGPT has some known limitations and can occasionally generate incorrect information.`,
+          button: "Donate Now"
+        },
+        French: {
+          title: "<center>Préface</center>",
+          text: `Cet outil en ligne moderne consacré à l'astronomie, à l'astrophysique et aux sujets connexes s'inspire de l'initiative 
+                <a href=\"https://openuniverse.cbpf.br\" target=\"_blank\">Open Universe des Nations Unies</a> 
+                (<a href=\"https://arxiv.org/abs/1805.08505\" target=\"_blank\">Giommi et al.</a>) et est développé dans le cadre de la 
+                <a href=\"https://firmamento.nyuad.nyu.edu\" target=\"_blank\">plateforme Firmamento</a> 
+                (<a href=\"https://iopscience.iop.org/article/10.3847/1538-3881/ad216a\" target=\"_blank\">Tripathi et al.</a>).<br><br>
+                L'outil intègre des technologies web de pointe, des fonctionnalités multimédias et un support multilingue, alimenté par des systèmes d'IA générative — avec des plans pour incorporer prochainement un modèle de langage de grande taille (LLM) développé sur mesure.<br><br>
+                Il s'intègre parfaitement aux données scientifiques professionnelles accessibles.<br><br>
+                Conçu pour une inclusivité maximale, le livre s'adapte aux lecteurs de tous niveaux — des enfants curieux et du grand public aux étudiants et aux scientifiques professionnels.<br><br>
+                Ce livre vise à devenir une plateforme unifiée pour la découverte, l'apprentissage et la recherche — ce qui pouvait sembler une vision utopique il y a quelques années à peine. Le rythme sans précédent des avancées technologiques transforme désormais cet objectif ambitieux en réalité, permettant des possibilités auparavant inimaginables.<br><br>
+                Si vous souhaitez contribuer au développement de cette vision, veuillez nous soutenir.
+                <br>Paolo Giommi`,
+          button: "Faire un don"
+        },
+        German: {
+          title: "<center>Vorwort</center>",
+          text: `Dieses moderne Online-Tool für Astronomie, Astrophysik und verwandte Themen lässt sich von der 
+                <a href=\"https://openuniverse.cbpf.br\" target=\"_blank\">Open-Universe-Initiative der Vereinten Nationen</a> 
+                (<a href=\"https://arxiv.org/abs/1805.08505\" target=\"_blank\">Giommi et al.</a>) inspirieren und wird im Rahmen der 
+                <a href=\"https://firmamento.nyuad.nyu.edu\" target=\"_blank\">Firmamento-Plattform</a> 
+                (<a href=\"https://iopscience.iop.org/article/10.3847/1538-3881/ad216a\" target=\"_blank\">Tripathi et al.</a>) entwickelt.<br><br>
+                Das Tool integriert modernste Webtechnologien, multimediale Funktionen und mehrsprachige Unterstützung, angetrieben durch generative KI-Systeme — mit Plänen, in naher Zukunft ein maßgeschneidertes großes Sprachmodell (LLM) zu integrieren.<br><br>
+                Es integriert sich nahtlos mit zugänglichen professionellen wissenschaftlichen Daten.<br><br>
+                Entworfen für maximale Inklusivität, passt sich das Buch Lesern aller Niveaus an — von neugierigen Kindern und dem allgemeinen Publikum bis hin zu Studenten und professionellen Wissenschaftlern.<br><br>
+                Dieses Buch soll eine einheitliche Plattform für Entdeckung, Lernen und Forschung werden — was noch vor wenigen Jahren wie eine utopische Vision erschien. Das beispiellose Tempo des technologischen Fortschritts macht dieses ehrgeizige Ziel nun zur Realität und ermöglicht zuvor unvorstellbare Möglichkeiten.<br><br>
+                Wenn Sie zur Entwicklung dieser Vision beitragen möchten, unterstützen Sie uns bitte.
+                <br>Paolo Giommi`,
+          button: "Jetzt spenden"
+        },
+        Italian: {
+          title: "<center>Prefazione</center>",
+          text: `Questo moderno strumento online dedicato all'astronomia, all'astrofisica e ad argomenti correlati trae ispirazione dall'iniziativa 
+                 <a href=\"https://openuniverse.cbpf.br\" target=\"_blank\">Open Universe delle Nazioni Unite</a> 
+                 (<a href=\"https://arxiv.org/abs/1805.08505\" target=\"_blank\">Giommi et al.</a>) ed è sviluppato nell'ambito della 
+                 <a href=\"https://firmamento.nyuad.nyu.edu\" target=\"_blank\">piattaforma Firmamento</a> 
+                 (<a href=\"https://iopscience.iop.org/article/10.3847/1538-3881/ad216a\" target=\"_blank\">Tripathi et al.</a>).<br><br>
+                 Lo strumento integra tecnologie web all'avanguardia, funzionalità multimediali e supporto multilingue, alimentato da sistemi di intelligenza artificiale generativa — con piani per incorporare presto un modello linguistico di grandi dimensioni (LLM) sviluppato su misura.<br><br>
+                 Si integra perfettamente con dati scientifici professionali accessibili.<br><br>
+                 Progettato per la massima inclusività, il libro si adatta a lettori di tutti i livelli — dai bambini curiosi e il pubblico generale agli studenti e agli scienziati professionisti.<br><br>
+                 Questo libro mira a diventare una piattaforma unificata per la scoperta, l'apprendimento e la ricerca — ciò che solo pochi anni fa poteva sembrare una visione utopica. Il ritmo senza precedenti del progresso tecnologico sta ora trasformando questo ambizioso obiettivo in realtà, consentendo possibilità prima inimmaginabili.<br><br>
+                 <center>Se desideri contribuire allo sviluppo di questa visione, ti preghiamo di sostenerci.</center>
+                 <br>Paolo Giommi`,
+          button: "Dona ora"
+       },
+        Portuguese: {
+          title: "<center>Prefácio</center>",
+          text: `Esta moderna ferramenta online sobre astronomia, astrofísica e tópicos relacionados inspira-se na 
+                 <a href=\"https://openuniverse.cbpf.br\" target=\"_blank\">iniciativa Open Universe das Nações Unidas</a> 
+                 (<a href=\"https://arxiv.org/abs/1805.08505\" target=\"_blank\">Giommi et al.</a>) e está sendo desenvolvida como parte da 
+                 <a href=\"https://firmamento.nyuad.nyu.edu\" target=\"_blank\">plataforma Firmamento</a> 
+                 (<a href=\"https://iopscience.iop.org/article/10.3847/1538-3881/ad216a\" target=\"_blank\">Tripathi et al.</a>).<br><br>
+                 A ferramenta integra tecnologias web de ponta, recursos multimídia e suporte multilíngue, alimentada por sistemas de IA generativa — com planos para incorporar em breve um modelo de linguagem de grande porte (LLM) desenvolvido sob medida.<br><br>
+                 Ela se integra perfeitamente com dados científicos profissionais acessíveis.<br><br>
+                 Projetado para máxima inclusão, o livro adapta-se a leitores de todos os níveis — desde crianças curiosas e o público em geral até estudantes e cientistas profissionais.<br><br>
+                 Este livro pretende tornar-se uma plataforma unificada para descoberta, aprendizado e pesquisa — o que poderia parecer uma visão utópica há apenas alguns anos. O ritmo sem precedentes do avanço tecnológico está agora transformando esse objetivo ambicioso em realidade, possibilitando possibilidades antes inimagináveis.<br><br>
+                 Se você deseja contribuir para o desenvolvimento dessa visão, por favor, apoie-nos.
+                 <br>Paolo Giommi`,
+          button: "Doe agora"
+        },
+        Arabic: {
+               title: "<center>المقدمة</center>",
+               text: `في عالم اليوم الرقمي، حيث تتقاطع الثقافات واللغات عند أطراف أصابع الأطفال، يصبح سرد القصص أداة قوية لتشكيل العقول الشابة.
+               يهدف هذا الكتاب إلى تسليط الضوء على الحاجة إلى مكتبات رقمية للأطفال لا تقتصر فقط على الترفيه ولكن أيضًا تعزز الفهم والتقدير بين الثقافات.<br>
+               <p>تم تطوير هذه الأداة ضمن منصة Firmamento وبدعم من مبادرة الأمم المتحدة Open Universe، مع دمج تقنيات الويب الحديثة
+               ووسائط متعددة ودعم متعدد اللغات مدعومًا بأنظمة ذكاء اصطناعي توليدية.
+               <br>إذا كنت ترغب في المساهمة في تطوير هذه الرؤية، فالرجاء دعمنا.
+               <br>Paolo Giommi`,
+               button: "ادعمنا الآن"
+        },
+        Spanish: {
+               title: "<center>Prólogo</center>",
+               text: `Esta moderna herramienta en línea sobre astronomía, astrofísica y temas relacionados se inspira en la
+                      <a href="https://openuniverse.cbpf.br" target="_blank">Iniciativa Open Universe de las Naciones Unidas</a>
+                      (<a href="https://arxiv.org/abs/1805.08505" target="_blank">Giommi et al. 2018</a>)
+                      y está siendo desarrollada como parte de la <a href="https://firmamento.nyuad.nyu.edu" target="_blank">plataforma 
+                      Firmamento</a>
+                      (<a href="https://iopscience.iop.org/article/10.3847/1538-3881/ad216a" target="_blank">Tripathi et al. 2024</a>).
+                      <br><p> La herramienta integra tecnologías web de vanguardia, funciones multimedia, soporte multilingüe y está 
+                      impulsada por sistemas de IA generativa, con planes para incorporar un modelo de lenguaje grande (LLM) desarrollado 
+                      a medida en un futuro cercano.
+                      Como parte de la plataforma Firmamento, se integra perfectamente con datos científicos profesionales de acceso abierto.
+                      <p> Diseñado para lograr la máxima inclusión, el libro intenta adaptarse a lectores de todos los niveles: desde niños 
+                      curiosos y público general hasta estudiantes, docentes y científicos profesionales. <br><br>
+                      Firmamento y este libro aspiran a convertirse en una plataforma unificada para el descubrimiento, el aprendizaje y 
+                      la investigación, lo que hace solo unos años habría parecido una visión utópica.
+                      El ritmo sin precedentes del avance tecnológico está haciendo realidad este ambicioso objetivo, permitiendo avances 
+                      que antes eran casi inimaginables.
+                      <br><center>Si deseas contribuir al desarrollo de esta visión, por favor apóyanos.</center>
+                      <br>Paolo Giommi`,
+               button: "Dona ahora"
+        },
+        Armenian: {
+               title: "<center>Նախաբան</center>",
+               text: `Այս ժամանակակից առցանց գործիքը աստղագիտության, աստղաֆիզիկայի և հարակից թեմաների վերաբերյալ ոգեշնչված է
+               <a href="https://openuniverse.cbpf.br" target="_blank">ՄԱԿ-ի «Բաց Տիեզերք» նախաձեռնությունից</a>
+               (<a href="https://arxiv.org/abs/1805.08505" target="_blank">Giommi և այլք, 2018</a>)
+               և ստեղծվում է որպես <a href="https://firmamento.nyuad.nyu.edu" target="_blank">Firmamento հարթակի</a>
+               (<a href="https://iopscience.iop.org/article/10.3847/1538-3881/ad216a" target="_blank">Tripathi և այլք, 2024</a>) մի մաս։
+               <br><p>
+               Գործիքը համադրում է առաջատար վեբ տեխնոլոգիաներ, մուլտիմեդիա գործառույթներ և բազմալեզու աջակցություն՝
+               օգտագործելով սերնդային արհեստական բանականության համակարգեր — մոտ ապագայում նախատեսվում է նաև հատուկ մշակված մեծ լեզվական մոդելի (LLM) ներդրում։
+               Որպես Firmamento հարթակի մաս, այն անխափանորեն ինտեգրվում է բաց հասանելիությամբ գիտական տվյալների հետ։
+               <p>
+               Նախագծված է առավելագույն ընդգրկունության համար՝ այս գիրքը նախատեսված է բոլոր մակարդակների ընթերցողների համար՝ հետաքրքրասեր երեխաներից և լայն հասարակությունից մինչև ուսանողներ, ուսուցիչներ և մասնագիտական գիտնականներ։
+               <br><br>
+               Firmamento-ն և այս գիրքը նպատակ ունեն դառնալ հայտնագործությունների, ուսուցման և հետազոտությունների միասնական հարթակ — մի բան, որը մի քանի տարի առաջ կարող էր թվալ ուտոպիա։
+               Տեխնոլոգիական առաջընթացի աննախադեպ արագությունը այժմ այս հավակնոտ նպատակը վերածում է իրականության՝
+               հնարավոր դարձնելով այնպիսի առաջընթաց, որը դժվար էր պատկերացնել անցյալում։
+               <br><center>Եթե ցանկանում եք աջակցել այս տեսլականի զարգացմանը՝ խնդրում ենք աջակցել մեզ։</center><br>
+               <br>Paolo Giommi`,
+               button: "Աջակցեք հիմա"
+        },
+        Russian: {
+               title: "<center>Предисловие</center>",
+               text: `Этот современный онлайн-инструмент по астрономии, астрофизике и смежным темам вдохновлён
+               <a href="https://openuniverse.cbpf.br" target="_blank">инициативой Open Universe Организации Объединённых Наций</a>
+               (<a href="https://arxiv.org/abs/1805.08505" target="_blank">Giommi et al. 2018</a>)
+               и разрабатывается как часть <a href="https://firmamento.nyuad.nyu.edu" target="_blank">платформы Firmamento</a>
+               (<a href="https://iopscience.iop.org/article/10.3847/1538-3881/ad216a" target="_blank">Tripathi et al. 2024</a>).
+               <br><p>
+               Инструмент использует передовые веб-технологии, мультимедийные возможности, поддержку нескольких языков и работает на 
+               основе генеративных ИИ-систем — с планами по внедрению специально разработанной модели большого языка (LLM) в ближайшем 
+               будущем. В рамках платформы Firmamento он бесшовно интегрируется с профессиональными научными данными с открытым доступом.
+               <p> Созданный для максимальной инклюзивности, этот ресурс адаптируется к читателям любого уровня — от любознательных детей 
+               и широкой аудитории до студентов, преподавателей и профессиональных учёных.
+               <br><br>
+               Firmamento и эта книга стремятся стать единой платформой для открытия, обучения и исследований — тем, что ещё недавно 
+               казалось утопией. Беспрецедентные темпы технологического прогресса делают эту амбициозную цель реальностью, открывая 
+               возможности, которые ещё недавно казались невозможными.
+               <br><center>Если вы хотите помочь нам в реализации этой идеи — пожалуйста, поддержите нас.</center><br>
+               <br>Paolo Giommi`,
+               button: "Поддержать сейчас"
+        },
+        Chinese: {
+               title: "<center>前言</center>",
+               text: `这个关于天文学、天体物理学及相关主题的现代在线工具，
+               灵感来源于<a href="https://openuniverse.cbpf.br" target="_blank">联合国 Open Universe 倡议</a>
+               （<a href="https://arxiv.org/abs/1805.08505" target="_blank">Giommi 等人，2018</a>），
+               并作为<a href="https://firmamento.nyuad.nyu.edu" target="_blank">Firmamento 平台</a>的一部分进行开发
+               （<a href="https://iopscience.iop.org/article/10.3847/1538-3881/ad216a" target="_blank">Tripathi 等人，2024</a>）。
+               <br><p>
+               该工具融合了最先进的网页技术、多媒体功能和多语言支持，
+               并由生成式人工智能系统提供支持 —— 未来还计划引入专门开发的大型语言模型（LLM）。
+               作为 Firmamento 平台的一部分，它可无缝连接开放获取的专业科学数据。
+               <p>
+               本书旨在实现最大程度的包容性，适应所有层级的读者 —— 从好奇的孩子和普通大众到学生、教师和专业科学家。
+               <br><br>
+               Firmamento 和本书希望成为一个统一的探索、学习和研究平台 —— 这是几年前可能还被认为是乌托邦式的愿景。
+               科技的飞速发展正在将这一雄心壮志变为现实，开启了过去难以想象的突破。
+               <br><center>如果您希望帮助我们继续实现这一愿景，请支持我们。</center><br>
+               <br>Paolo Giommi`,
+               button: "立即支持"
+        },
+        Japanese: {
+               title: "<center>はじめに</center>",
+               text: `天文学、天体物理学、および関連するトピックに関するこの最新のオンラインツールは、
+               <a href="https://openuniverse.cbpf.br" target="_blank">国連の Open Universe イニシアチブ</a>
+               （<a href="https://arxiv.org/abs/1805.08505" target="_blank">Giommi ら, 2018</a>）に着想を得ており、
+               <a href="https://firmamento.nyuad.nyu.edu" target="_blank">Firmamento プラットフォーム</a>
+               <a href="https://iopscience.iop.org/article/10.3847/1538-3881/ad216a" target="_blank">Tripathi ら, 2024</a>）
+               の一環として開発されています。
+               <p>
+               このツールは、最先端のウェブ技術、マルチメディア機能、多言語サポートを統合し、
+               生成系AIシステムによって駆動されています — 近い将来、独自開発の大規模言語モデル（LLM）の導入も予定されています。
+               Firmamento プラットフォームの一部として、オープンアクセスの専門的な科学データともシームレスに統合されています。
+               <p>
+               この書籍は、好奇心旺盛な子供たちや一般の方々から、学生、教師、専門の科学者に至るまで、
+               あらゆるレベルの読者に対応できるよう設計されています。
+               <br><br>
+               Firmamento およびこの書籍は、発見、学習、研究のための統合プラットフォームとなることを目指しています — 
+               ほんの数年前にはユートピアのように思われたビジョンが、
+               技術革新のかつてないスピードにより現実となりつつあります。
+               最近まで想像もできなかったような可能性が、今まさに実現しようとしています。
+               <br><center>このビジョンの発展を支援していただける方は、ぜひご支援ください。</center><br>
+               <br>Paolo Giommi`,
+               button: "今すぐ支援する"
+        }
+
+      };
+
+      window.onload = function () {
+        const lang = getLanguageFromURL();
+        const t = translations[lang] || translations.English;
+
+        document.getElementById("title").innerHTML = t.title;
+        document.getElementById("message").innerHTML = t.text;
+      };
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="title">Loading...</h1>
+      <p id="message">Loading...</p>
+      <!--center><a href="https://www.gofundme.com/f/your-campaign-name" target="_blank" class="donate-button" id="donateBtn">
+        Loading...
+      </a></center-->
+    </div>
+  </body>
+</html>

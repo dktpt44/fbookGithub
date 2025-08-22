@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User's chapter not there</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        text-align: left;
+        padding: 50px;
+      }
+      .container {
+        background-color: white;
+        padding: 40px;
+        max-width: 700px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      h1 {
+        color: #333;
+      }
+      p {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 30px;
+      }
+    </style>
+    <script>
+      function getLanguageFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('lang') || 'English';
+      }
+
+      const translations = {
+        English: {
+          title:`"Your chapter" not loaded`,
+          text: `To activate "Your chapter" you need to upload a plain text file (e.g. filename.txt) 
+            <br>that contains the data required to set up the chapter. The file should be formatted
+            <br> as follows 
+            <br>
+            <br> Language: chosen language
+            <br>
+            <br>details of a question      , label  for the question
+            <br>another question           , another label 
+            <br><br> Example:
+            <br> Language: English
+            <br>
+            <br>tell me about the moon                , The moon
+            <br>tell me about the Sun                 , The Sun`
+        },
+        Arabic: {
+        },
+        Spanish: {
+        },
+        Armenian: {
+        },
+        French: {
+        },
+        German: {
+        },
+        Italian: {
+        },
+        Portuguese: {
+        },
+        Russian: {
+        },
+        Chinese: {
+        },
+        Japanese: {
+        }
+      };
+
+      window.onload = function () {
+        const lang = getLanguageFromURL();
+        const t = translations[lang] || translations.English;
+
+        document.getElementById("title").innerHTML = t.title;
+        document.getElementById("message").innerHTML = t.text;
+      };
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="title" align="center">Loading...</h1>
+      <p id="message">Loading...</p>
+      </a>
+    </div>
+  </body>
+</html>

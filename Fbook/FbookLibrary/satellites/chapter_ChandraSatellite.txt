@@ -1,0 +1,11 @@
+Language: English  
+What is the purpose of the Chandra satellite? , Purpose of Chandra  
+When was the Chandra satellite launched? , Launch Date  
+How does Chandra observe X-rays? , Observation Method  
+What type of telescope is Chandra? , Telescope Type  
+What key discoveries has Chandra made? , Key Discoveries  
+How does Chandra contribute to black hole studies? , Black Hole Research  
+What is the significance of Chandra's orbit? , Orbit Significance  
+Who operates the Chandra satellite? , Operations Team  
+What is the expected lifespan of Chandra? , Lifespan Information  
+How can the public access Chandra's data? , Data Access

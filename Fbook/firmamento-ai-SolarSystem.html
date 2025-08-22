@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Firmamento-AI The Solar system</title>
+  <meta charset="UTF-8" />
+  <script>
+      let language = "English";
+      let language_response = "";
+      let languageTest = "";
+      let selectedTopic
+      const ROOT_URL = window.location.hostname.includes("localhost")
+        ? "http://localhost:5000"
+        : "https://firmamento.nyuad.nyu.edu/Fbook";
+
+      // Get 'lang' from URL, fallback to English
+      function getLanguageFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('lang') || 'English';
+      }
+     
+      // Get 'level' from URL, fallback to basic
+      function getLevelFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('level') || 'basic';
+      }  
+      function clearOutputDiv() {
+         const outputDiv = document.getElementById('resultOutput');
+         outputDiv.innerHTML = "";
+      }          
+      window.onload = function () {
+        languageTest = getLanguageFromURL();
+        const level    = getLevelFromURL();
+
+        if (languageTest.startsWith("custom:")) {
+          language_response = languageTest.split(":")[1];  // gets what's after "custom:"
+        } else {
+          language_response = languageTest
+          language = languageTest
+        }
+           
+        document.getElementById("param2").value = language;
+        //alert("Level from URL: " + level);
+         
+        document.getElementById("param3").value = level;
+        updateTopicOptions();
+
+    /* Set "Sun" as default */
+       document.getElementById("dataAccessLink").href = `${ROOT_URL}/aladin_SolarSystem.html?object=Sun`;
+
+     // Dynamically update ALL <img> and <a> elements with relative URLs
+     document.querySelectorAll("img").forEach(img => {
+       if (img.src.includes("/logo/")) {
+         const relativePath = img.src.split("/logo/")[1];
+         img.src = `${ROOT_URL}/logo/${relativePath}`;
+       }
+     });
+    };
+function copyResultOutput() {
+  const outputDiv = document.getElementById("resultOutput");
+  const text = outputDiv.textContent || outputDiv.innerText;
+
+  navigator.clipboard.writeText(text)
+    .then(() => showCopyNotification())
+    .catch(err => console.error("Failed to copy: ", err));
+}
+
+function showCopyNotification() {
+  const note = document.getElementById("copyNote");
+  note.style.opacity = 1;
+
+  setTimeout(() => {
+    note.style.opacity = 0;
+  }, 500);
+}
+</script>
+<style>
+.copy-button {
+  background-color: transparent;
+  //background-color: #4CAF50; /* green */
+  color: #0d2059;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}       
+      
+.copy-button:hover {
+  background-color: transparent;
+  //background-color: #45a049; 
+}     
+/* Tooltip code */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 180px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+/* Tooltip code */
+
+/* Rocket code */
+    #rocket {
+      position: absolute;
+      bottom: -115px;
+      left: 200px;
+      font-size: 30px;
+      transition: transform 5s ease-in-out, opacity 0.5s;
+      opacity: 1;
+    }
+
+    #rocket.launch {
+
+      transform: translate(1000px, -1200px);
+    }
+
+    #rocket.hidden {
+      opacity: 0;
+    }
+
+    #result {
+      margin-top: 40px;
+      font-size: 0px;
+    }
+/* Rocket code end */
+  .highlight {
+    //color: #ccffff;
+    color: #0d2059;
+    margin: 0;
+  }
+  label {
+    font-size: 14px;
+    margin-right: 10px;
+    color: #333;
+  }   
+
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+      
+    padding: 2px 10px; 
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 18px;
+    color: #333;
+    cursor: pointer;
+    min-width: 200px;
+  }
+
+    #resultOutput {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 300px; /* Limit height */
+      overflow-y: auto; /* Enable scrolling if content exceeds */
+    }
+    table {
+      width: 80%; /* The table will take up the full width but max it out */
+      max-width: 900px; /* Set the maximum width for the table */
+      margin: 0 auto; /* Center the table horizontally */
+      border-collapse: collapse;
+    }
+    @keyframes spin {
+     0% { transform: rotate(0deg); }
+     100% { transform: rotate(360deg); }
+    }
+    body {
+      font-family: 'Helvetica', sans-serif;
+      font-size: 14px;
+    }
+    audio-recorder {
+      display: inline-block;
+      font-family: 'Segoe UI', sans-serif;
+      max-width: 340px;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 18px;
+      background: #fdfdfd;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      text-align: center;
+      vertical-align: top;
+      margin: 0;
+      padding: 0;
+    }
+    button {
+     // background: #4f46e5;
+      background: #ff8000;
+     // color: #fff;
+      color: #111;
+      border: none;
+      padding: 10px 16px;
+      margin: 8px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #3730a3;
+    }
+    button:disabled {
+      background: #a5b4fc;
+      cursor: not-allowed;
+    }
+    .data_button {
+      background: #cc0066;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      margin: 8px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+    .data_button:hover {
+      background: #cc0066;
+    }
+
+    audio {
+      margin-top: 15px;
+      width: 100%;
+      outline: none;
+    }
+    .transcript {
+      margin-top: 20px;
+      padding: 12px;
+      background: #f3f4f6;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: left;
+      min-height: 40px;
+    }
+  </style>
+
+<script>
+const uiTexts = {
+   English: {
+     title: "A Living Guide to the Cosmos",
+     subtitle: "An AI-Curated, Multi-Media, Multi-Lingual Interactive Guide to the Universe",
+     chapter: "Chapter 2 - The Solar System",
+     sourceLabel: "Solar system object(s)",
+     typeLabel: "Type of response",
+     languageLabel: "Choose your language",
+     dataLabel: "Data access"
+   },    
+   French: {
+     title: "Un guide vivant du cosmos",
+     subtitle: "Un guide interactif du cosmos, multimédia, multilingue, organisé par l’IA",
+     chapter: "Chapitre 2 - Le Système solaire",
+     sourceLabel: "Objet(s) du système solaire",
+     typeLabel: "Type de réponse",
+     languageLabel: "Choisissez votre langue",
+     dataLabel: "Accès aux données"
+   },
+   Italian: {
+     title: "Una guida vivente al cosmo",
+     subtitle: "Una guida interattiva al cosmo, multimediale e multilingue curata dall’IA",
+     chapter: "Capitolo 2 - Il Sistema Solare",
+     sourceLabel: "Oggetto/i del sistema solare",
+     typeLabel: "Tipo di risposta",
+     languageLabel: "Scegli la tua lingua",
+     dataLabel: "Accesso ai dati"
+   },
+   Spanish: {
+     title: "Una guía viva del cosmos",
+     subtitle: "Una guía interactiva del universo, multilingüe y multimedia curada por IA",
+     chapter: "Capítulo 2 - El Sistema Solar",
+     sourceLabel: "Objeto(s) del sistema solar",
+     typeLabel: "Tipo de respuesta",
+     languageLabel: "Elige tu idioma",
+     dataLabel: "Acceso a los datos"
+   },
+   German: {
+     title: "Ein lebendiger Leitfaden für das Universum",
+     subtitle: "Ein interaktiver, multimedialer, mehrsprachiger Leitfaden durch das Universum, kuratiert von KI",
+     chapter: "Kapitel 2 - Das Sonnensystem",
+     sourceLabel: "Objekt(e) des Sonnensystems",
+     typeLabel: "Antworttyp",
+     languageLabel: "Wähle deine Sprache",
+     dataLabel: "Datenzugriff"
+   },
+   Russian: {
+     title: "Живой путеводитель по космосу",
+     subtitle: "Интерактивный мультимедийный многоязычный гид по Вселенной, созданный ИИ",
+     chapter: "Глава 2 - Солнечная система",
+     sourceLabel: "Объекты Солнечной системы",
+     typeLabel: "Тип ответа",
+     languageLabel: "Выберите язык",
+     dataLabel: "Доступ к данным"
+   },
+   Armenian: {
+     title: "Կենդանի ուղեցույց տիեզերքի համար",
+     subtitle: "Արհեստական բանականությամբ կազմված բազմալեզու, բազմամեդիա, ինտերակտիվ ուղեցույց Տիեզերքով",
+     chapter: "Գլուխ 2 - Արեգակնային համակարգը",
+     sourceLabel: "Արեգակնային համակարգի օբյեկտ(ներ)",
+     typeLabel: "Պատասխանի տեսակ",
+     languageLabel: "Ընտրեք լեզուն",
+     dataLabel: "Տվյալների հասանելիություն"
+   },
+   Chinese: {
+     title: "宇宙的互动指南",
+     subtitle: "一个由人工智能策划的多媒体、多语言的互动宇宙指南",
+     chapter: "第二章 - 太阳系",
+     sourceLabel: "太阳系天体",
+     typeLabel: "回答类型",
+     languageLabel: "选择你的语言",
+     dataLabel: "数据访问"
+   },
+   Japanese: {
+     title: "宇宙のための生きたガイド",
+     subtitle: "AIが監修するマルチメディア・多言語のインタラクティブな宇宙ガイド",
+     chapter: "第2章 - 太陽系",
+     sourceLabel: "太陽系の天体",
+     typeLabel: "応答の種類",
+     languageLabel: "言語を選択してください",
+     dataLabel: "データアクセス"
+   },
+   Arabic: {
+     title: "دليل حي إلى الكون",
+     subtitle: "دليل تفاعلي للكون، متعدد الوسائط واللغات، منسق بواسطة الذكاء الاصطناعي",
+     chapter: "الفصل 2 - النظام الشمسي",
+     sourceLabel: "جسم/أجسام النظام الشمسي",
+     typeLabel: "نوع الاستجابة",
+     languageLabel: "اختر لغتك",
+     dataLabel: "الوصول إلى البيانات"
+   },
+   Portuguese: {
+     title: "Um guia vivo para o cosmos",
+     subtitle: "Um guia interativo, multimídia e multilíngue do universo, curado por IA",
+     chapter: "Capítulo 2 - O Sistema Solar",
+     sourceLabel: "Objeto(s) do sistema solar",
+     typeLabel: "Tipo de resposta",
+     languageLabel: "Escolha seu idioma",
+     dataLabel: "Acesso aos dados"
+   }
+};
+
+function updateUIText(language) {
+  const texts = uiTexts[language] || uiTexts["English"];
+  document.getElementById("mainTitle").innerHTML = `<strong class="highlight">${texts.title}</strong>`;
+  document.getElementById("subTitle").innerHTML = `<p class="highlight">${texts.subtitle}</p>`;
+  document.getElementById("chapterTitle").innerHTML = `<p class="highlight">${texts.chapter}</p>`;
+  document.getElementById("sourceLabel").innerHTML = `<a class="highlight">${texts.sourceLabel}</a> <img src="${ROOT_URL}/logo/telescope.png" alt="LOGO" width="30" height="30">`;
+  document.getElementById("typeLabel").innerHTML = `<a class="highlight">${texts.typeLabel}</a> <img src="${ROOT_URL}/logo/bullseye.png" alt="LOGO" width="25" height="25">`;
+  document.getElementById("languageLabel").innerHTML = `<a class="highlight">${texts.languageLabel}</a> <img src="${ROOT_URL}/logo/world.png" alt="LOGO" width="20" height="20">`;
+  document.getElementById("dataAccessLink").innerHTML = `${texts.dataLabel}`;
+}
+</script>
+
+</head>
+<!--body style="background-color: #fff5e6"-->
+<body style="background-color: rgba(240, 225, 205, 0.2);">
+<!--table border="0" style="border-collapse: collapse; background-color: #fff5e6; width: 99%; table-layout: fixed;"-->
+<table border="0" style="border-collapse: collapse; background-color: transparent; width: 99%; table-layout: fixed;">
+<tr><td align="left">
+<img class="logoImg" style="transform: rotate(0deg); "src="${ROOT_URL}/logo/firmamento_AI_logo.png" alt="Firmamento-AI LOGO" height="40"></td>
+<td align="right"><img class="logoImg"  src="${ROOT_URL}/logo/fbook_logo.png" alt="Firmamento-ifbook LOGO" height="40"></td></tr>
+</table>
+<div id="rocket" style="...">
+  🚀  
+</div>
+<div id="spinner" style="
+  display:none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 22px;
+  animation: spin 1s linear infinite; ">
+</div>
+<br>
+<table border="0" cellpadding="1" 
+  style="border-collapse: collapse; background-color: transparent; width: 90%; table-layout: fixed;">
+<!--table border="0" cellpadding="1" 
+  style="border-collapse: collapse; background-color: #fff5e6; width: 90%; table-layout: fixed;"-->
+<tr>
+  <td colspan="3" align="center" style="font-size: 30px;" id="mainTitle">
+    <strong>A Living Guide to the Cosmos</strong>
+  </td>
+</tr>
+<tr>
+  <td colspan="3" align="center" style="font-size: 18px;">
+    <span id="subTitle">An AI-Curated, Multi-Media, Multi-Lingual Interactive Guide to the Universe</span>
+    <br><br>
+    <span id="chapterTitle">Chapter 1 - Astronomical sources</span>
+  </td>
+</tr>
+<tr>
+  <td align="center" id="sourceLabel">
+    Astronomical source <img src="${ROOT_URL}/logo/telescope.png" alt="LOGO" width="30" height="30">
+  </td>
+  <td align="center" id="typeLabel">
+    Type of response <img src="${ROOT_URL}/logo/bullseye.png" alt="LOGO" width="25" height="25">
+  </td>
+  <td align="center" id="languageLabel">
+    Choose your language <img src="${ROOT_URL}/logo/world.png" alt="LOGO" width="20" height="20">
+  </td>
+</tr>
+
+  <tr>
+    <td align="center">
+      <select id="param1Dropdown" onchange="toggleCustomInput();clearOutputDiv()"></select>
+    </td>
+    <td align="center">
+    <select id="param3">
+      <option value="for children">For children</option>
+      <option value="basic">Basic</option>
+      <option value="high school students">Students (high School) </option>
+      <option value="advanced">Technical/Advanced</option>
+      <option value="for teachers">For teachers</option>
+    </select>
+    </td>
+    <td align="center">
+      <select id="param2" onchange="updateTopicOptions()">
+        <option value="Arabic">العربية (Arabic)</option>
+        <option value="Armenian">Հայերեն (Armenian)</option>
+        <option value="Chinese">中文 (Chinese)</option>
+        <option value="English" selected>English</option>
+        <option value="French">Français (French)</option>
+        <option value="German">Deutsch (German)</option>
+        <option value="Italian">Italiano (Italian)</option>
+        <option value="Japanese">日本語 (Japanese)</option>
+        <option value="Portuguese">Português (Portuguese)</option>
+        <option value="Russian">Русский (Russian)</option>
+        <option value="Spanish">Español (Spanish)</option>
+      </select>
+    </td></tr>
+    <tr><td></td><td align="center" valign="top"><label><input type="radio" name="answerLength" value="brief" checked> Brief</label>
+            <label><input type="radio" name="answerLength" value="lengthy"> Lengthy</label>
+    </td><td></td></tr>
+
+<tr>
+    <td> <input type="text" id="param1Custom" placeholder="Enter your astronomical/scientific question" style="display:none;" size="35" maxlength="100"></td>
+    <td align="center">
+      <button id="submitBtn" onclick="runRemoteScript()" style="width: 70px; height: 30px; text-align: center; padding: 0;">Submit</button><img class="logoImg" src="${ROOT_URL}/logo/rocket.png" alt="LOGO" width="25" height="25">
+    <div id="result"></div>
+
+    </td>
+    <!--td style="text-align:center;">
+    <a href="#" onclick="playAudio()">Firmamento deep dive (audio)<img class="logoImg" src="${ROOT_URL}/logo/audio.png" alt="LOGO" width="20" height="20"></a>
+    </td>
+    <audio id="firmamentoAudio" src="${ROOT_URL}/Firmamento.wav"></audio-->
+</td></tr>
+  <tr>
+     <td colspan="3">
+       <button onclick="copyResultOutput()" class="copy-button">📋 Copy</button>
+       <span id="copyNote" style="opacity:0; margin-left: 8px; transition: opacity 0.3s;">Copied!</span>
+       <div id="resultOutput" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9; white-space: pre-wrap; word-wrap: break-word; max-height: 300px; overflow-y: auto; resize: horizontal;"><small>Output based on ChatGPT</small></div>
+     </td>
+  </tr>
+  <tr>
+    <td colspan="3" align="right" style="font-size: 12px; "padding: 10px;">&nbsp;</td>
+  </tr>
+  </table>
+<table border="0" style="width: 90%;" cellpadding="1">
+  <tr>
+  <td align="center" id="dataLabel">
+  <a id="dataAccessLink" class="data_button" target="_blank">Data access</a> 
+  <span id="extraInfoButtonContainer"></span>
+  </td>
+  <td valign="top" align="center"> <audio-recorder></audio-recorder></td>
+  <td></td> 
+  </tr>
+  <tr><td colspan="3" align="right">&copy;Paolo Giommi for firmamento</td></tr>
+</table>
+<script>
+    const topics = {
+     English: [
+      { value: "The sun at the center of the solar system", label: "The Sun" },
+      { value: "Tell me about the Earth moon", label: "The moon" },
+      { value: "Tell me about the planet called Mercury", label: "Mercury" },
+      { value: "Tell me about the Venus planet", label: "Venus" },
+      { value: "Tell me about the Earth as a planet", label: "Earth" },
+      { value: "Tell me about the Mars planet", label: "Mars" },
+      { value: "Schiaparelli and the canals on Mars", label: "Are there canals on Mars?" },
+      { value: "Tell me about Mars' volcanoes", label: "Mars' volcanoes" },
+      { value: "Tell me about the so called Inca city on Mars", label: "The Mars *Inca City*" },
+      { value: "Tell me about Mars' moons", label: "Mars' moons" },
+      { value: "Tell me about the Ceres small planet", label: "Ceres (dwarf planet)" },
+      { value: "Tell me about the Jupiter planet", label: "Jupiter" },
+      { value: "Tell me about Jupiter's moons", label: "Jupiter's moons" },
+      { value: "Tell me about the Saturn planet", label: "Saturn" },
+      { value: "Tell me about Saturn's moons", label: "Saturn's moons" },
+      { value: "Tell me about Saturn's rings", label: "Saturn's rings" },
+      { value: "Tell me about the Uranus planet", label: "Uranus" },
+      { value: "Tell me about Uranus' moons", label: "Uranus' moons" },
+      { value: "Tell me about the Neptune planet", label: "Neptune" },
+      { value: "Tell me about Neptune's moons", label: "Neptune's moons" },
+      { value: "Tell me about the Pluto planet", label: "Pluto" },
+      { value: "Tell me about Pluto's moons", label: "Pluto's moons" },
+      { value: "Tell me about the asteroids in the solar system", label: "Asteroids" },
+      { value: "Tell me about comets in the solar system", label: "Comets" },
+      { value: "Which are the planets or moons that show volcanic activity", label: "Volcanic activity in the S.Sys." },
+      { value: "custom", label: "Ask your solar system question" }
+     ],
+    Russian: [
+      { value: "The sun at the center of the solar system", label: "Солнце" },
+      { value: "Tell me about the Earth moon", label: "Луна" },
+      { value: "Tell me about the planet called Mercury", label: "Меркурий" },
+      { value: "Tell me about the Venus planet", label: "Венера" },
+      { value: "Tell me about the Earth as a planet", label: "Земля" },
+      { value: "Tell me about the Mars planet", label: "Марс" },
+      { value: "Schiaparelli and the canals on Mars", label: "Есть ли каналы на Марсе?" },
+      { value: "Tell me about Mars' volcanoes", label: "Вулканы Марса" },
+      { value: "Tell me about the so called Inca city on Mars", label: "Город инков на Марсе" },
+      { value: "Tell me about Mars' moons", label: "Спутники Марса" },
+      { value: "Tell me about the Ceres small planet", label: "Карликовая планета Церера" },
+      { value: "Tell me about the Jupiter planet", label: "Юпитер" },
+      { value: "Tell me about Jupiter's moons", label: "Спутники Юпитера" },
+      { value: "Tell me about the Saturn planet", label: "Сатурн" },
+      { value: "Tell me about Saturn's moons", label: "Спутники Сатурна" },
+      { value: "Tell me about Saturn's rings", label: "Кольца Сатурна" },
+      { value: "Tell me about the Uranus planet", label: "Уран" },
+      { value: "Tell me about Uranus' moons", label: "Спутники Урана" },
+      { value: "Tell me about the Neptune planet", label: "Нептун" },
+      { value: "Tell me about Neptune's moons", label: "Спутники Нептуна" },
+      { value: "Tell me about the Pluto planet", label: "Плутон" },
+      { value: "Tell me about Pluto's moons", label: "Спутники Плутона" },
+      { value: "Tell me about the asteroids in the solar system", label: "Астероиды" },
+      { value: "Which are the planets or moons that show volcanic activity", label: "Вулканическая активность в Солнечной системе" },
+      { value: "custom", label: "Задайте свой вопрос о Солнечной системе" }
+     ],
+     Italian: [
+      { value: "The sun at the center of the solar system", label: "Il Sole" },
+      { value: "Tell me about the Earth moon", label: "La Luna" },
+      { value: "Tell me about the planet called Mercury", label: "Mercurio" },
+      { value: "Tell me about the Venus planet", label: "Venere" },
+      { value: "Tell me about the Earth as a planet", label: "Terra" },
+      { value: "Tell me about the Mars planet", label: "Marte" },
+      { value: "Schiaparelli and the canals on Mars", label: "Ci sono canali su Marte?" },
+      { value: "Tell me about Mars' volcanoes", label: "Vulcani marziani" },
+      { value: "Tell me about the so called Inca city on Mars", label: "La *Città Inca* di Marte" },
+      { value: "Tell me about Mars' moons", label: "Le lune di Marte" },
+      { value: "Tell me about the Ceres small planet", label: "Il pianeta nano Cerere" },
+      { value: "Tell me about the Jupiter planet", label: "Giove" },
+      { value: "Tell me about Jupiter's moons", label: "Le lune di Giove" },
+      { value: "Tell me about the Saturn planet", label: "Saturno" },
+      { value: "Tell me about Saturn's moons", label: "Le lune di Saturno" },
+      { value: "Tell me about Saturn's rings", label: "Gli anelli di Saturno" },
+      { value: "Tell me about the Uranus planet", label: "Urano" },
+      { value: "Tell me about Uranus' moons", label: "Le lune di Urano" },
+      { value: "Tell me about the Neptune planet", label: "Nettuno" },
+      { value: "Tell me about Neptune's moons", label: "Le lune di Nettuno" },
+      { value: "Tell me about the Pluto planet", label: "Plutone" },
+      { value: "Tell me about Pluto's moons", label: "Le lune di Plutone" },
+      { value: "Tell me about the asteroids in the solar system", label: "Asteroidi" },
+      { value: "Which are the planets or moons that show volcanic activity", label: "Vulcani nel Sistema Solare" },
+      { value: "custom", label: "Fai una domanda sul Sistema Solare" }
+     ],
+     Armenian: [
+      { value: "The sun at the center of the solar system", label: "Արեգակ" },
+      { value: "Tell me about the Earth moon", label: "Լուսին" },
+      { value: "Tell me about the planet called Mercury", label: "Մերկուրի" },
+      { value: "Tell me about the Venus planet", label: "Վեներա" },
+      { value: "Tell me about the Earth as a planet", label: "Երկիր" },
+      { value: "Tell me about the Mars planet", label: "Մարս" },
+      { value: "Schiaparelli and the canals on Mars", label: "Մարսում կա՞ն ջրանցքներ։" },
+      { value: "Tell me about Mars' volcanoes", label: "Մարսի հրաբուխները" },
+      { value: "Tell me about the so called Inca city on Mars", label: "Մարսի *Ինկայի քաղաք*" },
+      { value: "Tell me about Mars' moons", label: "Մարսի արբանյակները" },
+      { value: "Tell me about the Ceres small planet", label: "Թզուկ մոլորակ Ցերերա" },
+      { value: "Tell me about the Jupiter planet", label: "Հուպիտեր" },
+      { value: "Tell me about Jupiter's moons", label: "Հուպիտերի արբանյակները" },
+      { value: "Tell me about the Saturn planet", label: "Սատուռն" },
+      { value: "Tell me about Saturn's moons", label: "Սատուռնի արբանյակները" },
+      { value: "Tell me about Saturn's rings", label: "Սատուռնի օղակները" },
+      { value: "Tell me about the Uranus planet", label: "Ուրանոս" },
+      { value: "Tell me about Uranus' moons", label: "Ուրանոսի արբանյակները" },
+      { value: "Tell me about the Neptune planet", label: "Նեպտուն" },
+      { value: "Tell me about Neptune's moons", label: "Նեպտունի արբանյակները" },
+      { value: "Tell me about the Pluto planet", label: "Պլուտոն" },
+      { value: "Tell me about Pluto's moons", label: "Պլուտոնի արբանյակները" },
+      { value: "Tell me about the asteroids in the solar system", label: "Աստերոիդներ" },
+      { value: "Which are the planets or moons that show volcanic activity", label: "Հրաբխային ակտիվություն Արեգակնային համակարգում" },
+      { value: "custom", label: "Տվեք ձեր հարցը Արեգակնային համակարգի մասին" }
+     ],
+    Chinese: [
+      { value: "The sun at the center of the solar system", label: "太阳" },
+      { value: "Tell me about the Earth moon", label: "月球" },
+      { value: "Tell me about the planet called Mercury", label: "水星" },
+      { value: "Tell me about the Venus planet", label: "金星" },
+      { value: "Tell me about the Earth as a planet", label: "地球" },
+      { value: "Tell me about the Mars planet", label: "火星" },
+      { value: "Schiaparelli and the canals on Mars", label: "火星上有运河吗？" },
+      { value: "Tell me about Mars' volcanoes", label: "火星的火山" },
+      { value: "Tell me about the so called Inca city on Mars", label: "火星的“印加城”" },
+      { value: "Tell me about Mars' moons", label: "火星的卫星" },
+      { value: "Tell me about the Ceres small planet", label: "谷神星（矮行星）" },
+      { value: "Tell me about the Jupiter planet", label: "木星" },
+      { value: "Tell me about Jupiter's moons", label: "木星的卫星" },
+      { value: "Tell me about the Saturn planet", label: "土星" },
+      { value: "Tell me about Saturn's moons", label: "土星的卫星" },
+      { value: "Tell me about Saturn's rings", label: "土星的光环" },
+      { value: "Tell me about the Uranus planet", label: "天王星" },
+      { value: "Tell me about Uranus' moons", label: "天王星的卫星" },
+      { value: "Tell me about the Neptune planet", label: "海王星" },
+      { value: "Tell me about Neptune's moons", label: "海王星的卫星" },
+      { value: "Tell me about the Pluto planet", label: "冥王星" },
+      { value: "Tell me about Pluto's moons", label: "冥王星的卫星" },
+      { value: "Tell me about the asteroids in the solar system", label: "小行星" },
+      { value: "Which are the planets or moons that show volcanic activity", label: "太阳系中有火山活动的天体" },
+      { value: "custom", label: "提出你的太阳系问题" }
+     ],
+    Japanese: [
+      { value: "The sun at the center of the solar system", label: "太陽" },
+      { value: "Tell me about the Earth moon", label: "月" },
+      { value: "Tell me about the planet called Mercury", label: "水星" },
+      { value: "Tell me about the Venus planet", label: "金星" },
+      { value: "Tell me about the Earth as a planet", label: "地球" },
+      { value: "Tell me about the Mars planet", label: "火星" },
+      { value: "Schiaparelli and the canals on Mars", label: "火星に運河はありますか？" },
+      { value: "Tell me about Mars' volcanoes", label: "火星の火山" },
+      { value: "Tell me about the so called Inca city on Mars", label: "火星の“インカ都市”" },
+      { value: "Tell me about Mars' moons", label: "火星の衛星" },
+      { value: "Tell me about the Ceres small planet", label: "ケレス（準惑星）" },
+      { value: "Tell me about the Jupiter planet", label: "木星" },
+      { value: "Tell me about Jupiter's moons", label: "木星の衛星" },
+      { value: "Tell me about the Saturn planet", label: "土星" },
+      { value: "Tell me about Saturn's moons", label: "土星の衛星" },
+      { value: "Tell me about Saturn's rings", label: "土星のリング" },
+      { value: "Tell me about the Uranus planet", label: "天王星" },
+      { value: "Tell me about Uranus' moons", label: "天王星の衛星" },
+      { value: "Tell me about the Neptune planet", label: "海王星" },
+      { value: "Tell me about Neptune's moons", label: "海王星の衛星" },
+      { value: "Tell me about the Pluto planet", label: "冥王星" },
+      { value: "Tell me about Pluto's moons", label: "冥王星の衛星" },
+      { value: "Tell me about the asteroids in the solar system", label: "小惑星" },
+      { value: "Which are the planets or moons that show volcanic activity", label: "太陽系で火山活動が見られる天体" },
+      {       value: "custom", label: "太陽系について質問する" }
+    ],
+    Arabic: [
+      { value: "The sun at the center of the solar system", label: "الشمس" },
+      { value: "Tell me about the Earth moon", label: "القمر" },
+      { value: "Tell me about the planet called Mercury", label: "عطارد" },
+      { value: "Tell me about the Venus planet", label: "الزهرة" },
+      { value: "Tell me about the Earth as a planet", label: "الأرض" },
+      { value: "Tell me about the Mars planet", label: "المريخ" },
+      { value: "Schiaparelli and the canals on Mars", label: "هل توجد قنوات على المريخ؟" },
+      { value: "Tell me about Mars' volcanoes", label: "براكين المريخ" },
+      { value: "Tell me about the so called Inca city on Mars", label: "مدينة الإنكا على المريخ" },
+      { value: "Tell me about Mars' moons", label: "أقمار المريخ" },
+      { value: "Tell me about the Ceres small planet", label: "كوكب سيريس القزم" },
+      { value: "Tell me about the Jupiter planet", label: "المشتري" },
+      { value: "Tell me about Jupiter's moons", label: "أقمار المشتري" },
+      { value: "Tell me about the Saturn planet", label: "زحل" },
+      { value: "Tell me about Saturn's moons", label: "أقمار زحل" },
+      { value: "Tell me about Saturn's rings", label: "حلقات زحل" },
+      { value: "Tell me about the Uranus planet", label: "أورانوس" },
+      { value: "Tell me about Uranus' moons", label: "أقمار أورانوس" },
+      { value: "Tell me about the Neptune planet", label: "نبتون" },
+      { value: "Tell me about Neptune's moons", label: "أقمار نبتون" },
+      { value: "Tell me about the Pluto planet", label: "بلوتو" },
+      { value: "Tell me about Pluto's moons", label: "أقمار بلوتو" },
+      { value: "Tell me about the asteroids in the solar system", label: "الكويكبات" },
+      { value: "Which are the planets or moons that show volcanic activity", label: "الكواكب أو الأقمار التي تظهر نشاطًا بركانيًا في النظام الشمسي" },
+      { value: "custom", label: "اطرح سؤالك عن النظام الشمسي" }
+    ],
+    French: [
+      { value: "The sun at the center of the solar system", label: "Le Soleil" },
+      { value: "Tell me about the Earth moon", label: "La Lune" },
+      { value: "Tell me about the planet called Mercury", label: "Mercure" },
+      { value: "Tell me about the Venus planet", label: "Vénus" },
+      { value: "Tell me about the Earth as a planet", label: "La Terre" },
+      { value: "Tell me about the Mars planet", label: "Mars" },
+      { value: "Schiaparelli and the canals on Mars", label: "Y a-t-il des canaux sur Mars ?" },
+      { value: "Tell me about Mars' volcanoes", label: "Volcans martiens" },
+      { value: "Tell me about the so called Inca city on Mars", label: "La *Cité Inca* sur Mars" },
+      { value: "Tell me about Mars' moons", label: "Les lunes de Mars" },
+      { value: "Tell me about the Ceres small planet", label: "La planète naine Cérès" },
+      { value: "Tell me about the Jupiter planet", label: "Jupiter" },
+      { value: "Tell me about Jupiter's moons", label: "Les lunes de Jupiter" },
+      { value: "Tell me about the Saturn planet", label: "Saturne" },
+      { value: "Tell me about Saturn's moons", label: "Les lunes de Saturne" },
+      { value: "Tell me about Saturn's rings", label: "Les anneaux de Saturne" },
+      { value: "Tell me about the Uranus planet", label: "Uranus" },
+      { value: "Tell me about Uranus' moons", label: "Les lunes d'Uranus" },
+      { value: "Tell me about the Neptune planet", label: "Neptune" },
+      { value: "Tell me about Neptune's moons", label: "Les lunes de Neptune" },
+      { value: "Tell me about the Pluto planet", label: "Pluton" },
+      { value: "Tell me about Pluto's moons", label: "Les lunes de Pluton" },
+      { value: "Tell me about the asteroids in the solar system", label: "Les astéroïdes" },
+      { value: "Which are the planets or moons that show volcanic activity", label: "Activité volcanique dans le système solaire" },
+      { value: "custom", label: "Posez votre question sur le système solaire" }
+    ],
+    German: [
+      { value: "The sun at the center of the solar system", label: "Die Sonne" },
+      { value: "Tell me about the Earth moon", label: "Der Mond" },
+      { value: "Tell me about the planet called Mercury", label: "Merkur" },
+      { value: "Tell me about the Venus planet", label: "Venus" },
+      { value: "Tell me about the Earth as a planet", label: "Erde" },
+      { value: "Tell me about the Mars planet", label: "Mars" },
+      { value: "Schiaparelli and the canals on Mars", label: "Gibt es Kanäle auf dem Mars?" },
+      { value: "Tell me about Mars' volcanoes", label: "Vulkane auf dem Mars" },
+      { value: "Tell me about the so called Inca city on Mars", label: "Die *Inka-Stadt* auf dem Mars" },
+      { value: "Tell me about Mars' moons", label: "Die Monde des Mars" },
+      { value: "Tell me about the Ceres small planet", label: "Der Zwergplanet Ceres" },
+      { value: "Tell me about the Jupiter planet", label: "Jupiter" },
+      { value: "Tell me about Jupiter's moons", label: "Die Monde des Jupiter" },
+      { value: "Tell me about the Saturn planet", label: "Saturn" },
+      { value: "Tell me about Saturn's moons", label: "Die Monde des Saturn" },
+      { value: "Tell me about Saturn's rings", label: "Die Ringe des Saturn" },
+      { value: "Tell me about the Uranus planet", label: "Uranus" },
+      { value: "Tell me about Uranus' moons", label: "Die Monde des Uranus" },
+      { value: "Tell me about the Neptune planet", label: "Neptun" },
+      { value: "Tell me about Neptune's moons", label: "Die Monde des Neptun" },
+      { value: "Tell me about the Pluto planet", label: "Pluto" },
+      { value: "Tell me about Pluto's moons", label: "Die Monde des Pluto" },
+      { value: "Tell me about the asteroids in the solar system", label: "Asteroiden" },
+      { value: "Which are the planets or moons that show volcanic activity", label: "Vulkanische Aktivität im Sonnensystem" },
+      { value: "custom", label: "Stellen Sie Ihre Frage zum Sonnensystem" }
+    ],
+    Portuguese: [
+      { value: "The sun at the center of the solar system", label: "O Sol" },
+      { value: "Tell me about the Earth moon", label: "A Lua" },
+      { value: "Tell me about the planet called Mercury", label: "Mercúrio" },
+      { value: "Tell me about the Venus planet", label: "Vênus" },
+      { value: "Tell me about the Earth as a planet", label: "Terra" },
+      { value: "Tell me about the Mars planet", label: "Marte" },
+      { value: "Schiaparelli and the canals on Mars", label: "Existem canais em Marte?" },
+      { value: "Tell me about Mars' volcanoes", label: "Vulcões em Marte" },
+      { value: "Tell me about the so called Inca city on Mars", label: "A *Cidade Inca* em Marte" },
+      { value: "Tell me about Mars' moons", label: "As luas de Marte" },
+      { value: "Tell me about the Ceres small planet", label: "O planeta anão Ceres" },
+      { value: "Tell me about the Jupiter planet", label: "Júpiter" },
+      { value: "Tell me about Jupiter's moons", label: "As luas de Júpiter" },
+      { value: "Tell me about the Saturn planet", label: "Saturno" },
+      { value: "Tell me about Saturn's moons", label: "As luas de Saturno" },
+      { value: "Tell me about Saturn's rings", label: "Os anéis de Saturno" },
+      { value: "Tell me about the Uranus planet", label: "Urano" },
+      { value: "Tell me about Uranus' moons", label: "As luas de Urano" },
+      { value: "Tell me about the Neptune planet", label: "Netuno" },
+      { value: "Tell me about Neptune's moons", label: "As luas de Netuno" },
+      { value: "Tell me about the Pluto planet", label: "Plutão" },
+      { value: "Tell me about Pluto's moons", label: "As luas de Plutão" },
+      { value: "Tell me about the asteroids in the solar system", label: "Asteroides" },
+      { value: "Which are the planets or moons that show volcanic activity", label: "Atividade vulcânica no sistema solar" },
+      { value: "custom", label: "Faça sua pergunta sobre o sistema solar" }
+    ],
+    Spanish: [
+      { value: "The sun at the center of the solar system", label: "El Sol" },
+      { value: "Tell me about the Earth moon", label: "La Luna" },
+      { value: "Tell me about the planet called Mercury", label: "Mercurio" },
+      { value: "Tell me about the Venus planet", label: "Venus" },
+      { value: "Tell me about the Earth as a planet", label: "La Tierra" },
+      { value: "Tell me about the Mars planet", label: "Marte" },
+      { value: "Schiaparelli and the canals on Mars", label: "¿Hay canales en Marte?" },
+      { value: "Tell me about Mars' volcanoes", label: "Volcanes de Marte" },
+      { value: "Tell me about the so called Inca city on Mars", label: "La *Ciudad Inca* en Marte" },
+      { value: "Tell me about Mars' moons", label: "Las lunas de Marte" },
+      { value: "Tell me about the Ceres small planet", label: "El planeta enano Ceres" },
+      { value: "Tell me about the Jupiter planet", label: "Júpiter" },
+      { value: "Tell me about Jupiter's moons", label: "Las lunas de Júpiter" },
+      { value: "Tell me about the Saturn planet", label: "Saturno" },
+      { value: "Tell me about Saturn's moons", label: "Las lunas de Saturno" },
+      { value: "Tell me about Saturn's rings", label: "Los anillos de Saturno" },
+      { value: "Tell me about the Uranus planet", label: "Urano" },
+      { value: "Tell me about Uranus' moons", label: "Las lunas de Urano" },
+      { value: "Tell me about the Neptune planet", label: "Neptuno" },
+      { value: "Tell me about Neptune's moons", label: "Las lunas de Neptuno" },
+      { value: "Tell me about the Pluto planet", label: "Plutón" },
+      { value: "Tell me about Pluto's moons", label: "Las lunas de Plutón" },
+      { value: "Tell me about the asteroids in the solar system", label: "Los asteroides" },
+      { value: "Which are the planets or moons that show volcanic activity", label: "Actividad volcánica en el sistema solar" },
+      { value: "custom", label: "Haz tu pregunta sobre el sistema solar" }
+    ]
+    };
+const levels = {
+  English: [  
+    { value: "for children", label: "For children" },
+    { value: "basic", label: "Basic" },
+    { value: "high school students", label: "Students (High School)" },
+    { value: "advanced", label: "Technical/advanced" },
+    { value: "for teachers", label: "For teachers" }
+  ],
+  Arabic: [
+    { value: "for children", label: "للأطفال" },
+    { value: "basic", label: "أساسي" },
+    { value: "high school students", label: "طلاب (المدرسة الثانوية)" },
+    { value: "advanced", label: "تقني/متقدم" },
+    { value: "for teachers", label: "للمعلمين" }
+  ],    
+  Armenian: [
+    { value: "for children", label: "Մանկական" },
+    { value: "basic", label: "Հիմնական" },
+    { value: "high school students", label: "Ուսանողներ (միջնակարգ դպրոց)" },
+    { value: "advanced", label: "Տեխնիկական/առաջադեմ" },
+    { value: "for teachers", label: "Ուսուցիչների համար" }
+  ],    
+  Chinese: [
+    { value: "for children", label: "儿童版" },
+    { value: "basic", label: "基础" },
+    { value: "high school students", label: "学生（高中）" },
+    { value: "advanced", label: "技术/高级" },
+    { value: "for teachers", label: "教师版" }
+  ],
+  French: [
+    { value: "for children", label: "Pour les enfants" },
+    { value: "basic", label: "De base" },
+    { value: "high school students", label: "Étudiants (Lycée)" },
+    { value: "advanced", label: "Technique/avancé" },
+    { value: "for teachers", label: "Pour les enseignants" }
+  ],
+  German: [
+    { value: "for children", label: "Für Kinder" },
+    { value: "basic", label: "Grundlegend" },
+    { value: "high school students", label: "Schüler (Gymnasium)" },
+    { value: "advanced", label: "Technisch/fortgeschritten" },
+    { value: "for teachers", label: "Für Lehrer" }
+  ],
+  Italian: [
+    { value: "for children", label: "Per bambini" },
+    { value: "basic", label: "Base" },
+    { value: "high school students", label: "Studenti (Scuola superiore)" },
+    { value: "advanced", label: "Tecnico/avanzato" },
+    { value: "for teachers", label: "Per insegnanti" }
+  ],
+  Japanese: [
+    { value: "for children", label: "子供向け" },
+    { value: "basic", label: "基本" },
+    { value: "high school students", label: "学生（高校）" },
+    { value: "advanced", label: "技術的／上級" },
+    { value: "for teachers", label: "教師向け" }
+  ],
+  Portuguese: [
+    { value: "for children", label: "Para crianças" },
+    { value: "basic", label: "Básico" },
+    { value: "high school students", label: "Estudantes (Ensino médio)" },
+    { value: "advanced", label: "Técnico/avançado" },
+    { value: "for teachers", label: "Para professores" }
+  ],
+  Russian: [
+    { value: "for children", label: "Для детей" },
+    { value: "basic", label: "Базовый" },
+    { value: "high school students", label: "Ученики (Старшие классы)" },
+    { value: "advanced", label: "Технический/продвинутый" },
+    { value: "for teachers", label: "Для учителей" }
+  ],
+  Spanish: [
+    { value: "for children", label: "Para niños" },
+    { value: "basic", label: "Básico" },
+    { value: "high school students", label: "Estudiantes (Escuela secundaria)" },
+    { value: "advanced", label: "Técnico/avanzado" },
+    { value: "for teachers", label: "Para profesores" }
+  ]
+};
+</script>
+
+<script>
+    function toggleCustomInput() {
+      const dropdown = document.getElementById('param1Dropdown');
+      const customInput = document.getElementById('param1Custom');
+
+      if (dropdown.value === 'custom') {
+        customInput.style.display = 'inline';
+      } else {
+        customInput.style.display = 'none';
+        customInput.value = ""; // Clear the custom input when not using it
+      }
+    }
+
+function runNewChapterScript() {
+  let focusQuestion;
+  const dropdown = document.getElementById('param1Dropdown');
+  const focusTopic = dropdown.options[dropdown.selectedIndex].text;
+  //const focusTopic = document.getElementById('param1Dropdown').value;
+  const focusLanguage = document.getElementById('param2').value;
+  const focusLevel = document.getElementById('param3').value;
+  const spinner = document.getElementById('spinner');
+  spinner.style.display = "block";
+
+  focusQuestion=`Please set up a lesson on ${focusTopic} for an audience of ${focusLevel} level by providing a file structured strictly as follows: first line (in English): Language: ${focusLanguage}, second line a question about ${focusTopic} (in an astronomical or scientific context)followed by a comma and a label for the question. Up to ten questions. Do not use commas in the questions, the label should be informative, not too short but max four words.`
+      const url = `${ROOT_URL}/run-script?param1=${encodeURIComponent(focusQuestion)}&param2=${encodeURIComponent(focusLanguage)}`;
+  fetch(url)
+    .then(response => response.text())
+    .then(result => {
+       spinner.style.display = "none";
+       // ✅ Create a Blob and trigger file download
+       const blob = new Blob([result], { type: "text/plain" });
+       const downloadLink = document.createElement("a");
+       downloadLink.href = URL.createObjectURL(blob);
+       fileName = 'chapter_' + selectedTopic.trim().replace(/\s+/g, '') + ".txt";
+       downloadLink.download = fileName; // name of the downloaded file
+       //downloadLink.download = "output.txt"; // name of the downloaded file
+       downloadLink.click();
+    })
+    .catch(error => {
+      spinner.style.display = "none";
+      outputDiv.textContent = "Error: " + error;
+      outputDiv.innerHTML = "Failed to load content.";
+    });
+}
+
+function runRemoteScript() {
+  const topic = document.getElementById('param1Dropdown').value;
+  const language = document.getElementById('param2').value;
+  const level = document.getElementById('param3').value;
+  const lengthChoice = document.querySelector('input[name="answerLength"]:checked').value;
+
+  // Use custom question if 'Other...' is selected
+  const customInputText = document.getElementById('param1Custom').value; 
+
+  const outputDiv = document.getElementById('resultOutput');
+  const spinner = document.getElementById('spinner');
+
+  outputDiv.innerHTML = "";
+  spinner.style.display = "block";
+
+  // Build final question text with level and lengthy included
+  let finalQuestion;
+  if (customInputText.trim() !== "") {
+    finalQuestion = customInputText.trim();
+  } else {
+    finalQuestion = `${topic} at a ${level} level in a ${lengthChoice} way`;
+  }
+      const url = `${ROOT_URL}/run-script?param1=${encodeURIComponent(finalQuestion)}&param2=${encodeURIComponent(language_response)}`;
+
+  fetch(url)
+    .then(response => response.text())
+    .then(result => {
+      spinner.style.display = "none";
+      outputDiv.textContent = result;
+   // Get selected topic from dropdown
+   const topicDropdown = document.getElementById("param1Dropdown");
+   const selectedOption = topicDropdown.options[topicDropdown.selectedIndex];
+   topicLabel = selectedOption?.textContent || "";
+
+   // Update selectedTopic (used by generateLesson)
+   selectedTopic = topicLabel.trim();
+
+    // ✅ Append new button after Submit completes
+    const extraBtn = document.createElement("a");
+    extraBtn.href = "#";
+    extraBtn.className = "data_button tooltip";
+    extraBtn.textContent = "Expand topic";
+    //extraBtn.title = "Click to expand on the selected topic in a dedicated chapter (your chapter)"; // Tooltip
+
+    // Tooltip element
+    const tooltipSpan = document.createElement("span");
+    tooltipSpan.className = "tooltiptext";
+    tooltipSpan.textContent = "Click to expand on the selected topic in a dedicated chapter ";
+
+    // Append tooltip to button
+    extraBtn.appendChild(tooltipSpan);
+
+    // Add to DOM
+    document.getElementById("extraInfoButtonContainer").appendChild(extraBtn);
+
+    extraBtn.onclick = () => {
+      runNewChapterScript();
+   };
+
+    // extraBtn.onclick = () => generateLesson("Custom");
+    const container = document.getElementById("extraInfoButtonContainer");
+    container.innerHTML = ''; // Clear previous button if any
+    container.appendChild(extraBtn);
+    })
+    .catch(error => {
+      spinner.style.display = "none";
+      outputDiv.textContent = "Error: " + error;
+      outputDiv.innerHTML = "Failed to load content.";
+    });
+}
+</script>
+<script>
+});
+</script>
+</body>
+<script>
+class AudioRecorder extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot.innerHTML = `
+      <div>
+        <button id="recordBtn">🎙️  Ask your question</button>
+        <button id="stopBtn" disabled>⏹️  Stop</button>
+        <button id="transcribeBtn" disabled>📝 Transcribe</button>
+        <audio id="audioPlayer" controls></audio>
+        <div id="transcript" class="transcript"></div>
+      </div>
+    `;
+  }
+
+  connectedCallback() {
+    const recordBtn = this.shadowRoot.querySelector('#recordBtn');
+    const stopBtn = this.shadowRoot.querySelector('#stopBtn');
+    const transcribeBtn = this.shadowRoot.querySelector('#transcribeBtn');
+    const audioPlayer = this.shadowRoot.querySelector('#audioPlayer');
+    const transcriptDiv = this.shadowRoot.querySelector('#transcript');
+
+    let mediaRecorder;
+    let audioChunks = [];
+    let audioBlob;
+
+    recordBtn.onclick = async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorder.start();
+      recordBtn.disabled = true;
+      stopBtn.disabled = false;
+      transcribeBtn.disabled = true;
+
+      audioChunks = [];
+
+      mediaRecorder.addEventListener("dataavailable", event => {
+        audioChunks.push(event.data);
+      });
+
+      mediaRecorder.addEventListener("stop", () => {
+        audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        audioPlayer.src = audioUrl;
+
+        transcribeBtn.disabled = false;
+      });
+    };
+
+    stopBtn.onclick = () => {
+      mediaRecorder.stop();
+      recordBtn.disabled = false;
+      stopBtn.disabled = true;
+    };
+    transcribeBtn.onclick = async () => {
+      transcribeBtn.disabled = true;
+      transcriptDiv.textContent = "⏳ Transcribing...";
+
+      const formData = new FormData();
+      formData.append("file", audioBlob, "audio.wav");
+      formData.append("model", "whisper-1");
+
+      try {
+        const response = await fetch("http://localhost:3000/transcribe", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.text) {
+          document.getElementById('param1Custom').value = data.text;
+          document.getElementById('param1Dropdown').value = 'custom';
+          toggleCustomInput();
+
+          transcriptDiv.textContent = "✅ Transcription sent to your question box!";
+        } else {
+          transcriptDiv.textContent = "❌ Transcription failed.";
+          console.error("No text in response:", data);
+        }
+      } catch (err) {
+        transcriptDiv.textContent = "❌ Error during transcription.";
+        console.error(err);
+      } finally {
+        transcribeBtn.disabled = false;
+      }
+    };
+  };
+};
+
+customElements.define('audio-recorder', AudioRecorder);
+</script>
+
+<script>
+document.getElementById("param1Dropdown").addEventListener("change", function () {
+  const topicValue = this.value.toLowerCase();
+  const aladinLink = document.getElementById("dataAccessLink");
+
+  const baseObjects = {
+    "sun": "Sun",
+    "moon": "Moon", // Default to Earth's moon
+    "mercury": "Mercury",
+    "venus": "Venus",
+    "earth": "Earth",
+    "mars": "Mars",
+    "ceres": "Ceres",
+    "jupiter": "Jupiter",
+    "saturn": "Saturn",
+    "uranus": "Uranus",
+    "neptune": "Neptune",
+    "pluto": "Pluto"
+  };
+
+  const moonsMap = {
+    "mars": "Marsmoons",
+    "jupiter": "Ganymede",
+    "saturn": "Tethys",
+    "uranus": "Titania",
+    "neptune": "Triton",
+    "pluto": "Charon"
+  };
+
+  const featuresMap = {
+     "mars": "MarsCanals",
+     "mars": "MarsVolcano",
+     "mars": "MarsIncaCity"
+  };
+
+  let selectedObject = "";
+  let selectedCoordinates = "";
+
+  for (const [planet, moonLabel] of Object.entries(moonsMap)) {
+    if (topicValue.includes(planet) && topicValue.includes("moon")) {
+      selectedObject = moonLabel;
+      break;
+    }
+  }
+
+  for (const [planet, featureLabel] of Object.entries(featuresMap)) {
+    if (topicValue.includes(planet) && topicValue.includes("canals")) {
+      selectedCoordinates = "&lat=-10.0&long=320.0";
+    } else if (topicValue.includes(planet) && topicValue.includes("volcano")) {
+      selectedCoordinates = "&lat=18.65&long=226.2";
+    } else if (topicValue.includes(planet) && topicValue.includes("inca")) {
+      selectedCoordinates = "&lat=-81.5&long=296.0";
+      break;
+    }
+  }
+
+
+  if (!selectedObject) {
+    for (const [key, value] of Object.entries(baseObjects)) {
+      if (topicValue.includes(key)) {
+        selectedObject = value;
+        break;
+      }
+    }
+  }
+
+  if (selectedObject == "Marsmoons") {
+      selectedObject = "";
+  }
+
+  aladinLink.href = selectedObject 
+    ? `${ROOT_URL}/aladin_SolarSystem.html?object=${selectedObject}${selectedCoordinates}` 
+    : `${ROOT_URL}/noDataYet.html`;
+});
+
+/* Rocket code */
+    const submitBtn = document.getElementById("submitBtn");
+    const rocket = document.getElementById("rocket");
+    const result = document.getElementById("result");
+
+    submitBtn.addEventListener("click", () => {
+      // Reset result and rocket visibility
+      result.textContent = "";
+      rocket.classList.remove("hidden");
+
+      // Start rocket launch
+      rocket.classList.add("launch");
+
+      // Simulate async result after 3s
+      setTimeout(() => {
+        result.textContent = "🚀 Result is back!";
+        rocket.classList.add("hidden");
+        rocket.classList.remove("launch");
+      }, 3000);
+    });
+/* Rocket code */
+     function updateLevelOptions(language) {
+       const chosenLevel = document.getElementById("param3").value;
+       const dropdown = document.getElementById("param3");
+       dropdown.innerHTML = "";
+       levels[language].forEach(level => { 
+         const option = document.createElement("option");
+         option.value = level.value;
+        
+         //if (level.value === "basic") {
+         if (level.value === chosenLevel) {
+           option.selected = true;
+         }
+        
+         option.textContent = level.label;
+         dropdown.appendChild(option);
+       });
+     }
+      function updateTopicOptions() {
+        const language = document.getElementById("param2").value;
+        const dropdown = document.getElementById("param1Dropdown");
+
+        dropdown.innerHTML = "";
+        topics[language].forEach(topic => {
+          const option = document.createElement("option");
+          if ( topic.value == 'Tell me about the astronomical sources named normal stars' ) {
+             option.selected = true;
+          }
+          option.value = topic.value;
+          option.textContent = topic.label;
+          dropdown.appendChild(option);
+        });
+
+        updateUIText(language);
+        updateLevelOptions(language);
+      }
+</script>
+</html>

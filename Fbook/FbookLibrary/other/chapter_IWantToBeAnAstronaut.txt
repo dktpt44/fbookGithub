@@ -1,0 +1,11 @@
+Language: English  
+What does an astronaut do? , Role of Astronaut  
+What education is required? , Education Requirements  
+What training do astronauts undergo? , Astronaut Training Programs  
+What are the risks of space travel? , Risks of Space Travel  
+What skills does an astronaut need? , Necessary Skills  
+What is a space mission like? , Space Mission Experience  
+Why do people want to be astronauts? , Motivation for Astronauts  
+What is the importance of teamwork in space? , Teamwork in Space  
+How does one apply to be an astronaut? , Application Process  
+What do astronauts experience in space? , Experience in Space

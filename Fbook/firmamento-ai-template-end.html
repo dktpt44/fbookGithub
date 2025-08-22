@@ -1,0 +1,353 @@
+const levels = {
+  English: [
+    { value: "for children", label: "For children" },
+    { value: "basic", label: "Basic" },
+    { value: "high school students", label: "Students (High School)" },
+    { value: "advanced", label: "Technical/advanced" },
+    { value: "for teachers", label: "For teachers" }
+  ],
+  Arabic: [
+    { value: "for children", label: "للأطفال" },
+    { value: "basic", label: "أساسي" },
+    { value: "high school students", label: "طلاب (المدرسة الثانوية)" },
+    { value: "advanced", label: "تقني/متقدم" },
+    { value: "for teachers", label: "للمعلمين" }
+  ],    
+  Armenian: [
+    { value: "for children", label: "Մանկական" },
+    { value: "basic", label: "Հիմնական" },
+    { value: "high school students", label: "Ուսանողներ (միջնակարգ դպրոց)" },
+    { value: "advanced", label: "Տեխնիկական/առաջադեմ" },
+    { value: "for teachers", label: "Ուսուցիչների համար" }
+  ],
+  Chinese: [
+    { value: "for children", label: "儿童版" },
+    { value: "basic", label: "基础" },
+    { value: "high school students", label: "学生（高中）" },
+    { value: "advanced", label: "技术/高级" },
+    { value: "for teachers", label: "教师版" }
+  ],
+  French: [
+    { value: "for children", label: "Pour les enfants" },
+    { value: "basic", label: "De base" },
+    { value: "high school students", label: "Étudiants (Lycée)" },
+    { value: "advanced", label: "Technique/avancé" },
+    { value: "for teachers", label: "Pour les enseignants" }
+  ],
+  German: [
+    { value: "for children", label: "Für Kinder" },
+    { value: "basic", label: "Grundlegend" },
+    { value: "high school students", label: "Schüler (Gymnasium)" },
+    { value: "advanced", label: "Technisch/fortgeschritten" },
+    { value: "for teachers", label: "Für Lehrer" }
+  ],
+  Italian: [
+    { value: "for children", label: "Per bambini" },
+    { value: "basic", label: "Base" },
+    { value: "high school students", label: "Studenti (Scuola superiore)" },
+    { value: "advanced", label: "Tecnico/avanzato" },
+    { value: "for teachers", label: "Per insegnanti" }
+  ],
+  Japanese: [
+    { value: "for children", label: "子供向け" },
+    { value: "basic", label: "基本" },
+    { value: "high school students", label: "学生（高校）" },
+    { value: "advanced", label: "技術的／上級" },
+    { value: "for teachers", label: "教師向け" }
+  ],
+  Portuguese: [
+    { value: "for children", label: "Para crianças" },
+    { value: "basic", label: "Básico" },
+    { value: "high school students", label: "Estudantes (Ensino médio)" },
+    { value: "advanced", label: "Técnico/avançado" },
+    { value: "for teachers", label: "Para professores" }
+  ],
+  Russian: [
+    { value: "for children", label: "Для детей" },
+    { value: "basic", label: "Базовый" },
+    { value: "high school students", label: "Ученики (Старшие классы)" },
+    { value: "advanced", label: "Технический/продвинутый" },
+    { value: "for teachers", label: "Для учителей" }
+  ],
+  Spanish: [
+    { value: "for children", label: "Para niños" },
+    { value: "basic", label: "Básico" },
+    { value: "high school students", label: "Estudiantes (Escuela secundaria)" },
+    { value: "advanced", label: "Técnico/avanzado" },
+    { value: "for teachers", label: "Para profesores" }
+  ]
+};
+</script>
+
+<script>
+    function toggleCustomInput() {
+      const dropdown = document.getElementById('param1Dropdown');
+      const customInput = document.getElementById('param1Custom');
+
+      if (dropdown.value === 'custom') {
+        customInput.style.display = 'inline';
+      } else {
+        customInput.style.display = 'none';
+        customInput.value = ""; // Clear the custom input when not using it
+      }
+    }
+function runNewChapterScript() {
+  let focusQuestion;
+  const dropdown = document.getElementById('param1Dropdown');
+  const focusTopic = dropdown.options[dropdown.selectedIndex].text;
+  //const focusTopic = document.getElementById('param1Dropdown').value;
+  const focusLanguage = document.getElementById('param2').value;
+  const focusLevel = document.getElementById('param3').value;
+  const spinner = document.getElementById('spinner');
+  spinner.style.display = "block";
+
+  focusQuestion=`Please set up a lesson on ${focusTopic} for an audience of ${focusLevel} level by providing a file structured strictly as follows: first line (in English): Language: ${focusLanguage}, second line a question about ${focusTopic} (in an astronomical or scientific context)followed by a comma and a label for the question. Up to ten questions. Do not use commas in the questions, the label should be informative, not too short but max four words.`
+      const url = `${ROOT_URL}/run-script?param1=${encodeURIComponent(focusQuestion)}&param2=${encodeURIComponent(focusLanguage)}`;
+  fetch(url)
+    .then(response => response.text())
+    .then(result => {
+       spinner.style.display = "none";
+       // ✅ Create a Blob and trigger file download
+       const blob = new Blob([result], { type: "text/plain" });
+       const downloadLink = document.createElement("a");
+       downloadLink.href = URL.createObjectURL(blob);
+       fileName = 'chapter_' + selectedTopic.trim().replace(/\s+/g, '') + ".txt";
+       downloadLink.download = fileName; // name of the downloaded file
+       //downloadLink.download = "output.txt"; // name of the downloaded file
+       downloadLink.click();
+    })
+    .catch(error => {
+      spinner.style.display = "none";
+      outputDiv.textContent = "Error: " + error;
+      outputDiv.innerHTML = "Failed to load content.";
+    });
+}
+
+function runRemoteScript() {
+  const topic = document.getElementById('param1Dropdown').value;
+  const language = document.getElementById('param2').value;
+  const level = document.getElementById('param3').value;
+  const lengthChoice = document.querySelector('input[name="answerLength"]:checked').value;
+
+  // Use custom question if 'Other...' is selected
+  const customInputText = document.getElementById('param1Custom').value; 
+
+  const outputDiv = document.getElementById('resultOutput');
+  const spinner = document.getElementById('spinner');
+
+  outputDiv.innerHTML = "";
+  spinner.style.display = "block";
+
+  // Build final question text with level and lengthy included
+  let finalQuestion;
+  if (customInputText.trim() !== "") {
+    finalQuestion = customInputText.trim();
+  } else {
+    finalQuestion = `${topic} at a ${level} level in a ${lengthChoice} way`;
+  }
+      const url = `${ROOT_URL}/run-script?param1=${encodeURIComponent(finalQuestion)}&param2=${encodeURIComponent(language_response)}`;
+
+  fetch(url)
+    .then(response => response.text())
+    .then(result => {
+      spinner.style.display = "none";
+      outputDiv.textContent = result;
+   // Get selected topic from dropdown
+   const topicDropdown = document.getElementById("param1Dropdown");
+   const selectedOption = topicDropdown.options[topicDropdown.selectedIndex];
+   topicLabel = selectedOption?.textContent || "";
+
+   // Update selectedTopic (used by generateLesson)
+   selectedTopic = topicLabel.trim();
+
+    // ✅ Append new button after Submit completes
+    const extraBtn = document.createElement("a");
+    extraBtn.href = "#";
+    extraBtn.className = "data_button tooltip";
+    extraBtn.textContent = "Expand topic";
+
+    // Tooltip element
+    const tooltipSpan = document.createElement("span");
+    tooltipSpan.className = "tooltiptext";
+    tooltipSpan.textContent = "Click to expand on the selected topic in a dedicated chapter ";
+
+    // Append tooltip to button
+    extraBtn.appendChild(tooltipSpan);
+
+    // Add to DOM
+    document.getElementById("extraInfoButtonContainer").appendChild(extraBtn);
+    document.getElementById("extraInfoButtonContainer").style.display = "inline"; // Make sure it's visible
+
+    extraBtn.onclick = () => {
+      runNewChapterScript();
+   };
+
+    // extraBtn.onclick = () => generateLesson("Custom");
+    const container = document.getElementById("extraInfoButtonContainer");
+    container.innerHTML = ''; // Clear previous button if any
+    container.appendChild(extraBtn);
+  })
+    .catch(error => {
+      spinner.style.display = "none";
+      outputDiv.textContent = "Error: " + error;
+      outputDiv.innerHTML = "Failed to load content.";
+    });
+}
+//window.onload = function() {
+//  updateTopicOptions();
+//};
+  </script>
+
+</body>
+<script>
+class AudioRecorder extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot.innerHTML = `
+      <div>
+        <button id="recordBtn">🎙️  Ask your question</button>
+        <button id="stopBtn" disabled>⏹️  Stop</button>
+        <button id="transcribeBtn" disabled>📝 Transcribe</button>
+        <audio id="audioPlayer" controls></audio>
+        <div id="transcript" class="transcript"></div>
+      </div>
+    `;
+  }
+
+  connectedCallback() {
+    const recordBtn = this.shadowRoot.querySelector('#recordBtn');
+    const stopBtn = this.shadowRoot.querySelector('#stopBtn');
+    const transcribeBtn = this.shadowRoot.querySelector('#transcribeBtn');
+    const audioPlayer = this.shadowRoot.querySelector('#audioPlayer');
+    const transcriptDiv = this.shadowRoot.querySelector('#transcript');
+
+    let mediaRecorder;
+    let audioChunks = [];
+    let audioBlob;
+
+    recordBtn.onclick = async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorder.start();
+      recordBtn.disabled = true;
+      stopBtn.disabled = false;
+      transcribeBtn.disabled = true;
+
+      audioChunks = [];
+
+      mediaRecorder.addEventListener("dataavailable", event => {
+        audioChunks.push(event.data);
+      });
+
+      mediaRecorder.addEventListener("stop", () => {
+        audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        audioPlayer.src = audioUrl;
+
+        transcribeBtn.disabled = false;
+      });
+    };
+
+    stopBtn.onclick = () => {
+      mediaRecorder.stop();
+      recordBtn.disabled = false;
+      stopBtn.disabled = true;
+    };
+
+    transcribeBtn.onclick = async () => {
+      transcribeBtn.disabled = true;
+      transcriptDiv.textContent = "⏳ Transcribing...";
+
+      const formData = new FormData();
+      formData.append("file", audioBlob, "audio.wav");
+      formData.append("model", "whisper-1");
+  
+      try {
+        const response = await fetch("http://localhost:3000/transcribe", {
+          method: "POST",
+          body: formData
+        });
+       
+        const data = await response.json();
+  
+        if (data.text) { 
+          document.getElementById('param1Custom').value = data.text;
+          document.getElementById('param1Dropdown').value = 'custom';
+          toggleCustomInput();
+    
+          transcriptDiv.textContent = "✅ Transcription sent to your question box!";
+        } else {
+          transcriptDiv.textContent = "❌ Transcription failed.";
+          console.error("No text in response:", data);
+        }
+      } catch (err) {
+        transcriptDiv.textContent = "❌ Error during transcription.";
+        console.error(err); 
+      } finally {
+        transcribeBtn.disabled = false;
+      }
+    };
+  };
+};
+
+customElements.define('audio-recorder', AudioRecorder);
+/* Rocket code */ 
+    const submitBtn = document.getElementById("submitBtn");
+    const rocket = document.getElementById("rocket");
+    const result = document.getElementById("result");
+
+    submitBtn.addEventListener("click", () => {
+      // Reset result and rocket visibility
+      result.textContent = "";
+      rocket.classList.remove("hidden");
+  
+      // Start rocket launch
+      rocket.classList.add("launch");
+  
+      // Simulate async result after 3s
+      setTimeout(() => {
+        result.textContent = "🚀 Result is back!";
+        rocket.classList.add("hidden");
+        rocket.classList.remove("launch");
+      }, 3000);
+    });
+/* Rocket code */ 
+     function updateLevelOptions(language) {
+       const chosenLevel = document.getElementById("param3").value;
+       const dropdown = document.getElementById("param3");
+       dropdown.innerHTML = "";
+       levels[language].forEach(level => { 
+         const option = document.createElement("option");
+         option.value = level.value;
+        
+         //if (level.value === "basic") {
+         if (level.value === chosenLevel) {
+           option.selected = true;
+         }
+        
+         option.textContent = level.label;
+         dropdown.appendChild(option);
+       });
+     }
+      function updateTopicOptions() {
+        const language = document.getElementById("param2").value;
+        const dropdown = document.getElementById("param1Dropdown");
+
+        dropdown.innerHTML = "";
+        topics[language].forEach(topic => {
+          const option = document.createElement("option");
+          if ( topic.value == 'Tell me about the astronomical sources named normal stars' ) {
+             option.selected = true;
+          } 
+          option.value = topic.value;
+          option.textContent = topic.label;
+          dropdown.appendChild(option);
+        });
+      
+        updateUIText(language);
+        updateLevelOptions(language);
+      }
+</script>
+</html>

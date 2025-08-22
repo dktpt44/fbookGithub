@@ -1,0 +1,11 @@
+Language: English  
+What is the closest planet to the sun, Closest Planet  
+How long is a day on Mercury, Day Length  
+What is the surface temperature of Mercury, Surface Temperature  
+Does Mercury have an atmosphere, Atmosphere Presence  
+What are the primary components of Mercury's surface, Surface Composition  
+How long does it take Mercury to orbit the sun, Orbital Period  
+Is Mercury a terrestrial or gas giant planet, Planet Type  
+What are the main features of Mercury's surface, Surface Features  
+Does Mercury have any moons, Moons Existence  
+Why is Mercury difficult to observe from Earth, Observation Challenges

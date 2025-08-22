@@ -1,0 +1,11 @@
+Language: English  
+What is the purpose of The SAS3 satellite?, Purpose of SAS3  
+When was The SAS3 satellite launched?, Launch Date  
+Who built The SAS3 satellite?, Builder of SAS3  
+What type of data does The SAS3 satellite collect?, Data Type  
+How does The SAS3 satellite contribute to science?, Scientific Contributions  
+What orbit does The SAS3 satellite operate in?, Satellite Orbit  
+How long was The SAS3 mission planned to last?, Mission Duration  
+What instrument does The SAS3 satellite use for observations?, Observational Instrument  
+Which space agency managed The SAS3 satellite?, Managing Agency  
+Is The SAS3 satellite still operational today?, Operational Status

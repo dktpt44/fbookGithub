@@ -1,0 +1,11 @@
+Language: English  
+What is the primary purpose of the NuSTAR Satellite, Purpose of NuSTAR  
+How does NuSTAR detect high-energy X-rays, Detection Mechanism  
+What are the key scientific goals of the NuSTAR mission, Scientific Objectives  
+When was the NuSTAR satellite launched into orbit, Launch Date  
+Which organization operates the NuSTAR satellite, Operating Organization  
+What technological innovations does NuSTAR utilize, Technological Innovations  
+What types of celestial objects does NuSTAR study, Targeted Celestial Objects  
+How does NuSTAR contribute to our understanding of black holes, Black Hole Research  
+In what ways does NuSTAR complement other astrophysical observatories, Complementary Observations  
+What has been one of the most significant discoveries made by NuSTAR, Significant Discoveries

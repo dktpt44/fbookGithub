@@ -1,0 +1,11 @@
+Language: English  
+What is the purpose of the eROSITA space observatory?, Purpose Overview  
+When was eROSITA launched into space?, Launch Date  
+What type of radiation does eROSITA primarily observe?, Radiation Type  
+Which organization is responsible for eROSITA?, Managing Organization  
+How many telescopes does eROSITA use for its observations?, Number of Telescopes  
+What is the significance of eROSITA's survey of the sky?, Survey Significance  
+Where is eROSITA located in space?, Location in Space  
+What can eROSITA help us understand about the universe?, Understanding the Universe  
+How long is the expected operational life of eROSITA,? Operational Life Span  
+What discoveries has eROSITA made so far?, Major Discoveries

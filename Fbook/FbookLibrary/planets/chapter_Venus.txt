@@ -1,0 +1,11 @@
+Language: English  
+What is the atmosphere of Venus made of?, Atmosphere Composition  
+How hot is the surface of Venus?, Surface Temperature  
+What is the length of a day on Venus?, Day Length  
+How does Venus's gravity compare to Earth's?, Gravity Comparison  
+What are the main geological features of Venus?, Geological Features  
+What spacecraft have visited Venus?, Spacecraft Missions  
+Does Venus have any moons?, Moon Presence  
+What causes the greenhouse effect on Venus?, Greenhouse Effect Causes  
+How many days are in a year on Venus?, Year Length  
+What is the brightest planet in the night sky?, Brightness Rank

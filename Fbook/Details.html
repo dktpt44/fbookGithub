@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Source details</title>
+<style>
+  .spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+    display: none; /* hidden by default */
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+/* tooltip code */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}     
+
+.tooltip .tooltiptext {
+  font-family: 'Verdana', sans-serif; 
+  font-size: 11px;
+  visibility: hidden;
+  width: 180px;
+  background-color: #669999;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px; 
+  padding: 5px 0;
+        
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+</style>
+</head>
+<body>
+<div style="margin-top: 0px;">
+    <div id="surveyMessage" style="font-size: 14px; color: #fff; font-family: 'Verdana', sans-serif; "></div>
+    <div id="secondMessage" style="font-size: 13px; color: #fff; font-family: 'Arial', sans-serif;"></div>
+</div>
+<div id="spinner" style="
+  display:none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 22px;
+  animation: spin 1s linear infinite;
+"></div>
+
+<div id="resultOutput" style="
+  margin-top: 1px;
+  padding: 10px;
+  border: 0px solid #ccc;
+  background: rgba(0, 0, 0, 0.0);
+  color: white;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: 'Arial', sans-serif;
+  font-size: 13px
+"></div>
+<div class="tooltip"><span id="tooltipText" class="tooltiptext" style="margin-left: 38px; margin-top: -40px;"> </span>
+<button onclick="changeBackground('#006666');runRemoteScript()">Detailed info</button></div>
+<script>
+   const ROOT_URL = window.location.hostname.includes("localhost")
+      ? "http://localhost:5000"
+      : "https://firmamento.nyuad.nyu.edu/Fbook";
+
+   function changeBackground(color) {
+     const resultDiv = document.getElementById("resultOutput");
+     resultDiv.style.background = color;
+   }
+  let sourceName = "my source";
+  let requestedSurvey = "DSS2";
+  let language = "";
+  let energyBand = "";
+  let item = "";
+  const urlParams = new URLSearchParams(window.location.search);
+  sourceName = urlParams.get('source') || 'my source';
+  language = urlParams.get('lang') || 'English';
+  requestedSurvey = urlParams.get('survey') || 'DSS2';
+  requestedItem = urlParams.get('item') || '';
+  //alert("Item " + requestedItem)
+  if ( (requestedSurvey === 'PanSTARRS' ) || (requestedSurvey === 'SDSS9' ) || (requestedSurvey === 'DESI' ) || (requestedSurvey === 'ZTF' ) ) {
+    energyBand = 'optical'
+  } else if ( (requestedSurvey === 'allWISE' ) || (requestedSurvey === 'unWISE' ) || (requestedSurvey === '2MASS' ) ){
+    energyBand = 'infrared'
+  } else if ( (requestedSurvey === 'RASS' ) || (requestedSurvey === 'XMM-EPIC' ) || (requestedSurvey === 'Chandra' ) ){
+    energyBand = 'X-ray'
+  } else if (requestedSurvey === 'Fermi-LAT' ) {
+    energyBand = '&gamma;-ray'
+  } else if (requestedSurvey === 'GALEXGR6_7' ) {
+    energyBand = 'Ultraviolet'
+  }
+
+  window.onload = () => {
+      document.getElementById("secondMessage").innerHTML = ` 
+      <br>This page will show a table of sources similar 
+      <br>to <span style="color: #ff9966;"> ${sourceName}</span> and links to the Firmamento data section 
+      <br>to explore or analyze multi-frequency and time-domain data.`;
+
+      document.getElementById("tooltipText").textContent =
+      `Clicking here will return detailed info for ${sourceName} via a call to an AI server`;
+
+  };
+function runRemoteScript() {
+  const spinner = document.getElementById('spinner');
+  const outputDiv = document.getElementById('resultOutput');
+  
+  spinner.style.display = "block";
+  outputDiv.innerHTML = "⏳ Asking AI, please wait...";
+
+  const param1 = `Tell me what you know about the astronomical source named ${sourceName}`;
+  const url = `${ROOT_URL}/run-script?param1=${encodeURIComponent(param1)}&param2=${encodeURIComponent(language)}`;
+  //const url = `http://localhost:5000/run-script?param1=${encodeURIComponent(param1)}&param2=${encodeURIComponent(language)}`;
+
+  fetch(url)
+    .then(response => response.text())
+    .then(result => {
+      spinner.style.display = "none";
+      outputDiv.innerHTML = result; // ✅ This overwrites the existing text
+    })
+    .catch(error => {
+      spinner.style.display = "none";
+      outputDiv.innerHTML = "⚠️ Failed to load content.";
+      console.error("Error:", error);
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+Language: English  
+What was the primary mission of EXOSAT?, Primary mission  
+When was EXOSAT launched?, Launch date  
+What type of astronomical phenomena did EXOSAT study?, Study focus  
+How long did EXOSAT operate in space?, Operational duration  
+What was the significance of EXOSAT's position in orbit?, Orbital significance  
+What instruments were onboard EXOSAT?, Onboard instruments  
+Which organization was responsible for the EXOSAT satellite?, Responsible organization  
+What were some discoveries made by EXOSAT?, Key discoveries  
+How did EXOSAT contribute to our understanding of X-ray sources?, Contribution to science  
+When did EXOSAT reenter the Earth's atmosphere?, Reentry date

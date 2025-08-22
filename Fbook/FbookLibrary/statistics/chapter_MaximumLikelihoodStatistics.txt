@@ -1,0 +1,11 @@
+Language: English  
+What is Maximum Likelihood Statistics, Definition  
+How does Maximum Likelihood work, Process Explanation  
+What are some applications of Maximum Likelihood, Applications Overview  
+What is a likelihood function, Function Description  
+How do you estimate parameters with Maximum Likelihood, Parameter Estimation  
+What is the difference between Maximum Likelihood and Least Squares, Comparison Between Methods  
+What assumptions are made in Maximum Likelihood, Assumptions Overview  
+What are the advantages of using Maximum Likelihood, Advantages Summary  
+What are the limitations of Maximum Likelihood, Limitations Overview  
+How to calculate Maximum Likelihood for simple models, Calculation Explanation

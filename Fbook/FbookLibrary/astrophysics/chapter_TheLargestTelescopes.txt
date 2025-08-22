@@ -1,0 +1,11 @@
+Language: English  
+What is the largest telescope in the world? , Largest Telescope  
+How does a telescope work? , Telescope Functionality  
+What are optical telescopes used for? , Purpose of Optical Telescopes  
+What is a radio telescope's main use? , Radio Telescope Function  
+Where is the Gran Telescopio Canarias located? , Gran Telescopio Location  
+What are the differences between refracting and reflecting telescopes? , Refracting vs Reflecting  
+How do scientists benefit from large telescopes? , Benefits of Large Telescopes  
+What are some challenges in building large telescopes? , Challenges in Telescope Construction  
+What discoveries have large telescopes made? , Discoveries by Large Telescopes  
+Why are telescopes important for astronomy? , Importance of Telescopes

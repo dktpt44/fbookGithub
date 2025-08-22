@@ -1,0 +1,11 @@
+Language: German  
+Was ist der Durchmesser von Mars, Durchmesser  
+Wie viele Monde hat Mars, Monde  
+Welche Farbe hat Mars, Farbe  
+Wie lange dauert ein Tag auf Mars, Tagesdauer  
+Welche Temperatur hat Mars, Temperatur  
+Wie weit ist Mars von der Erde entfernt, Entfernung  
+Gibt es Wasser auf Mars, Wasser  
+Was ist die Atmosphäre von Mars, Atmosphäre  
+Kann man auf Mars leben, Leben  
+Wie sieht die Oberfläche von Mars aus, Oberfläche

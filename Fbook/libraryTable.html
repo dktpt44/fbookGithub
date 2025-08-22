@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chapters list</title>
+  <style>
+    table {
+      width: 50%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    tr:hover {
+      background-color: #00cc66;
+      color: navy; 
+      font-weight: bold;
+    }
+    td {
+      cursor: pointer;
+    }
+    caption {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
+<script>
+const BACKEND_URL = 'http://localhost:5000';
+
+function loadChapterFile(filename) {
+  fetch(`${BACKEND_URL}/select-library-chapter`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ filename: filename })
+  })
+  .then(response => response.text())
+  .then(txt => {
+    let data;
+    try {
+      data = JSON.parse(txt);
+    } catch (e) {
+      console.error("Invalid JSON from server:", txt);
+      alert("Server returned invalid JSON:" + txt);
+      return;
+    }
+
+    if (data.success) {
+      // ✅ CLOSE MODAL
+      const modal = window.parent.document.getElementById('tableModal') ||
+                    window.parent.document.getElementById('myModalTable');
+      if (modal) modal.style.display = 'none';
+      const chapterName = filename.replace(/^chapter_/, '').replace(/\.txt$/, '');
+      // ✅ SHOW SUCCESS BANNER
+      const message = window.parent.document.createElement('div');
+      message.textContent = '✅ Chapter "' + chapterName + '" loaded as "Your chapter"!';
+      message.style.position = 'fixed';
+      message.style.top = '20px';
+      message.style.left = '50%';
+      message.style.transform = 'translateX(-50%)';
+      //message.style.background = '#4CAF50';
+      message.style.background = '#00cc66';
+      message.style.color = 'black';
+      message.style.padding = '10px 20px';
+      message.style.borderRadius = '8px';
+      message.style.fontSize = '16px';
+      message.style.zIndex = '10000';
+      window.parent.document.body.appendChild(message);
+
+      // ✅ REDIRECT AFTER 2 SECONDS
+      setTimeout(() => {
+        const base = window.parent.ROOT_URL_GET || '';
+        window.parent.location.href = `${base}/Fbook/index.html`;
+      }, 2000);
+    } else {
+      alert("Error: " + (data.error || "Unknown issue"));
+    }
+  })
+  .catch(err => {
+    alert("Request failed: " + err);
+  });
+}
+</script>
+</head>
+<body>
+    <table style="font-family: Arial, sans-serif;">
+    <caption>📚 Additional chapters on specific topics<br>Click on a chapter to load it on "Your chapter"</caption>
+<tr><td onclick="loadChapterFile('chapter_3c273.txt')">chapter_3c273.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_ActiveGalacticNuclei.txt')">chapter_ActiveGalacticNuclei.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_ActiveGalacticNucleiUnifiedSchemes.txt')">chapter_ActiveGalacticNucleiUnifiedSchemes.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_AgnUnifiedSchemes.txt')">chapter_AgnUnifiedSchemes.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_AreThereCanalsOnMars.txt')">chapter_AreThereCanalsOnMars.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_AstrophysicalJets.txt')">chapter_AstrophysicalJets.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_BinaryStars.txt')">chapter_BinaryStars.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_BlLacertaeObjects.txt')">chapter_BlLacertaeObjects.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_BreraObservatoryHistory.txt')">chapter_BreraObservatoryHistory.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_BreraObservatoryMilan.txt')">chapter_BreraObservatoryMilan.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_Cataclysmicvariables.txt')">chapter_Cataclysmicvariables.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_CosmicMircowaveBackground.txt')">chapter_CosmicMircowaveBackground.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_CratersOnMars.txt')">chapter_CratersOnMars.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_DarkMatter.txt')">chapter_DarkMatter.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_DarkskiesAndAstronomy.txt')">chapter_DarkskiesAndAstronomy.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_GiovanniSchiaparelli.txt')">chapter_GiovanniSchiaparelli.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_Globularclusters.txt')">chapter_Globularclusters.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_HarvardSmithsonianCfa.txt')">chapter_HarvardSmithsonianCfa.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_IWantToBeAnAstronaut.txt')">chapter_IWantToBeAnAstronaut.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_Kilonova.txt')">chapter_Kilonova.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_Mars.txt')">chapter_Mars.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_MarsArab.txt')">chapter_MarsArab.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_MarsCn.txt')">chapter_MarsCn.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_MarsD.txt')">chapter_MarsD.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_MarsF.txt')">chapter_MarsF.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_MarsJp.txt')">chapter_MarsJp.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_MarsRu.txt')">chapter_MarsRu.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_Mercurio.txt')">chapter_Mercurio.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_Mercury.txt')">chapter_Mercury.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_MichelangeloBuonarroti.txt')">chapter_MichelangeloBuonarroti.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_MicroQuasars.txt')">chapter_MicroQuasars.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_NGC4151.txt')">chapter_NGC4151.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_NeutrinoAstronomy.txt')">chapter_NeutrinoAstronomy.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_NeutrinoAstronomyFr.txt')">chapter_NeutrinoAstronomyFr.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_NeutrinoAstronomyJp.txt')">chapter_NeutrinoAstronomyJp.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_NormalStars.txt')">chapter_NormalStars.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_PlanetaryNebulae.txt')">chapter_PlanetaryNebulae.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_PolarizedEmission.txt')">chapter_PolarizedEmission.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_PrecisionCosmology.txt')">chapter_PrecisionCosmology.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_Pulsars.txt')">chapter_Pulsars.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_ReverberationMappingInAstrophysics.txt')">chapter_ReverberationMappingInAstrophysics.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_SS-433AstronomicalSource.txt')">chapter_SS-433AstronomicalSource.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_SchiaparelliABrera.txt')">chapter_SchiaparelliABrera.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_SchiaparelliAndMars.txt')">chapter_SchiaparelliAndMars.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_StelleCadenti.txt')">chapter_StelleCadenti.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_TheDeepestFields.txt')">chapter_TheDeepestFields.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_TheElectromagneticSpectrum.txt')">chapter_TheElectromagneticSpectrum.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_TheLargestTelescopes.txt')">chapter_TheLargestTelescopes.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_TheMoon.txt')">chapter_TheMoon.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_TheSistineChapel.txt')">chapter_TheSistineChapel.txt</td></tr>
+<tr><td onclick="loadChapterFile('chapter_VariabiliCataclismiche.txt')">chapter_VariabiliCataclismiche.txt</td></tr>
+
+    </table>
+</body>
+</html>

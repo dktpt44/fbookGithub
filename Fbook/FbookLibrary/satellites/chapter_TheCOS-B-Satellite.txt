@@ -1,0 +1,11 @@
+Language: English  
+What is the purpose of the COS-B satellite?, COS-B Purpose  
+When was the COS-B satellite launched?, Launch Date  
+Who developed the COS-B satellite?, Developer Information  
+What type of instruments did COS-B carry?, Instruments Details  
+What was the main discovery made by COS-B?, Main Discoveries  
+How long did COS-B operate in space?, Operation Duration  
+What orbit did the COS-B satellite use?, Satellite Orbit  
+What were the key missions of the COS-B satellite?, Key Missions  
+How did COS-B contribute to gamma-ray astronomy?, Contribution to Astronomy  
+When was COS-B decommissioned?, Decommissioning Date

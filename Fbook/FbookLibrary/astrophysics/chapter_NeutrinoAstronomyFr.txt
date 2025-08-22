@@ -1,0 +1,11 @@
+Language: French  
+Quelle est l'importance des neutrinos dans l'astronomie?, Importance des neutrinos  
+Comment détecte-t-on les neutrinos?, Méthodes de détection  
+Quels types de sources produisent des neutrinos?, Sources de neutrinos  
+Quels sont les avantages de l'astronomie des neutrinos?, Avantages de l'astronomie  
+Comment les neutrinos interagissent-ils avec la matière?, Interaction des neutrinos  
+En quoi les neutrinos peuvent-ils aider à comprendre l'univers?, Compréhension de l'univers  
+Quelles expériences célèbres ont étudié les neutrinos?, Expériences sur les neutrinos  
+Quelle est la différence entre neutrinos et photons?, Différence neutrinos photons  
+Comment les neutrinos nous renseignent-ils sur les supernovas?, Neutrinos et supernovas  
+Quel avenir pour la recherche sur les neutrinos?, Avenir de la recherche

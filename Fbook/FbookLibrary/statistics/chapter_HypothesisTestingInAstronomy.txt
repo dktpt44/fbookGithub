@@ -1,0 +1,11 @@
+Language: English  
+What is hypothesis testing in astronomy, Definition  
+How do astronomers formulate a hypothesis, Hypothesis Formation  
+What role does statistical significance play in astronomy, Statistical Significance Role  
+How can observational data support or refute a hypothesis, Data Support Refute  
+What methods are used to test astronomical hypotheses, Testing Methods  
+How do astronomers handle uncertainties in their data, Uncertainty Management  
+What is the p-value in the context of astronomy, P-Value Significance  
+How can hypothesis testing lead to new discoveries in astronomy, Discoveries Through Testing  
+How do peer reviews impact hypothesis acceptance in astronomy, Peer Review Impact  
+What are common misconceptions about hypothesis testing in astronomy, Common Misconceptions

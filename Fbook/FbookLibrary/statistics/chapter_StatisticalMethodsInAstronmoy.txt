@@ -1,0 +1,11 @@
+Language: English  
+What are statistical methods used in astronomy for, Purpose of Statistical Methods  
+How do astronomers collect data for statistical analysis, Data Collection Techniques  
+What is the importance of error analysis in astronomical measurements, Role of Error Analysis  
+How do you interpret a histogram in the context of astronomical data, Histogram Interpretation  
+What is the concept of standard deviation in astronomical data sets, Understanding Standard Deviation  
+How do astronomers use probability distributions in their research, Use of Probability Distributions  
+What is the role of regression analysis in astronomy, Role of Regression Analysis  
+How can statistical significance be determined in astronomical studies, Determining Statistical Significance  
+What are the common statistical software tools used by astronomers, Common Statistical Software  
+How does statistical sampling affect astronomical observations, Impact of Statistical Sampling

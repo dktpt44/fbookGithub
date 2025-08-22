@@ -1,0 +1,11 @@
+Language: English  
+What is the purpose of the Wise Satellite? , Purpose of Satellite  
+How does the Wise Satellite observe space? , Observation Method  
+What types of objects can the Wise Satellite detect? , Detection Capabilities  
+When was the Wise Satellite launched? , Launch Date  
+Who operates the Wise Satellite mission? , Mission Operator  
+What technology does the Wise Satellite use? , Technology Used  
+How long did the Wise Satellite operate? , Operating Duration  
+What significant discoveries has the Wise Satellite made? , Significant Discoveries  
+Where is the Wise Satellite located in space? , Location in Space  
+Why is the Wise Satellite important for astronomy? , Importance in Astronomy

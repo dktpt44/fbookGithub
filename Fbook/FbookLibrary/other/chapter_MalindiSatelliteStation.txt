@@ -1,0 +1,11 @@
+Language: English  
+What is the purpose of Malindi Satellite Station?, Purpose of Station  
+When was Malindi Satellite Station established?, Establishment Year  
+Where is Malindi Satellite Station located?, Location Details  
+Who operates Malindi Satellite Station?, Operator Information  
+What type of technology does Malindi Satellite Station use?, Technology Used  
+How does Malindi Satellite Station support space communications?, Space Communication Role  
+What satellite systems does the station serve?, Satellite Systems  
+Is Malindi Satellite Station involved in scientific research?, Research Involvement  
+What are the major achievements of Malindi Satellite Station?, Major Achievements  
+How can one visit or learn more about Malindi Satellite Station?, Visiting Information

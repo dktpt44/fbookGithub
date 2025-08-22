@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chapters list</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <style>
+    table {
+      width: 50%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    #chapterTable tbody tr:hover {
+      background-color: #00cc66 !important;
+      color: navy !important;
+      font-weight: bold;
+    }
+    td {
+      cursor: pointer;
+    }
+    caption {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
+<script>
+const BACKEND_URL = 'http://localhost:5000';
+
+function loadChapterFile(filename) {
+  fetch(`${BACKEND_URL}/select-library-chapter`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ filename: filename })
+  })
+  .then(response => response.text())
+  .then(txt => {
+    let data;
+    try {
+      data = JSON.parse(txt);
+    } catch (e) {
+      console.error("Invalid JSON from server:", txt);
+      alert("Server returned invalid JSON:" + txt);
+      return;
+    }
+
+    if (data.success) {
+      // ✅ CLOSE MODAL
+      const modal = window.parent.document.getElementById('tableModal') ||
+                    window.parent.document.getElementById('myModalTable');
+      if (modal) modal.style.display = 'none';
+      const chapterName = filename.replace(/^.*chapter_/, '').replace(/\.txt$/, '');
+      // ✅ SHOW SUCCESS BANNER
+      const message = window.parent.document.createElement('div');
+      message.textContent = '✅ Chapter "' + chapterName + '" loaded as "Your chapter"!';
+      message.style.position = 'fixed';
+      message.style.top = '20px';
+      message.style.left = '50%';
+      message.style.transform = 'translateX(-50%)';
+      //message.style.background = '#4CAF50';
+      message.style.background = '#00cc66';
+      message.style.color = 'black';
+      message.style.padding = '10px 20px';
+      message.style.borderRadius = '8px';
+      message.style.fontSize = '16px';
+      message.style.zIndex = '10000';
+      window.parent.document.body.appendChild(message);
+
+      // ✅ REDIRECT AFTER 2 SECONDS
+      setTimeout(() => {
+        const base = window.parent.ROOT_URL_GET || '';
+        window.parent.location.href = `${base}/Fbook/index.html`;
+      }, 2000);
+    } else {
+      alert("Error: " + (data.error || "Unknown issue"));
+    }
+  })
+  .catch(err => {
+    alert("Request failed: " + err);
+  });
+}
+</script>
+</head>
+<body>
+    <table id="chapterTable" style="font-family: Arial, sans-serif;">
+    <!--caption>📚 Additional chapters on specific topics</caption-->
+    <thead>
+       <tr><th>Click on a chapter to load it on "Your chapter"</th></tr>
+     </thead>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_AreThereCanalsOnMars.txt')">AreThereCanalsOnMars</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_CratersOnMars.txt')">CratersOnMars</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_GiovanniSchiaparelli.txt')">GiovanniSchiaparelli</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_Jupiter.txt')">Jupiter</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_JupitersMoons.txt')">JupitersMoons</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_Mars.txt')">Mars</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_MarsArab.txt')">MarsArab</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_MarsCn.txt')">MarsCn</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_MarsD.txt')">MarsD</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_MarsF.txt')">MarsF</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_MarsJp.txt')">MarsJp</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_MarsRu.txt')">MarsRu</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_Mercurio.txt')">Mercurio</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_Mercury.txt')">Mercury</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_Saturn.txt')">Saturn</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_SchiaparelliAndMars.txt')">SchiaparelliAndMars</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_TheMoon.txt')">TheMoon</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_Uranus.txt')">Uranus</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('planets/chapter_Venus.txt')">Venus</td></tr>
+
+    </table>
+</body>
+<script>
+$(document).ready(function() {
+    $('#chapterTable').DataTable({
+      pageLength: 25
+    });
+});
+</script>
+</html>

@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chapters list</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <style>
+    table {
+      width: 50%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    #chapterTable tbody tr:hover {
+      background-color: #00cc66 !important;
+      color: navy !important;
+      font-weight: bold;
+    }
+    td {
+      cursor: pointer;
+    }
+    caption {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
+<script>
+const BACKEND_URL = 'http://localhost:5000';
+
+function loadChapterFile(filename) {
+  fetch(`${BACKEND_URL}/select-library-chapter`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ filename: filename })
+  })
+  .then(response => response.text())
+  .then(txt => {
+    let data;
+    try {
+      data = JSON.parse(txt);
+    } catch (e) {
+      console.error("Invalid JSON from server:", txt);
+      alert("Server returned invalid JSON:" + txt);
+      return;
+    }
+
+    if (data.success) {
+      // ✅ CLOSE MODAL
+      const modal = window.parent.document.getElementById('tableModal') ||
+                    window.parent.document.getElementById('myModalTable');
+      if (modal) modal.style.display = 'none';
+      const chapterName = filename.replace(/^.*chapter_/, '').replace(/\.txt$/, '');
+      // ✅ SHOW SUCCESS BANNER
+      const message = window.parent.document.createElement('div');
+      message.textContent = '✅ Chapter "' + chapterName + '" loaded as "Your chapter"!';
+      message.style.position = 'fixed';
+      message.style.top = '20px';
+      message.style.left = '50%';
+      message.style.transform = 'translateX(-50%)';
+      //message.style.background = '#4CAF50';
+      message.style.background = '#00cc66';
+      message.style.color = 'black';
+      message.style.padding = '10px 20px';
+      message.style.borderRadius = '8px';
+      message.style.fontSize = '16px';
+      message.style.zIndex = '10000';
+      window.parent.document.body.appendChild(message);
+
+      // ✅ REDIRECT AFTER 2 SECONDS
+      setTimeout(() => {
+        const base = window.parent.ROOT_URL_GET || '';
+        window.parent.location.href = `${base}/Fbook/index.html`;
+      }, 2000);
+    } else {
+      alert("Error: " + (data.error || "Unknown issue"));
+    }
+  })
+  .catch(err => {
+    alert("Request failed: " + err);
+  });
+}
+</script>
+</head>
+<body>
+    <table id="chapterTable" style="font-family: Arial, sans-serif;">
+    <!--caption>📚 Additional chapters on specific topics</caption-->
+    <thead>
+       <tr><th>Click on a chapter to load it on "Your chapter"</th></tr>
+     </thead>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_3c273.txt')">3c273</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_ActiveGalacticNuclei.txt')">ActiveGalacticNuclei</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_ActiveGalacticNucleiUnifiedSchemes.txt')">ActiveGalacticNucleiUnifiedSchemes</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_AstrophysicalJets.txt')">AstrophysicalJets</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_BinaryStars.txt')">BinaryStars</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_BlLacertaeObjects.txt')">BlLacertaeObjects</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_BreraObservatoryMilan.txt')">BreraObservatoryMilan</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_Cataclysmicvariables.txt')">Cataclysmicvariables</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_CosmicMircowaveBackground.txt')">CosmicMircowaveBackground</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_DarkMatter.txt')">DarkMatter</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_DarkskiesAndAstronomy.txt')">DarkskiesAndAstronomy</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_EllipticalGalaxies.txt')">EllipticalGalaxies</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_Globularclusters.txt')">Globularclusters</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_HarvardSmithsonianCfa.txt')">HarvardSmithsonianCfa</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_IrregularGalaxies.txt')">IrregularGalaxies</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_Kilonova.txt')">Kilonova</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_MicroQuasars.txt')">MicroQuasars</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_NGC4151.txt')">NGC4151</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_NarrowLineSeyfert1Galaxies.txt')">NarrowLineSeyfert1Galaxies</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_NeutrinoAstronomy.txt')">NeutrinoAstronomy</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_NeutrinoAstronomyFr.txt')">NeutrinoAstronomyFr</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_NeutrinoAstronomyJp.txt')">NeutrinoAstronomyJp</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_NormalStars.txt')">NormalStars</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_PlanetaryNebulae.txt')">PlanetaryNebulae</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_PolarizedEmission.txt')">PolarizedEmission</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_PrecisionCosmology.txt')">PrecisionCosmology</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_Pulsars.txt')">Pulsars</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_ReverberationMappingInAstrophysics.txt')">ReverberationMappingInAstrophysics</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_SS-433AstronomicalSource.txt')">SS-433AstronomicalSource</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_SeyfertGalaxies.txt')">SeyfertGalaxies</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_SpiralGalaxies.txt')">SpiralGalaxies</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_TheDeepestFields.txt')">TheDeepestFields</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_TheElectromagneticSpectrum.txt')">TheElectromagneticSpectrum</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_TheLargestTelescopes.txt')">TheLargestTelescopes</td></tr>
+<tr><td style="min-width: 320px;" onclick="loadChapterFile('astrophysics/chapter_VariabiliCataclismiche.txt')">VariabiliCataclismiche</td></tr>
+
+    </table>
+</body>
+<script>
+$(document).ready(function() {
+    $('#chapterTable').DataTable({
+      pageLength: 25
+    });
+});
+</script>
+</html>

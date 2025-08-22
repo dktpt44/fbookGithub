@@ -1,0 +1,334 @@
+<HTML style="background-color:#ffffff">
+<style>
+sm {
+  font-size: 10px;
+ }
+.title {
+  font-size: 13px;
+ }
+body {
+ font-family: Tahoma, sans-serif;
+ margin:0;
+ padding:0;
+}
+#custom-logo {
+   position: relative;
+   top: 162px;
+   left: 2px;
+   width: 36px;
+   height: auto;
+   z-index: 1000;
+}
+#custom-logo2 {
+   position: fixed;
+   top: 15px;
+   left: 92%;
+   width: 50px;
+   height: auto;
+   z-index: 1000;
+}
+#custom-logo3 {
+   position: fixed;
+   top: 200px;
+   left: 2px;
+   width: 43px;
+   height: auto;
+   z-index: 1000;
+}
+/* Modal Styling */
+.modal {
+   display: none;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 80%;
+   height: 96%;
+   background: rgba(0, 0, 0, 0.5);
+   justify-content: center;
+   align-items: center;
+   z-index: 1000;
+   }
+.modal-content {
+      background: white;
+      padding: 0;
+      border-radius: 8px;
+      width: 85%;
+      height: 80%;
+      max-width: 900px;
+      max-height: 600px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+}
+.close-btn {
+      align-self: flex-end;
+      cursor: pointer;
+      font-size: 24px;
+      margin: 10px;
+}
+.close-btn3 {
+     align-self: flex-end;
+     cursor: pointer;
+     font-size: 24px;
+     margin: 10px;
+}
+iframe {
+      flex: 1;
+      border: none;
+      border-radius: 0 0 8px 8px;
+}
+    body {
+      font-family: 'Helvetica', sans-serif;
+    }
+</style>
+<HEAD>
+   <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js" charset="utf-8"></script>
+   <script type="text/javascript">var jqMenu = jQuery.noConflict();</script>
+   <script type="text/javascript">
+   var hipsDir=null;</script>
+</HEAD>
+<script>
+let object = null;
+let lat = null;
+let long = null;
+let SolarSystemObject = null;
+window.onload = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  object = urlParams.get('object') || 'Earth';  
+  const urlParamsla = new URLSearchParams(window.location.search);
+  lat = urlParamsla.get('lat') || '0.0';  
+  const urlParamslo = new URLSearchParams(window.location.search);
+  long = urlParamslo.get('long') || '0.0';  
+  if (object == "Moon") {
+    document.getElementById("Moon").checked = true;
+    SolarSystemObject = "Moon";
+  } else if (object == "Mars") {
+    document.getElementById("Mars").checked = true;
+    SolarSystemObject = "P/Mars/MOLA-color";
+  } else if (object == "Venus") {
+    document.getElementById("Venus").checked = true;
+    SolarSystemObject = "P/Venus/Magellan/Topography-4641m";
+  } else if (object == "Sun") {
+    document.getElementById("Sun").checked = true;
+    SolarSystemObject = "CDS/P/Sun/euvi-aia304-2012";
+  } else if (object == "Ceres") {
+    document.getElementById("Ceres").checked = true;
+    SolarSystemObject = "IAPS_P_Ceres_Dawn_FC-CE-LAMO-CLR";
+  } else if (object == "Jupiter") {
+    document.getElementById("Jupiter").checked = true;
+    SolarSystemObject = "P/Jupiter/PIA07782";
+  } else if (object == "Mercury") {
+    document.getElementById("Mercury").checked = true;
+    SolarSystemObject = "P/Mercury/MESSENGER-MDIS-LOI-166m";
+  } else if (object == "Neptune") {
+    document.getElementById("Neptune").checked = true;
+    SolarSystemObject = "P/Neptune/Voyager2";
+  } else if (object == "Pluto") {
+    document.getElementById("Pluto").checked = true;
+    SolarSystemObject = "P/Pluto/NewHorizons-Jul2017-300m";
+  } else if (object == "Ganymede") {
+    document.getElementById("Ganymede").checked = true;
+    SolarSystemObject = "P/Ganymede/VoyagerGalileo-SSI-1km";
+  } else if (object == "Tethys") {
+    document.getElementById("Tethys").checked = true;
+    SolarSystemObject = "P/Tethys/Cassini-PIA18439";
+  } else if (object == "Titania") {
+    document.getElementById("Titania").checked = true;
+    SolarSystemObject = "P/Titania/Voyager";
+  } else if (object == "Triton") {
+    document.getElementById("Triton").checked = true;
+    SolarSystemObject = "P/Triton/Voyager2-600m";
+  } else if (object == "Charon") {
+    document.getElementById("Charon").checked = true;
+    SolarSystemObject = "P/Charon/NewHorizon-PIA19866";
+  } else if (object == "Earth") {
+    document.getElementById("Earth").checked = true;
+    SolarSystemObject = "P/Earth/BlueMarble";
+  } else {
+    alert("Data for object " + object + " not available");
+    document.getElementById("Earth").checked = true;
+    SolarSystemObject = "P/Earth/BlueMarble";
+  }
+};
+</script>
+<script type="text/javascript" src="https://aladin.u-strasbg.fr/AladinLite/api/v2/latest/aladin.min.js" charset="utf-8"></script>
+<table><tr valign="top"><td>
+<div id="aladin-lite-div" style="width:80vw; height:95vh;">
+  <div id="al"></div>
+  <a href="https://firmamento.nyuad.nyu.edu" target="_blank" rel="noopener noreferrer">
+  <img
+    src="https://firmamento.nyuad.nyu.edu/static/media/firmamento_logo_orange.png"
+    id="custom-logo"
+    alt="Firmamento logo"
+    title="Firmamento logo">
+   </a>
+  </div>
+</td><td style="background-color: #ebfafaff"><sm> <div style="width:18vw;">
+<b><br><center>The Solar system</center></b>
+<input id="Sun" type="radio"   name="survey" value="CDS/P/Sun/euvi-aia304-2012"><label for="Sun">The Sun</label><br><br>
+<center><strong>The Earrth and its moon (1 of 1)</strong></center><br>
+<input id="Earth" type="radio"   name="survey" value="P/Earth/BlueMarble" checked="checked"><label for="Earth">Earth</label>
+<input id="EarthElevation" type="radio"   name="survey" value="P/Earth/DEM/elevation"><label for="EarthElevation">Earth elevation</label><br>
+<input id="Moon" type="radio"   name="survey" value="P/Moon/LROC-WAC-100m"><label for="Moon">The Moon</label>
+<input id="MoonChange2" type="radio"   name="survey" value="China-VO/P/Change2/moon/7m/DOM"><label for="MoonChange2">The Moon (Chang-E2)</label><br>
+<input id="Moon_Geo" type="radio"   name="survey" value="P/Moon/geological-map"><label for="Moon_geo">Moon Geological map</label><br>
+<center><strong>Mercury (no moons)</strong></center><br>
+<input id="Mercury" type="radio"   name="survey" value="P/Mercury/MESSENGER-MDIS-LOI-166m"><label for="Mercury">Mercury</label><br>
+<center><strong>Venus (no moons)</strong></center><br>
+<input id="Venus" type="radio"   name="survey" value="P/Venus/Magellan/Topography-4641m"><label for="Venus">Venus</label><br>
+<center><strong>Mars and its moons (0 of 2) </strong></center><br>
+<input id="Mars" type="radio"   name="survey" value="P/Mars/MOLA-color"><label for="Mars">Mars</label>
+<input id="MarsThemis" type="radio"   name="survey" value="P/Mars/THEMIS-Day-100m-v12"><label for="MarsThemis">Mars (Themis-100m)</label><br>
+<center><strong>Ceres dwarf planet</strong></center>
+<input id="Ceres" type="radio"   name="survey" value="IAPS_P_Ceres_Dawn_FC-CE-LAMO-CLR"><label for="Ceres">Ceres</label><br><br>
+<center><strong>Jupiter and its moons (4 of 95)</strong></center><br>
+<input id="Jupiter" type="radio"   name="survey" value="P/Jupiter/PIA07782"><label for="Jupiter">Jupiter</label><br>
+<input id="Io" type="radio"   name="survey" value="P/Io/Galileo-SSI-1km"><label for="Io">Io</label>
+<input id="Callisto" type="radio"   name="survey" value="P/Callisto/Voyager-Galileo-simp-1km"><label for="Callisto">Callisto</label><br>
+<input id="Ganymede" type="radio"   name="survey" value="P/Ganymede/VoyagerGalileo-SSI-1km"><label for="Ganymede">Ganymede</label>
+<input id="Europa" type="radio"   name="survey" value="P/Europa/Voyager-GalileoSSI-500m"><label for="Europa">Europa</label><br><br>
+<center><strong>Saturn and its moons (6 of 145)</strong></center><br>
+<input id="Saturn" type="radio"   name="survey" value="" disabled><label for="Saturn">Saturn (not yet available)</label><br>
+<input id="Dione" type="radio"   name="survey" value="P/Dione/Cassini-PIA12577"><label for="Dione">Dione (Cassini)</label>
+<input id="Lapetus" type="radio"   name="survey" value="P/Iapetus/Cassini-PIA18436"><label for="Lapetus">Lapetus (Cassini)</label><br>
+<input id="Mimas" type="radio"   name="survey" value="P/Mimas/Cassini-PIA17214"><label for="Mimas">Mimas (Cassini)</label>
+<input id="Rhea" type="radio"   name="survey" value="P/Rhea/Cassini-PIA12803"><label for="Rhea">Rhea (Cassini/Voyager)</label><br>
+<input id="Titan" type="radio"   name="survey" value="P/Titan/ISS-P19658-4km"><label for="Titan">Titan (Cassini)</label>
+<input id="Tethys" type="radio"   name="survey" value="P/Tethys/Cassini-PIA18439"><label for="Tethys">Tethys (Cassini)</label><br><br>
+<center><strong>Uranus and its moons (5 of 27)</strong></center><br>
+<input id="Uranus" type="radio"   name="survey" value="" disabled><label for="Uranus">Uranus (not yet available)</label><br>
+<input id="Titania" type="radio"   name="survey" value="P/Titania/Voyager"><label for="Titania">Titania (Voyager)</label>
+<input id="Ariel" type="radio"   name="survey" value="P/Ariel/Voyager"><label for="Ariel">Ariel</label><br>
+<input id="Miranda" type="radio"   name="survey" value="P/Miranda/Voyager"><label for="Miranda">Miranda</label>
+<input id="Oberon" type="radio"   name="survey" value="P/Oberon/Voyager"><label for="Oberon">Oberon</label>
+<input id="Umbriel" type="radio"   name="survey" value="P/Umbriel/Voyager"><label for="Umbriel">Umbriel</label><br><br>
+<center><strong>Neptune and its moons (1 of 14)</strong></center><br>
+<input id="Neptune" type="radio"   name="survey" value="P/Neptune/Voyager2"><label for="Neptune">Neptune (Voyager2)</label><br>
+<input id="Triton" type="radio"   name="survey" value="P/Triton/Voyager2-600m"><label for="Triton">Triton (Voyager2)</label><br><br>
+<center><strong>Pluto and its moons (1 of 5) </strong></center><br>
+<input id="Pluto" type="radio"   name="survey" value="P/Pluto/NewHorizons-Jul2017-300m"><label for="Pluto">Pluto</label><br>
+<input id="Charon" type="radio"   name="survey" value="P/Charon/NewHorizon-PIA19866"><label for="Charon">Charon</label><br>
+<!-- Modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <iframe id="surveyFrame" src=""></iframe>
+  </div>
+</div> 
+<img
+  src="http://localhost:8080/Fbook/logo/firmamento_logo_questions.png"
+  id="custom-logo3"
+  alt="Questions about the cosmos"
+  title="Questions about the cosmos"
+  style="cursor: pointer;"
+/> 
+<div id="myModal3" class="modal">
+  <div class="modal-content">
+    <span class="close-btn3">&times;</span>
+ <iframe id="SolarSystemFrame" src=""></iframe>
+  </div>
+</div>
+</div></sm></td></tr><tr><td> <center> 
+</center></td> </tr>
+</table>
+<script type="text/javascript" src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js" charset="utf-8"></script>
+<script type="text/javascript">
+let aladin;
+A.init.then(() => {
+   aladin = A.aladin("#aladin-lite-div", {survey: 'P/Earth/BlueMarble',showSimbadPointerControl: false, fov:280.0, target:'0.0 0.0'});
+
+   aladin.gotoRaDec(long, lat);
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Sun_euvi-aia304-2012/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Sun/euvi-aia304-2012","Sun",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Earth_BlueMarble/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Earth/BlueMarble","Earth",hipsDir,"equatorial",5,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Earth_DEM_elevation/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Earth/DEM/elevation","EarthElevation",hipsDir,"equatorial",8,{imgFormat:"png"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Moon_LROC-WAC-100m/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Moon/LROC-WAC-100m","Moon",hipsDir,"equatorial",3,{imgFormat:"png"}));
+   hipsDir = "https://hips.china-vo.org/change2-moon-7m-dom/";
+   aladin.setImageSurvey(aladin.createImageSurvey("China-VO/P/Change2/moon/7m/DOM","MoonChange2",hipsDir,"equatorial",9,{imgFormat:"png"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Moon_geological-map/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Moon/geological-map","Moon-Geo",hipsDir,"equatorial",3,{imgFormat:"png"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Mercury_MESSENGER-MDIS-LOI-166m/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Mercury/MESSENGER-MDIS-LOI-166m","Mercury",hipsDir,"equatorial",5,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Venus_Magellan_Topography-4641m/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Venus/Magellan/Topography-4641m","Venus",hipsDir,"equatorial",3,{imgFormat:"png"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/Mars_MOLA/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Mars/MOLA-color","Mars",hipsDir,"equatorial",5,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Mars_THEMIS-Day-100m-v12/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Mars/THEMIS-Day-100m-v12","MarsThemis",hipsDir,"equatorial",7,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/IAPS_P_Ceres_Dawn_FC-CE-LAMO-CLR/";
+   aladin.setImageSurvey(aladin.createImageSurvey("IAPS_P_Ceres_Dawn_FC-CE-LAMO-CLR","Ceres",hipsDir,"equatorial",5,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Jupiter_PIA07782/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Jupiter/PIA07782","Jupiter",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Io_Galileo-SSI-1km/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Io/Galileo-SSI-1km","Io",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Callisto_Voyager-Galileo-simp-1km/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Callisto/Voyager-Galileo-simp-1km","Callisto",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Ganymede_VoyagerGalileo-SSI-1km/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Ganymede/VoyagerGalileo-SSI-1km","Ganymede",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Europa_Voyager-GalileoSSI-500m/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Europa/Voyager-GalileoSSI-500m","Europa",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Dione_Cassini-PIA12577/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Dione/Cassini-PIA12577","Dione",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Iapetus_Cassini-PIA18436/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Iapetus/Cassini-PIA18436","Lapetus",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Mimas_Cassini-PIA17214/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Mimas/Cassini-PIA17214","Mimas",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Rhea_Cassini-PIA12803/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Rhea/Cassini-PIA12803","Rhea",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Tethys_Cassini-PIA18439/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Tethys/Cassini-PIA18439","Tethys",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Titania_Voyager/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Titania/Voyager","Titania",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Miranda_Voyager/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Miranda/Voyager","Miranda",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Ariel_Voyager/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Ariel/Voyager","Ariel",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Oberon_Voyager/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Oberon/Voyager","Oberon",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Umbriel_Voyager/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Umbriel/Voyager","Umbriel",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Neptune_Voyager2/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Neptune/Voyager2","Neptune",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Triton_Voyager2-600m/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Triton/Voyager2-600m","Triton",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS/P/Titan/ISS-P19658-4km/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Titan/ISS-P19658-4km","Titan",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Pluto_NewHorizons-Jul2017-300m/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Pluto/NewHorizons-Jul2017-300m","Pluto",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   hipsDir = "https://alasky.cds.unistra.fr/Planets/CDS_P_Charon_NewHorizon-PIA19866/";
+   aladin.setImageSurvey(aladin.createImageSurvey("P/Charon/NewHorizon-PIA19866","Charon",hipsDir,"equatorial",3,{imgFormat:"jpeg"}));
+   aladin.setBaseImageLayer(SolarSystemObject);
+});
+   $("input[name=survey]").change(function() {
+      aladin.setBaseImageLayer($(this).val());
+   });
+</script>
+<script>
+//  another button
+ const modal3 = document.getElementById("myModal3");
+ const iframe3 = document.getElementById("SolarSystemFrame");
+ const imageButton3 = document.getElementById("custom-logo3");
+ imageButton3.addEventListener("click", function() {
+   iframe3.src = "http://localhost:8080/Fbook/firmamento-ai-SolarSystem.html";
+   modal3.style.display = "flex";
+ }); 
+ // Close button in modal
+ document.querySelector(".close-btn3").addEventListener("click", function() {
+   iframe3.src = "";
+   modal3.style.display = "none";
+ });
+ // Close modal by clicking outside modal content
+ document.getElementById("myModal3").addEventListener("click", function(e) {
+   if (e.target === this) {
+     iframe3.src = "";
+     this.style.display = "none";
+   }
+ });
+</script>
+<script type="text/javascript">
+document.getElementById("hipsBase").innerHTML=hips
+</script>
+</HTML>

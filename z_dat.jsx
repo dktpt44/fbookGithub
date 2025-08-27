@@ -2288,81 +2288,136 @@ export const topics8 = {
 // levels
 export const levels = {
   English: [
-    { value: 'for children', label: 'For children' },
-    { value: 'basic', label: 'Basic' },
-    { value: 'high school students', label: 'Students (High School)' },
-    { value: 'advanced', label: 'Technical/advanced' },
-    { value: 'for teachers', label: 'For teachers' }
+    { value: "general audience", label: "General audience" },
+    { value: "amateurs/enthusiasts", label: "Amateurs/Enthusiasts" },
+    { value: "primary school students", label: "Primary school students" },
+    { value: "high school students", label: "High school students" },
+    { value: "university students", label: "University students" },
+    { value: "advanced", label: "Technical/advanced" },
+    { value: "scholars/professionals", label: "Scholars/Professionals" },
+    { value: "for teachers/educators", label: "Teachers/Educators" },
+    { value: "communicators", label: "Communicators" },
+    { value: "policy makers", label: "Policy makers" }
   ],
   Arabic: [
-    { value: 'for children', label: 'للأطفال' },
-    { value: 'basic', label: 'أساسي' },
-    { value: 'high school students', label: 'طلاب (المدرسة الثانوية)' },
-    { value: 'advanced', label: 'تقني/متقدم' },
-    { value: 'for teachers', label: 'للمعلمين' }
+    { value: "general audience", label: "الجمهور العام" },
+    { value: "amateurs/enthusiasts", label: "الهواة/المهتمون" },
+    { value: "primary school students", label: "طلاب المرحلة الابتدائية" },
+    { value: "high school students", label: "طلاب المرحلة الثانوية" },
+    { value: "university students", label: "طلاب الجامعة" },
+    { value: "advanced", label: "تقني/متقدم" },
+    { value: "scholars/professionals", label: "الباحثون/المحترفون" },
+    { value: "for teachers/educators", label: "للمعلمين/المربين" },
+    { value: "communicators", label: "المتواصلون" },
+    { value: "policy makers", label: "صانعو السياسات" }
   ],
   Armenian: [
-    { value: 'for children', label: 'Մանկական' },
-    { value: 'basic', label: 'Հիմնական' },
-    { value: 'high school students', label: 'Ուսանողներ (միջնակարգ դպրոց)' },
-    { value: 'advanced', label: 'Տեխնիկական/առաջադեմ' },
-    { value: 'for teachers', label: 'Ուսուցիչների համար' }
+    { value: "general audience", label: "Ընդհանուր լսարան" },
+    { value: "amateurs/enthusiasts", label: "Սիրողներ/հետաքրքրվողներ" },
+    { value: "primary school students", label: "Տարրական դպրոցի աշակերտներ" },
+    { value: "high school students", label: "Միջնակարգ դպրոցի աշակերտներ" },
+    { value: "university students", label: "Համալսարանի ուսանողներ" },
+    { value: "advanced", label: "Տեխնիկական/առաջադեմ" },
+    { value: "scholars/professionals", label: "Գիտնականներ/մասնագետներ" },
+    { value: "for teachers/educators", label: "Ուսուցիչների/դաստիարակների համար" },
+    { value: "communicators", label: "Կոմունիկատորներ" },
+    { value: "policy makers", label: "Քաղաքականություն մշակողներ" }
   ],
   Chinese: [
-    { value: 'for children', label: '儿童版' },
-    { value: 'basic', label: '基础' },
-    { value: 'high school students', label: '学生（高中）' },
-    { value: 'advanced', label: '技术/高级' },
-    { value: 'for teachers', label: '教师版' }
+    { value: "general audience", label: "普通大众" },
+    { value: "amateurs/enthusiasts", label: "业余爱好者/爱好者" },
+    { value: "primary school students", label: "小学生" },
+    { value: "high school students", label: "中学生" },
+    { value: "university students", label: "大学生" },
+    { value: "advanced", label: "技术/高级" },
+    { value: "scholars/professionals", label: "学者/专业人士" },
+    { value: "for teachers/educators", label: "教师/教育工作者" },
+    { value: "communicators", label: "传播者" },
+    { value: "policy makers", label: "政策制定者" }
   ],
   French: [
-    { value: 'for children', label: 'Pour les enfants' },
-    { value: 'basic', label: 'De base' },
-    { value: 'high school students', label: 'Étudiants (Lycée)' },
-    { value: 'advanced', label: 'Technique/avancé' },
-    { value: 'for teachers', label: 'Pour les enseignants' }
+    { value: "general audience", label: "Grand public" },
+    { value: "amateurs/enthusiasts", label: "Amateurs/Passionnés" },
+    { value: "primary school students", label: "Écoliers" },
+    { value: "high school students", label: "Lycéens" },
+    { value: "university students", label: "Étudiants universitaires" },
+    { value: "advanced", label: "Technique/avancé" },
+    { value: "scholars/professionals", label: "Chercheurs/Professionnels" },
+    { value: "for teachers/educators", label: "Enseignants/Éducateurs" },
+    { value: "communicators", label: "Communicateurs" },
+    { value: "policy makers", label: "Décideurs politiques" }
   ],
   German: [
-    { value: 'for children', label: 'Für Kinder' },
-    { value: 'basic', label: 'Grundlegend' },
-    { value: 'high school students', label: 'Schüler (Gymnasium)' },
-    { value: 'advanced', label: 'Technisch/fortgeschritten' },
-    { value: 'for teachers', label: 'Für Lehrer' }
+    { value: "general audience", label: "Allgemeines Publikum" },
+    { value: "amateurs/enthusiasts", label: "Amateure/Enthusiasten" },
+    { value: "primary school students", label: "Grundschüler" },
+    { value: "high school students", label: "Oberschüler" },
+    { value: "university students", label: "Universitätsstudenten" },
+    { value: "advanced", label: "Technisch/Fortgeschritten" },
+    { value: "scholars/professionals", label: "Wissenschaftler/Fachleute" },
+    { value: "for teachers/educators", label: "Lehrer/Pädagogen" },
+    { value: "communicators", label: "Kommunikatoren" },
+    { value: "policy makers", label: "Politikgestalter" }
   ],
   Italian: [
-    { value: 'for children', label: 'Per bambini' },
-    { value: 'basic', label: 'Base' },
-    { value: 'high school students', label: 'Studenti (Scuola superiore)' },
-    { value: 'advanced', label: 'Tecnico/avanzato' },
-    { value: 'for teachers', label: 'Per insegnanti' }
+    { value: "general audience", label: "Pubblico generale" },
+    { value: "amateurs/enthusiasts", label: "Amatori/Appassionati" },
+    { value: "primary school students", label: "Studenti di scuola primaria" },
+    { value: "high school students", label: "Studenti di scuola superiore" },
+    { value: "university students", label: "Studenti universitari" },
+    { value: "advanced", label: "Tecnico/Avanzato" },
+    { value: "scholars/professionals", label: "Studiosi/Professionisti" },
+    { value: "for teachers/educators", label: "Insegnanti/Educatori" },
+    { value: "communicators", label: "Comunicatori" },
+    { value: "policy makers", label: "Decisori politici" }
   ],
   Japanese: [
-    { value: 'for children', label: '子供向け' },
-    { value: 'basic', label: '基本' },
-    { value: 'high school students', label: '学生（高校）' },
-    { value: 'advanced', label: '技術的／上級' },
-    { value: 'for teachers', label: '教師向け' }
+    { value: "general audience", label: "一般向け" },
+    { value: "amateurs/enthusiasts", label: "アマチュア／愛好家" },
+    { value: "primary school students", label: "小学生" },
+    { value: "high school students", label: "高校生" },
+    { value: "university students", label: "大学生" },
+    { value: "advanced", label: "技術的／上級" },
+    { value: "scholars/professionals", label: "研究者／専門家" },
+    { value: "for teachers/educators", label: "教師／教育者向け" },
+    { value: "communicators", label: "コミュニケーター" },
+    { value: "policy makers", label: "政策立案者" }
   ],
   Portuguese: [
-    { value: 'for children', label: 'Para crianças' },
-    { value: 'basic', label: 'Básico' },
-    { value: 'high school students', label: 'Estudantes (Ensino médio)' },
-    { value: 'advanced', label: 'Técnico/avançado' },
-    { value: 'for teachers', label: 'Para professores' }
+    { value: "general audience", label: "Público geral" },
+    { value: "amateurs/enthusiasts", label: "Amadores/Entusiastas" },
+    { value: "primary school students", label: "Alunos do ensino primário" },
+    { value: "high school students", label: "Estudantes do ensino médio" },
+    { value: "university students", label: "Estudantes universitários" },
+    { value: "advanced", label: "Técnico/avançado" },
+    { value: "scholars/professionals", label: "Acadêmicos/Profissionais" },
+    { value: "for teachers/educators", label: "Professores/Educadores" },
+    { value: "communicators", label: "Comunicadores" },
+    { value: "policy makers", label: "Formuladores de políticas" }
   ],
   Russian: [
-    { value: 'for children', label: 'Для детей' },
-    { value: 'basic', label: 'Базовый' },
-    { value: 'high school students', label: 'Ученики (Старшие классы)' },
-    { value: 'advanced', label: 'Технический/продвинутый' },
-    { value: 'for teachers', label: 'Для учителей' }
+    { value: "general audience", label: "Широкая аудитория" },
+    { value: "amateurs/enthusiasts", label: "Любители/энтузиасты" },
+    { value: "primary school students", label: "Ученики начальной школы" },
+    { value: "high school students", label: "Ученики средней школы" },
+    { value: "university students", label: "Студенты университетов" },
+    { value: "advanced", label: "Технический/продвинутый" },
+    { value: "scholars/professionals", label: "Учёные/Профессионалы" },
+    { value: "for teachers/educators", label: "Для учителей/педагогов" },
+    { value: "communicators", label: "Коммуникаторы" },
+    { value: "policy makers", label: "Политики" }
   ],
   Spanish: [
-    { value: 'for children', label: 'Para niños' },
-    { value: 'basic', label: 'Básico' },
-    { value: 'high school students', label: 'Estudiantes (Escuela secundaria)' },
-    { value: 'advanced', label: 'Técnico/avanzado' },
-    { value: 'for teachers', label: 'Para profesores' }
+    { value: "general audience", label: "Público general" },
+    { value: "amateurs/enthusiasts", label: "Aficionados/Entusiastas" },
+    { value: "primary school students", label: "Estudiantes de primaria" },
+    { value: "high school students", label: "Estudiantes de secundaria" },
+    { value: "university students", label: "Estudiantes universitarios" },
+    { value: "advanced", label: "Técnico/avanzado" },
+    { value: "scholars/professionals", label: "Académicos/Profesionales" },
+    { value: "for teachers/educators", label: "Profesores/Educadores" },
+    { value: "communicators", label: "Comunicadores" },
+    { value: "policy makers", label: "Responsables políticos" }
   ]
 };
 
